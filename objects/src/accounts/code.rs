@@ -6,6 +6,12 @@ use miden_core::Program; // TODO: we should be able to import it from the assemb
 // ACCOUNT CODE
 // ================================================================================================
 
+// CONSTANTS
+// -----------------------------------------------------------------------------------------------
+
+/// The depth of the Merkle tree that is used to commit to the account's public interface.
+const ACCOUNT_CODE_TREE_DEPTH: u8 = 8;
+
 /// Describes public interface of an account.
 ///
 /// Account's public interface consists of a set of account methods, each method being a Miden VM
