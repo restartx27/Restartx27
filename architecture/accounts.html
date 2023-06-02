@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Accounts - Polygon Miden Documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/overview.html"><strong aria-hidden="true">1.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../introduction/getting-started.html"><strong aria-hidden="true">1.2.</strong> Getting started</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/accounts.html" class="active"><strong aria-hidden="true">2.1.</strong> Accounts</a></li><li class="chapter-item expanded "><a href="../architecture/notes.html"><strong aria-hidden="true">2.2.</strong> Notes</a></li><li class="chapter-item expanded "><a href="../architecture/transactions.html"><strong aria-hidden="true">2.3.</strong> Transactions</a></li><li class="chapter-item expanded "><a href="../architecture/state.html"><strong aria-hidden="true">2.4.</strong> State</a></li><li class="chapter-item expanded "><a href="../architecture/execution.html"><strong aria-hidden="true">2.5.</strong> Execution</a></li></ol></li><li class="chapter-item expanded "><a href="../network.html"><strong aria-hidden="true">3.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/miden-clients.html"><strong aria-hidden="true">3.1.</strong> Miden Clients</a></li><li class="chapter-item expanded "><a href="../network/miden-node.html"><strong aria-hidden="true">3.2.</strong> Miden Node</a></li><li class="chapter-item expanded "><a href="../network/verifier-contract.html"><strong aria-hidden="true">3.3.</strong> Verifier Contract</a></li><li class="chapter-item expanded "><a href="../network/bridge.html"><strong aria-hidden="true">3.4.</strong> Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../developer-info.html"><strong aria-hidden="true">4.</strong> Developer info</a></li><li class="chapter-item expanded "><a href="../specifications.html"><strong aria-hidden="true">5.</strong> Specifications</a></li><li class="chapter-item expanded "><a href="../crypto-primitives.html"><strong aria-hidden="true">6.</strong> Cryptographic primitives</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crypto-primitives/tsmt.html"><strong aria-hidden="true">6.1.</strong> Tiered Sparse Merkle Tree (TSMT)</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Polygon Miden Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/0xPolygonMiden/miden-base/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<h1 id="accounts"><a class="header" href="#accounts">Accounts</a></h1>
+<p>An account is an entity which holds assets and defines rules of how these assets can be transferred. The diagram below illustrates basic components of an account. In Miden every account is a smart contract.</p>
+<p align="center">
+    <img src="../diagrams/architecture/account/Account_Definition.png">
+</p>
+<p>In the above:</p>
+<ul>
+<li><strong>Account ID</strong> is a unique identifier of an account which does not change throughout its lifetime. </li>
+<li><strong>Storage</strong> is user-defined data which can be stored in an account.</li>
+<li><strong>Nonce</strong> is a counter which must be incremented whenever account state changes. </li>
+<li><strong>Vault</strong> is collection of assets stored in an account. </li>
+<li><strong>Code</strong> is a collection of functions which define an external interface for an account.</li>
+</ul>
+<h2 id="account-id"><a class="header" href="#account-id">Account ID</a></h2>
+<p>8 bytes (60 bit) long identifier for the account. The first three significant bits specify its type and the storage mode. There are four types of accounts in Miden that can be stored in two differnt ways:</p>
+<h3 id="regular-account-with-updatable-code"><a class="header" href="#regular-account-with-updatable-code">Regular account with updatable code</a></h3>
+<p>This account type will be used by most users. They can specify and change their code and use this account for a wallet. The Account ID will start with <code>00</code>.</p>
+<h3 id="regular-account-with-immutable-code"><a class="header" href="#regular-account-with-immutable-code">Regular account with immutable code</a></h3>
+<p>This account type will be used by most regular smart contracts. Once deployed the code should not change and no one should be able to change it. The Account ID will start with <code>01</code>.</p>
+<h3 id="fungible-asset-faucet-with-immutable-code"><a class="header" href="#fungible-asset-faucet-with-immutable-code">Fungible asset faucet with immutable code</a></h3>
+<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>. </p>
+<h3 id="non-fungible-asset-faucet-with-immutable-code"><a class="header" href="#non-fungible-asset-faucet-with-immutable-code">Non-fungible asset faucet with immutable code</a></h3>
+<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
+<h3 id="account-storage-mode"><a class="header" href="#account-storage-mode">Account storage mode</a></h3>
+<p>Account data - stored by the Miden Node - can be public or private. The third most significant bit of the ID specifies whether the account data is public <code>0</code> or private <code>1</code>.</p>
+<ul>
+<li>Accounts with <strong>public state</strong>, where the actual state is stored on chain. These would be similar to how accounts work in public blockchains.</li>
+<li>Accounts with <strong>private state</strong>, where only the hash of the account is stored on chain. The hash is defined as: <br />
+<code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code></li>
+</ul>
+<h3 id="example-account-id"><a class="header" href="#example-account-id">Example account ID</a></h3>
+<p align="center">
+    <img src="../diagrams/architecture/account/Account_ID.png">
+</p>
+<h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
+<p>User-defined data that can be stored in an account. Account storage is composed of two components. The first component is a simple sparse Merkle tree of depth 8 which is index addressable. This provides the user with 256 Word slots. Users that require additional storage can use the second component which is a <code>MerkleStore</code>. This will allow the user to store any Merkle structures they need. This is achieved by storing the root of the Merkle structure as a leaf in the simple sparse merkle tree. When <code>AccountStorage</code> is serialized it will check to see if any of the leafs in the simple sparse Merkle tree are Merkle roots of other Merkle structures. If any Merkle roots are found then the Merkle structures will be persisted in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
+<p>TODO ADD STORAGE DIAGRAM</p>
+<h2 id="nonce"><a class="header" href="#nonce">Nonce</a></h2>
+<p>Counter which must be incremented whenever the account state changes. Nonce values must be strictly monotonically increasing and can be incremented by any value smaller than 2^{32} for every account update.</p>
+<h2 id="vault"><a class="header" href="#vault">Vault</a></h2>
+<p>Asset container for an account.</p>
+<p>An account vault can contain an unlimited number of assets. The assets are stored in a Sparse
+Merkle tree as follows:</p>
+<ul>
+<li>For fungible assets, the index of a node is defined by the issuing faucet ID, and the value
+of the node is the asset itself. Thus, for any fungible asset there will be only one node
+in the tree.</li>
+<li>For non-fungible assets, the index is defined by the asset itself, and the asset is also
+the value of the node.</li>
+</ul>
+<p>An account vault can be reduced to a single hash which is the root of the Sparse Merkle tree.</p>
+<h2 id="code"><a class="header" href="#code">Code</a></h2>
+<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by note scripts. Functions exposed by the account have the following properties:</p>
+<ul>
+<li>Functions are actually roots of <a href="https://wiki.polygon.technology/docs/miden/user_docs/assembly/main">Miden program MASTs</a> (i.e., 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
+<li>Only account functions have mutable access to an account's storage and vault. Said another way, the only way to modify an account's internal state is through one of account's functions.</li>
+<li>Account functions can take parameters and can create new notes.</li>
+</ul>
+<h1 id="account-creation"><a class="header" href="#account-creation">Account creation</a></h1>
+<p>For an account to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#account-database">Account DB</a> kept by the Miden Node(s). However, new accounts can be created locally by users using a wallet.</p>
+<p>The process is as follows:</p>
+<ul>
+<li>Alice grinds a new Account ID according to the account types (see below) using a wallet</li>
+<li>Alice's Miden Client requests the Miden Node if new Account ID already exists</li>
+<li>Alice shares the new Account ID to Bob, e.g. when Alice wants to receive funds</li>
+<li>Bob executes a transaction and creates a note that contains an asset for Alice</li>
+<li>Alice consumes Bob's note to receive the asset in a transaction</li>
+<li>Depending on the account storage mode (private vs. public) and transaction type (local vs. network) the Operator receives new Account ID eventually and - if transaction is correct - adds the ID to the Account DB</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../architecture/notes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../architecture/notes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
