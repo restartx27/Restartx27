@@ -148,32 +148,38 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-<h1 id="polygon-miden-intro"><a class="header" href="#polygon-miden-intro">Polygon Miden Intro</a></h1>
+<h1 id="polygon-miden"><a class="header" href="#polygon-miden">Polygon Miden</a></h1>
 <blockquote>
 <p><em>This documentation is still Work In Progress. Some topics have been discussed in greater depth, while others require additional clarification. Sections of this documentation might later be reorganized in order to achieve a better flow.</em></p>
 </blockquote>
 <h2 id="welcome-to-the-polygon-miden-documentation"><a class="header" href="#welcome-to-the-polygon-miden-documentation">Welcome to the Polygon Miden Documentation</a></h2>
-<p>Polygon Miden is a zk-optimized rollup with client-side proving. It is expected to launch a public testnet in Q3. </p>
-<p>Unlike most other rollups, Polygon Miden prioritizes zk-friendliness over EVM compatibility. It also uses a novel, actor-based state model to exploit the full power of a zk-centric design. These design choices allow Polygon Miden to extend Ethereum’s feature set. These features allow developers to create applications currently difficult and impractical on EVM-like systems. </p>
-<p>Polygon Miden will be the first decentralised rollup that leverages execution proofs of concurrent, local transactions. Anyone can execute a transaction and create a STARK-proof for the network. Executing a transaction in Miden means changing the state of a single account. Execution and proving can happen concurrently and privately (locally) in Polygon Miden.</p>
-<h2 id="polygon-miden-creates-a-new-design-space-secured-by-ethereum"><a class="header" href="#polygon-miden-creates-a-new-design-space-secured-by-ethereum">Polygon Miden creates a new design space secured by Ethereum</a></h2>
+<p>Polygon Miden is a zkRollup for high-throughput and private applications. Anyone can create zero-knowledge proofs of their own state changes, and Miden only verifies. It is expected to launch a public testnet in Q4. </p>
+<p>This documentation explains the Miden architecture and concepts, the network and its components, and the underlying cryptographic primitives.</p>
+<p>Press <code>s</code> or for full-text search in the docs.</p>
+<p>If you want to join the technical discussion, please check out </p>
+<ul>
+<li>the <a href="https://discord.gg/0xpolygondevs">Discord</a>,</li>
+<li>the <a href="https://github.com/0xPolygonMiden">Repo</a>,</li>
+<li>the roadmap goals</li>
+</ul>
+<h2 id="miden-creates-a-new-design-space-secured-by-ethereum"><a class="header" href="#miden-creates-a-new-design-space-secured-by-ethereum">Miden creates a new design space secured by Ethereum</a></h2>
 <p>Our goal is to not only scale Ethereum but to extend it. Rollups - secured by Ethereum - can be new design spaces and even experimental. This is the place to innovate. The base layer, however, should stay conservative and only slowly evolve to ensure the required safety and stability. </p>
 <p>Like other rollups, we want to scale Ethereum and inherit its security. We want to provide a safe and decentralized environment for composable smart contracts. </p>
-<p>But there is more. Rollups allow the creation of new design spaces while retaining the collateral security of Ethereum. We aim to create a design space for new applications secured by Ethereum.</p>
+<p>Unlike most other rollups, Polygon Miden prioritizes ZK-friendliness over EVM compatibility. It also uses a novel, actor-based state model to exploit the full power of a ZK-centric design. These design choices allow Polygon Miden to extend Ethereum’s feature set. These features allow developers to create applications currently infeasible on EVM-like systems. </p>
 <h2 id="benefits-of-polygon-miden"><a class="header" href="#benefits-of-polygon-miden">Benefits of Polygon Miden</a></h2>
 <ul>
 <li>Ethereum security </li>
-<li>Developers can build applications not possible on other systems, e.g. 
+<li>Developers can build applications infeasible on other systems, e.g. 
 <ul>
-<li><strong>on-chain order book exchange</strong> due to parallel tx exectuion and updateable transactions</li>
+<li><strong>on-chain order book exchange</strong> due to parallel tx exectuion and updatable transactions</li>
 <li><strong>complex, incomplete information games</strong> due to client-side proving and cheap complex computations</li>
 <li><strong>safe wallets</strong> due to assets being stored in the accounts and account state can be (partially) hidden</li>
 </ul>
 </li>
-<li>Lower fees than on other systems due to client-side proving</li>
 <li>Better privacy properties than on Ethereum - first web2 privacy, later even stronger privacy guarantees</li>
 <li>Transactions can be recalled and updated </li>
-<li>dApps on Miden are safe to use due to account abstraction and modern smart contract languages like Move </li>
+<li>Lower fees due to client-side proving</li>
+<li>dApps on Miden are safe to use due to account abstraction and modern smart contract languages</li>
 </ul>
 
                     </main>
