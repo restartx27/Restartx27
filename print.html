@@ -154,23 +154,23 @@
 <p><em>This documentation is still Work In Progress. Some topics have been discussed in greater depth, while others require additional clarification. Sections of this documentation might later be reorganized in order to achieve a better flow.</em></p>
 </blockquote>
 <h2 id="welcome-to-the-polygon-miden-documentation"><a class="header" href="#welcome-to-the-polygon-miden-documentation">Welcome to the Polygon Miden Documentation</a></h2>
-<p>Polygon Miden is a zkRollup for high-throughput and private applications. Anyone can create zero-knowledge proofs of their own state changes, and Miden only verifies. It is expected to launch a public testnet in Q4. </p>
+<p>Polygon Miden is a zkRollup for high-throughput and private applications. Anyone can create zero-knowledge proofs of their own state changes, and Miden only verifies. It is expected to launch a public testnet in Q4.</p>
 <p>This documentation explains the Miden architecture and concepts, the network and its components, and the underlying cryptographic primitives.</p>
 <p>Press <code>s</code> or for full-text search in the docs.</p>
-<p>If you want to join the technical discussion, please check out </p>
+<p>If you want to join the technical discussion, please check out</p>
 <ul>
 <li>the <a href="https://discord.gg/0xpolygondevs">Discord</a>,</li>
 <li>the <a href="https://github.com/0xPolygonMiden">Repo</a>,</li>
 <li>the roadmap goals</li>
 </ul>
 <h2 id="miden-creates-a-new-design-space-secured-by-ethereum"><a class="header" href="#miden-creates-a-new-design-space-secured-by-ethereum">Miden creates a new design space secured by Ethereum</a></h2>
-<p>Our goal is to not only scale Ethereum but to extend it. Rollups - secured by Ethereum - can be new design spaces and even experimental. This is the place to innovate. The base layer, however, should stay conservative and only slowly evolve to ensure the required safety and stability. </p>
-<p>Like other rollups, we want to scale Ethereum and inherit its security. We want to provide a safe and decentralized environment for composable smart contracts. </p>
-<p>Unlike most other rollups, Polygon Miden prioritizes ZK-friendliness over EVM compatibility. It also uses a novel, actor-based state model to exploit the full power of a ZK-centric design. These design choices allow Polygon Miden to extend Ethereum’s feature set. These features allow developers to create applications currently infeasible on EVM-like systems. </p>
+<p>Our goal is to not only scale Ethereum but to extend it. Rollups - secured by Ethereum - can be new design spaces and even experimental. This is the place to innovate. The base layer, however, should stay conservative and only slowly evolve to ensure the required safety and stability.</p>
+<p>Like other rollups, we want to scale Ethereum and inherit its security. We want to provide a safe and decentralized environment for composable smart contracts.</p>
+<p>Unlike most other rollups, Polygon Miden prioritizes ZK-friendliness over EVM compatibility. It also uses a novel, actor-based state model to exploit the full power of a ZK-centric design. These design choices allow Polygon Miden to extend Ethereum’s feature set. These features allow developers to create applications currently infeasible on EVM-like systems.</p>
 <h2 id="benefits-of-polygon-miden"><a class="header" href="#benefits-of-polygon-miden">Benefits of Polygon Miden</a></h2>
 <ul>
-<li>Ethereum security </li>
-<li>Developers can build applications infeasible on other systems, e.g. 
+<li>Ethereum security</li>
+<li>Developers can build applications infeasible on other systems, e.g.
 <ul>
 <li><strong>on-chain order book exchange</strong> due to parallel tx exectuion and updatable transactions</li>
 <li><strong>complex, incomplete information games</strong> due to client-side proving and cheap complex computations</li>
@@ -178,23 +178,23 @@
 </ul>
 </li>
 <li>Better privacy properties than on Ethereum - first web2 privacy, later even stronger privacy guarantees</li>
-<li>Transactions can be recalled and updated </li>
+<li>Transactions can be recalled and updated</li>
 <li>Lower fees due to client-side proving</li>
 <li>dApps on Miden are safe to use due to account abstraction and modern smart contract languages</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
 <p>Polygon Miden, a ZK-optimized rollup with client-side proving, will complement Polygon’s set of zero-knowledge solutions aiming to become the internet's value layer.</p>
-<p>Unlike many other rollups, Polygon Miden prioritizes ZK-friendliness over EVM compatibility. It also uses a novel state model to exploit the full power of a ZK-centric design. These design decisions allow developers to create applications that are currently difficult or impractical to build on account-based systems. </p>
+<p>Unlike many other rollups, Polygon Miden prioritizes ZK-friendliness over EVM compatibility. It also uses a novel state model to exploit the full power of a ZK-centric design. These design decisions allow developers to create applications that are currently difficult or impractical to build on account-based systems.</p>
 <p>This documentation presents detailed guides on:</p>
 <ul>
 <li>Polygon Miden Architecture</li>
 <li>Polygon Miden Network Design [WIP]</li>
 <li>Participating in the Polygon Miden Testnet [WIP]</li>
 </ul>
-<p>The Polygon Miden <strong>Architecture</strong> describes Miden's unique state and execution model - an actor-based model with concurrent off-chain state. </p>
+<p>The Polygon Miden <strong>Architecture</strong> describes Miden's unique state and execution model - an actor-based model with concurrent off-chain state.</p>
 <p>From the <strong>Network Design</strong> perspective, Polygon Miden uses a bi-directional token bridge and verifier contract to ensure computational integrity [WIP]. Miden Nodes act as operators that keep the state and compress state transitions recursively into STARK-proofs. The token bridge on Ethereum verifies these proofs. Users can run Miden Clients to send RPC requests to the Miden Nodes to update the state.</p>
-<p>Once we are ready, we will provide an in-depth guide on how developers can participate to use our <strong>testnet</strong>. </p>
+<p>Once we are ready, we will provide an in-depth guide on how developers can participate to use our <strong>testnet</strong>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <blockquote>
 <p>[WIP]</p>
@@ -205,13 +205,13 @@
 <p>The <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> is our inspiration for achieving concurrent, local state changes in a distributed system like a blockchain. In the actor model, actors play the role of little state machines, meaning each actor is responsible for their own state. Actors have inboxes to send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
 <h2 id="concepts-in-miden"><a class="header" href="#concepts-in-miden">Concepts in Miden</a></h2>
 <p>Users can interact on the network executing transactions. In Polygon Miden, there are accounts and notes, both of which can hold assets. Transactions can be understood as facilitating account state changes. Basically, they take one single account and some notes as input and output the same account at a new state together with some other notes.</p>
-<p>The concepts which constitutes the Miden Architecture are </p>
+<p>The concepts which constitutes the Miden Architecture are</p>
 <ul>
 <li>Accounts and notes and the transaction model</li>
 <li>State and execution model</li>
 </ul>
 <h2 id="transaction-life-cycle"><a class="header" href="#transaction-life-cycle">Transaction life cycle</a></h2>
-<p>To illustrate the core protocol, let's look at how Alice can send Bob 5 MATIC in Polygon Miden. The core concepts of Polygon Miden are Accounts, Notes and Transactions. </p>
+<p>To illustrate the core protocol, let's look at how Alice can send Bob 5 MATIC in Polygon Miden. The core concepts of Polygon Miden are Accounts, Notes and Transactions.</p>
 <p><em>Note: Because of the asynchronous execution model two transactions are needed to transfer the assets.</em></p>
 <p align="center">
     <img src="./diagrams/architecture/transaction_lifecycle/Account_Alice_1.png">
@@ -232,7 +232,7 @@
 <p align="center">
     <img src="./diagrams/architecture/transaction_lifecycle/Account_Bob_1.png">
 </p>
-<p>Now, Bob got 5 MATIC in his account. </p>
+<p>Now, Bob got 5 MATIC in his account.</p>
 <h2 id="state-and-execution-model"><a class="header" href="#state-and-execution-model">State and Execution Model</a></h2>
 <p>The state model defines how the current state of all accounts and notes at a certain point in time can be thought of. And the execution model defines the rules about how this state progresses from <code>t</code> to <code>t+1</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
@@ -243,10 +243,10 @@
 </p>
 <p>In the above:</p>
 <ul>
-<li><strong>Account ID</strong> is a unique identifier of an account which does not change throughout its lifetime. </li>
+<li><strong>Account ID</strong> is a unique identifier of an account which does not change throughout its lifetime.</li>
 <li><strong>Storage</strong> is user-defined data which can be stored in an account.</li>
-<li><strong>Nonce</strong> is a counter which must be incremented whenever account state changes. </li>
-<li><strong>Vault</strong> is collection of assets stored in an account. </li>
+<li><strong>Nonce</strong> is a counter which must be incremented whenever account state changes.</li>
+<li><strong>Vault</strong> is collection of assets stored in an account.</li>
 <li><strong>Code</strong> is a collection of functions which define an external interface for an account.</li>
 </ul>
 <h2 id="account-id"><a class="header" href="#account-id">Account ID</a></h2>
@@ -256,7 +256,7 @@
 <h3 id="regular-account-with-immutable-code"><a class="header" href="#regular-account-with-immutable-code">Regular account with immutable code</a></h3>
 <p>This account type will be used by most regular smart contracts. Once deployed the code should not change and no one should be able to change it. The Account ID will start with <code>01</code>.</p>
 <h3 id="fungible-asset-faucet-with-immutable-code"><a class="header" href="#fungible-asset-faucet-with-immutable-code">Fungible asset faucet with immutable code</a></h3>
-<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>. </p>
+<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>.</p>
 <h3 id="non-fungible-asset-faucet-with-immutable-code"><a class="header" href="#non-fungible-asset-faucet-with-immutable-code">Non-fungible asset faucet with immutable code</a></h3>
 <p>Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
 <h3 id="account-storage-mode"><a class="header" href="#account-storage-mode">Account storage mode</a></h3>
@@ -328,7 +328,7 @@ the value of the node.</li>
 <h2 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h2>
 <p>A note's serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
 <h1 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h1>
-<p>For every note the Miden Node stores metadata in the Note DB. This metadata includes: </p>
+<p>For every note the Miden Node stores metadata in the Note DB. This metadata includes:</p>
 <ul>
 <li>user-defined tag (1 field element)</li>
 <li>sender (1 field element)</li>
@@ -338,7 +338,7 @@ the value of the node.</li>
 <h1 id="types-of-notes"><a class="header" href="#types-of-notes">Types of notes</a></h1>
 <p>There are two types of notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stores publicly with all data.</p>
 <h1 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h1>
-<p>The note hash is computed as: </p>
+<p>The note hash is computed as:</p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
 <p>This achieves the following properties:</p>
 <ul>
@@ -351,7 +351,7 @@ of the serial_num (as well as script hash, input hash and note vault) is suffici
 the VM.</li>
 </ul>
 <h1 id="note-nullifier"><a class="header" href="#note-nullifier">Note nullifier</a></h1>
-<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed. </p>
+<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed.</p>
 <p>The nullifier is computed as <code>hash(serial_num, script_hash, input_hash, vault_hash)</code>.
 This achieves the following properties:</p>
 <ul>
@@ -368,7 +368,7 @@ This achieves the following properties:</p>
 <li>The Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
 <li>The note can now be consumed in a seperate transaction - to consume the note, the note's data must be known</li>
 <li>A note is consumed when the its nullifier in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> is set to <code>1</code></li>
-<li>Eventually the Operator will receive the note's nullifier together with a transaction proof </li>
+<li>Eventually the Operator will receive the note's nullifier together with a transaction proof</li>
 <li>After successful verification the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
@@ -377,7 +377,7 @@ This achieves the following properties:</p>
 <p>It can be expressed as a state-transition function that takes an account and <code>0 to n</code> notes to map it to another version of that account and produces <code>0 to n</code> notes</p>
 <p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1685em;vertical-align:-0.4185em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1691em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6698em;"><span style="top:-2.7102em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">i</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1698em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4185em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)))</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1755em;vertical-align:-0.4236em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1742em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.677em;"><span style="top:-2.7175em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.177em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4236em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">))</span></span></span></span>
 , where  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal">cco</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">es</span></span></span></span></span></p>
-<p>It looks like </p>
+<p>It looks like</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction.png">
 </p>
@@ -452,7 +452,7 @@ This achieves the following properties:</p>
 <h2 id="state-components"><a class="header" href="#state-components">State components</a></h2>
 <p>These databases are represented by authenticated data structures, such that we can easily prove that items were added to or removed from a database, and a commitment to the database would be very small.</p>
 <h3 id="account-database"><a class="header" href="#account-database">Account database</a></h3>
-<p>Current account states are recorded in a Sparse Merkle tree which maps account IDs to account hashes, where the account hash is computed as </p>
+<p>Current account states are recorded in a Sparse Merkle tree which maps account IDs to account hashes, where the account hash is computed as</p>
 <p><code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code>.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Account_DB.png">
@@ -475,8 +475,8 @@ This achieves the following properties:</p>
 <p>Both of these properties are needed for supporting local transactions and privacy.</p>
 <p>There are two types of <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a>:</p>
 <ul>
-<li><strong>Public notes</strong> where the entire note content is recorded in the state. </li>
-<li><strong>Private notes</strong> where only a note's hash is recorded in the state. </li>
+<li><strong>Public notes</strong> where the entire note content is recorded in the state.</li>
+<li><strong>Private notes</strong> where only a note's hash is recorded in the state.</li>
 </ul>
 <p>As with accounts, there is a strong incentive to use private notes as they result in lower fees. This is also beneficial to the network as a private note adds only 64 bytes to the state (32 bytes when it is produced, and 32 bytes when it is consumed).</p>
 <p>Note database look as shown on the diagram below. Each leaf is a block header which contains the commitment to all notes created in that block. Note, the size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
@@ -485,25 +485,25 @@ This achieves the following properties:</p>
 </p>
 <p>Using a Merkle Mountain Range (append-only accumulator) means that we can't remove individual elements from it. This seemingly means that the size of the note database would grow indefinitely. Moreover, at high tps, it would grow very quickly: at 1K TPS we'd be adding about 1TB/year to the database.</p>
 <p>However, we need to explicitly store only the unconsumed public notes and enough info to construct membership proofs against them. Private notes, as well as public notes which have already been consumed, can be safely discarded. Such notes would still remain in the accumulator, but there is no need to store them explicitly as the append-only accumulator can be updated without knowing all items stored in it. This reduces actual storage requirements to a fraction of the database's nominal size.</p>
-<p>ToDo: Describe and specify life-time restrictions for notes on the database. </p>
+<p>ToDo: Describe and specify life-time restrictions for notes on the database.</p>
 <h3 id="nullifier-database"><a class="header" href="#nullifier-database">Nullifier database</a></h3>
-<p>Nullifiers provide information on whether a specific note has been consumed yet. Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps nullifiers to <code>0</code> or <code>1</code>. Using this, one can check and prove that a given nullifier is not in the database. </p>
+<p>Nullifiers provide information on whether a specific note has been consumed yet. Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps nullifiers to <code>0</code> or <code>1</code>. Using this, one can check and prove that a given nullifier is not in the database.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Nullifier_DB.png">
 </p>
 <p>To prove that nullifier <code>11</code> is not in the database the operator needs to provide a Merkle path to its node, and then show that the value in that node is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>. In our case nullifiers are 32 bytes each, and thus, the height of the Sparse Merkle tree need to be 256.</p>
-<p>To be able to add new nullifiers to the database, operators needs to maintain the entire nullifier set - otherwise they would not be able to compute the new root of the tree. </p>
+<p>To be able to add new nullifiers to the database, operators needs to maintain the entire nullifier set - otherwise they would not be able to compute the new root of the tree.</p>
 <p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than 6 month old, there must be a merkle path provided to the Miden Node for verification.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
-<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks. </p>
-<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block. </p>
+<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks.</p>
+<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/execution/Execution.png">
 </p>
 <h2 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h2>
 <p>Every transaction will result in a ZK proof that attests to its correctness.</p>
-<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node. </p>
+<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node.</p>
 <h2 id="transaction-batching"><a class="header" href="#transaction-batching">Transaction Batching</a></h2>
 <p>To reduce the required space on the Ethereum blockchain, transaction proofs are being aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof thereof. Verifying a STARK proof within the VM is relatively efficient - but it is still a pretty costly operation (we aim for 2^16 cycles).</p>
 <h2 id="block-production"><a class="header" href="#block-production">Block Production</a></h2>
@@ -548,7 +548,7 @@ This achieves the following properties:</p>
 <p>Overall, state sync is dominated by the time needed to download the data.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="polygon-miden-network-wip"><a class="header" href="#polygon-miden-network-wip">Polygon Miden Network [WIP]</a></h1>
-<p>Polygon Miden is a bi-directional token bridge and state machine. Miden Nodes act as operators that keep the state and compress state transitions recursively into STARK-proofs. The token bridge on Ethereum verifies these proofs. Users can run Miden clients to send RPC requests to the Miden Nodes to update the state. </p>
+<p>Polygon Miden is a bi-directional token bridge and state machine. Miden Nodes act as operators that keep the state and compress state transitions recursively into STARK-proofs. The token bridge on Ethereum verifies these proofs. Users can run Miden clients to send RPC requests to the Miden Nodes to update the state.</p>
 <p>The major components of Polygon Miden are:</p>
 <ul>
 <li>Miden Clients - represent Miden users</li>
@@ -559,15 +559,15 @@ This achieves the following properties:</p>
 <h2 id="network-slide"><a class="header" href="#network-slide">Network Slide</a></h2>
 <p><img src="diagrams/network/Architecture_Overview.svg" alt="Miden Architecture Overview" /></p>
 <h2 id="miden-clients"><a class="header" href="#miden-clients">Miden Clients</a></h2>
-<p>Users will run Miden Clients. They are designed to provide an interface for wallets representing accounts on Miden. Miden Clients can execute and prove transactions in the Tx Prover. They can handle arbitrary signature schemes - whereas the default is Falcon. The wallet interface serves a user interface, a wallet database to be able to store account data locally, and the required smart contract code that represents the account on Miden. </p>
-<p>Want to learn more about Miden Clients? See <a href="network/miden-clients.html">here</a>. </p>
+<p>Users will run Miden Clients. They are designed to provide an interface for wallets representing accounts on Miden. Miden Clients can execute and prove transactions in the Tx Prover. They can handle arbitrary signature schemes - whereas the default is Falcon. The wallet interface serves a user interface, a wallet database to be able to store account data locally, and the required smart contract code that represents the account on Miden.</p>
+<p>Want to learn more about Miden Clients? See <a href="network/miden-clients.html">here</a>.</p>
 <h2 id="miden-nodes"><a class="header" href="#miden-nodes">Miden Nodes</a></h2>
-<p>Operators will run Miden Nodes. Operators ensure integrity of the Account, Note and Nullifier State - which represent the state of Polygon Miden. Operators can execute and proof transactions against single accounts and they can verify proofs of locally executed transactions. Furthermore, the operator compresses the proofs in several steps up to a single proofs that gets published and verified on the Verifier contract. Operators also watch events emitted by the Bridge Contract to detect deposits and withdrawals. </p>
+<p>Operators will run Miden Nodes. Operators ensure integrity of the Account, Note and Nullifier State - which represent the state of Polygon Miden. Operators can execute and proof transactions against single accounts and they can verify proofs of locally executed transactions. Furthermore, the operator compresses the proofs in several steps up to a single proofs that gets published and verified on the Verifier contract. Operators also watch events emitted by the Bridge Contract to detect deposits and withdrawals.</p>
 <p>To manage all of this, Miden Nodes have different modules. The Node orchestrates a Tx Prover, a Tx Aggregator and a Block Producer. The Tx Prover executes and proves transactions, like in the Miden Client. The Tx Aggregator can batch multiple proofs together to reduce the final state proof size using recursive proving. The Block Producer exposes the RPC interface to the user. The Block Producer collects transactions in the Tx Pool and stores the state of Polygon Miden in its three databases (Accounts, Notes, Nullifiers).</p>
-<p>Want to learn more about Miden Nodes? See <a href="network/miden-node.html">here</a>. </p>
+<p>Want to learn more about Miden Nodes? See <a href="network/miden-node.html">here</a>.</p>
 <h2 id="verifier-contract"><a class="header" href="#verifier-contract">Verifier Contract</a></h2>
-<p>This contract on Ethereum verifies proofs sent by the operator running a Miden Node. The proof is verified against the current state root. If accepted the state root changes. </p>
-<p>Want to learn more about Miden Nodes? See <a href="network/verifier-contract.html">here</a>. </p>
+<p>This contract on Ethereum verifies proofs sent by the operator running a Miden Node. The proof is verified against the current state root. If accepted the state root changes.</p>
+<p>Want to learn more about Miden Nodes? See <a href="network/verifier-contract.html">here</a>.</p>
 <p>[This is a dummy text, we need to explain the contract in detail]</p>
 <h2 id="bridge-contract"><a class="header" href="#bridge-contract">Bridge Contract</a></h2>
 <p>This contract serves the Miden users on Ethereum as bridge. Users can deposit their tokens and get an equivalent amount minted and sent to the specified address on Polygon Miden.</p>
@@ -577,14 +577,14 @@ This achieves the following properties:</p>
 <h1 id="miden-clients-1"><a class="header" href="#miden-clients-1">Miden Clients</a></h1>
 <p>Users use Miden Clients to interact in the network. The backend of any wallet that is used in Miden will be a Miden Client. Miden Clients consist of several components.</p>
 <ul>
-<li>Transaction Prover </li>
+<li>Transaction Prover</li>
 <li>Signature module</li>
 <li>Wallet interface</li>
 <li>Wallet database</li>
 </ul>
 <p>[We need a diagram to show the Miden Client]</p>
 <h2 id="transaction-prover"><a class="header" href="#transaction-prover">Transaction Prover</a></h2>
-<p>The Transaction Prover is able to execute transactions and create transaction execution proofs. It runs a Transaction Kernel at its heart. </p>
+<p>The Transaction Prover is able to execute transactions and create transaction execution proofs. It runs a Transaction Kernel at its heart.</p>
 <h2 id="signature-module"><a class="header" href="#signature-module">Signature module</a></h2>
 <p>[Unclear if this is a separate module]</p>
 <h2 id="wallet-interface"><a class="header" href="#wallet-interface">Wallet interface</a></h2>
@@ -643,14 +643,14 @@ end
 <p>[Unclear yet how this database looks like. It should at least have <code>assets/vault</code>, <code>code</code>, <code>nonce</code>, <code>storage</code>]</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="miden-node"><a class="header" href="#miden-node">Miden Node</a></h1>
-<p>The Miden Node manages the network state and orchestrates three different modules. At the beginning we don't expect that there will be more than one Miden Node. In the futuer we aim for a decenralized network having multiple nodes managing the network state. </p>
+<p>The Miden Node manages the network state and orchestrates three different modules. At the beginning we don't expect that there will be more than one Miden Node. In the futuer we aim for a decenralized network having multiple nodes managing the network state.</p>
 <h2 id="transaction-prover-1"><a class="header" href="#transaction-prover-1">Transaction Prover</a></h2>
-<p>The Transaction Prover can execute and prove transaction execution using the transaction kernel. </p>
+<p>The Transaction Prover can execute and prove transaction execution using the transaction kernel.</p>
 <p>Note: This module also exists in the Miden Client.</p>
 <h2 id="transaction-aggregator"><a class="header" href="#transaction-aggregator">Transaction Aggregator</a></h2>
-<p>[Needs to be spec'd out] Goal of the Aggregator is to compress proofs by recursion and in fact prove proof verification in the Miden VM. </p>
+<p>[Needs to be spec'd out] Goal of the Aggregator is to compress proofs by recursion and in fact prove proof verification in the Miden VM.</p>
 <h2 id="block-producer"><a class="header" href="#block-producer">Block Producer</a></h2>
-<p>[Needs to be spec'd out] Consists of different modules again. </p>
+<p>[Needs to be spec'd out] Consists of different modules again.</p>
 <ul>
 <li>RPC interface</li>
 <li>Tx Pool (like a mempool)</li>
@@ -671,7 +671,7 @@ end
 <h1 id="tiered-sparse-merkle-tree-tsmt"><a class="header" href="#tiered-sparse-merkle-tree-tsmt">Tiered Sparse Merkle Tree (TSMT)</a></h1>
 <p>A sparse Merkle tree (SMT) is a cryptographic data structure that allows authenticated manipulations of a key-value store, i.e. a dictionary. It is a Merkle tree because it is
 a binary tree in which each leaf node represents a key-value pair, and each non-leaf node represents the hash of the concatenation of its two child nodes. The index of the
-leaf node in the tree corresponds to the key and the data stored in this node corresponds to the value. This implies that the depth of such a tree is logarithmic in the size of the key space, which implies that, for most key spaces used in practice, such a tree is impractical if done naively. However, the tree is sparse, i.e. it is going to be made up of mostly empty leaves, which in turn implies that most sub-trees are empty with roots that can be pre-computed. 
+leaf node in the tree corresponds to the key and the data stored in this node corresponds to the value. This implies that the depth of such a tree is logarithmic in the size of the key space, which implies that, for most key spaces used in practice, such a tree is impractical if done naively. However, the tree is sparse, i.e. it is going to be made up of mostly empty leaves, which in turn implies that most sub-trees are empty with roots that can be pre-computed.
 A major issue with SMTs is the fact that operations scale with the size of the key space, meaning, for example, that if our key space has size <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mspace nobreak"> </span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">256</span></span></span></span></span></span></span></span></span></span></span></span>, then performing any operation on the key-value store, for example, an update, will require performing <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span> hashing operations. This is undesirable both inside as well as outside the STARK.</p>
 <p>A common solution to this issue is to keep only non-empty leaves in the tree, which in practice means that sub-trees with only one non-empty child are replaced with the sub-tree rooted at that non-empty child. Here's an example of this:</p>
 <p align="center">

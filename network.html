@@ -149,7 +149,7 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="polygon-miden-network-wip"><a class="header" href="#polygon-miden-network-wip">Polygon Miden Network [WIP]</a></h1>
-<p>Polygon Miden is a bi-directional token bridge and state machine. Miden Nodes act as operators that keep the state and compress state transitions recursively into STARK-proofs. The token bridge on Ethereum verifies these proofs. Users can run Miden clients to send RPC requests to the Miden Nodes to update the state. </p>
+<p>Polygon Miden is a bi-directional token bridge and state machine. Miden Nodes act as operators that keep the state and compress state transitions recursively into STARK-proofs. The token bridge on Ethereum verifies these proofs. Users can run Miden clients to send RPC requests to the Miden Nodes to update the state.</p>
 <p>The major components of Polygon Miden are:</p>
 <ul>
 <li>Miden Clients - represent Miden users</li>
@@ -160,15 +160,15 @@
 <h2 id="network-slide"><a class="header" href="#network-slide">Network Slide</a></h2>
 <p><img src="diagrams/network/Architecture_Overview.svg" alt="Miden Architecture Overview" /></p>
 <h2 id="miden-clients"><a class="header" href="#miden-clients">Miden Clients</a></h2>
-<p>Users will run Miden Clients. They are designed to provide an interface for wallets representing accounts on Miden. Miden Clients can execute and prove transactions in the Tx Prover. They can handle arbitrary signature schemes - whereas the default is Falcon. The wallet interface serves a user interface, a wallet database to be able to store account data locally, and the required smart contract code that represents the account on Miden. </p>
-<p>Want to learn more about Miden Clients? See <a href="network/miden-clients.html">here</a>. </p>
+<p>Users will run Miden Clients. They are designed to provide an interface for wallets representing accounts on Miden. Miden Clients can execute and prove transactions in the Tx Prover. They can handle arbitrary signature schemes - whereas the default is Falcon. The wallet interface serves a user interface, a wallet database to be able to store account data locally, and the required smart contract code that represents the account on Miden.</p>
+<p>Want to learn more about Miden Clients? See <a href="network/miden-clients.html">here</a>.</p>
 <h2 id="miden-nodes"><a class="header" href="#miden-nodes">Miden Nodes</a></h2>
-<p>Operators will run Miden Nodes. Operators ensure integrity of the Account, Note and Nullifier State - which represent the state of Polygon Miden. Operators can execute and proof transactions against single accounts and they can verify proofs of locally executed transactions. Furthermore, the operator compresses the proofs in several steps up to a single proofs that gets published and verified on the Verifier contract. Operators also watch events emitted by the Bridge Contract to detect deposits and withdrawals. </p>
+<p>Operators will run Miden Nodes. Operators ensure integrity of the Account, Note and Nullifier State - which represent the state of Polygon Miden. Operators can execute and proof transactions against single accounts and they can verify proofs of locally executed transactions. Furthermore, the operator compresses the proofs in several steps up to a single proofs that gets published and verified on the Verifier contract. Operators also watch events emitted by the Bridge Contract to detect deposits and withdrawals.</p>
 <p>To manage all of this, Miden Nodes have different modules. The Node orchestrates a Tx Prover, a Tx Aggregator and a Block Producer. The Tx Prover executes and proves transactions, like in the Miden Client. The Tx Aggregator can batch multiple proofs together to reduce the final state proof size using recursive proving. The Block Producer exposes the RPC interface to the user. The Block Producer collects transactions in the Tx Pool and stores the state of Polygon Miden in its three databases (Accounts, Notes, Nullifiers).</p>
-<p>Want to learn more about Miden Nodes? See <a href="network/miden-node.html">here</a>. </p>
+<p>Want to learn more about Miden Nodes? See <a href="network/miden-node.html">here</a>.</p>
 <h2 id="verifier-contract"><a class="header" href="#verifier-contract">Verifier Contract</a></h2>
-<p>This contract on Ethereum verifies proofs sent by the operator running a Miden Node. The proof is verified against the current state root. If accepted the state root changes. </p>
-<p>Want to learn more about Miden Nodes? See <a href="network/verifier-contract.html">here</a>. </p>
+<p>This contract on Ethereum verifies proofs sent by the operator running a Miden Node. The proof is verified against the current state root. If accepted the state root changes.</p>
+<p>Want to learn more about Miden Nodes? See <a href="network/verifier-contract.html">here</a>.</p>
 <p>[This is a dummy text, we need to explain the contract in detail]</p>
 <h2 id="bridge-contract"><a class="header" href="#bridge-contract">Bridge Contract</a></h2>
 <p>This contract serves the Miden users on Ethereum as bridge. Users can deposit their tokens and get an equivalent amount minted and sent to the specified address on Polygon Miden.</p>

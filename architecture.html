@@ -153,13 +153,13 @@
 <p>The <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> is our inspiration for achieving concurrent, local state changes in a distributed system like a blockchain. In the actor model, actors play the role of little state machines, meaning each actor is responsible for their own state. Actors have inboxes to send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
 <h2 id="concepts-in-miden"><a class="header" href="#concepts-in-miden">Concepts in Miden</a></h2>
 <p>Users can interact on the network executing transactions. In Polygon Miden, there are accounts and notes, both of which can hold assets. Transactions can be understood as facilitating account state changes. Basically, they take one single account and some notes as input and output the same account at a new state together with some other notes.</p>
-<p>The concepts which constitutes the Miden Architecture are </p>
+<p>The concepts which constitutes the Miden Architecture are</p>
 <ul>
 <li>Accounts and notes and the transaction model</li>
 <li>State and execution model</li>
 </ul>
 <h2 id="transaction-life-cycle"><a class="header" href="#transaction-life-cycle">Transaction life cycle</a></h2>
-<p>To illustrate the core protocol, let's look at how Alice can send Bob 5 MATIC in Polygon Miden. The core concepts of Polygon Miden are Accounts, Notes and Transactions. </p>
+<p>To illustrate the core protocol, let's look at how Alice can send Bob 5 MATIC in Polygon Miden. The core concepts of Polygon Miden are Accounts, Notes and Transactions.</p>
 <p><em>Note: Because of the asynchronous execution model two transactions are needed to transfer the assets.</em></p>
 <p align="center">
     <img src="./diagrams/architecture/transaction_lifecycle/Account_Alice_1.png">
@@ -180,7 +180,7 @@
 <p align="center">
     <img src="./diagrams/architecture/transaction_lifecycle/Account_Bob_1.png">
 </p>
-<p>Now, Bob got 5 MATIC in his account. </p>
+<p>Now, Bob got 5 MATIC in his account.</p>
 <h2 id="state-and-execution-model"><a class="header" href="#state-and-execution-model">State and Execution Model</a></h2>
 <p>The state model defines how the current state of all accounts and notes at a certain point in time can be thought of. And the execution model defines the rules about how this state progresses from <code>t</code> to <code>t+1</code>.</p>
 

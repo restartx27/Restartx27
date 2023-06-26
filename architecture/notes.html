@@ -170,7 +170,7 @@
 <h2 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h2>
 <p>A note's serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
 <h1 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h1>
-<p>For every note the Miden Node stores metadata in the Note DB. This metadata includes: </p>
+<p>For every note the Miden Node stores metadata in the Note DB. This metadata includes:</p>
 <ul>
 <li>user-defined tag (1 field element)</li>
 <li>sender (1 field element)</li>
@@ -180,7 +180,7 @@
 <h1 id="types-of-notes"><a class="header" href="#types-of-notes">Types of notes</a></h1>
 <p>There are two types of notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stores publicly with all data.</p>
 <h1 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h1>
-<p>The note hash is computed as: </p>
+<p>The note hash is computed as:</p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
 <p>This achieves the following properties:</p>
 <ul>
@@ -193,7 +193,7 @@ of the serial_num (as well as script hash, input hash and note vault) is suffici
 the VM.</li>
 </ul>
 <h1 id="note-nullifier"><a class="header" href="#note-nullifier">Note nullifier</a></h1>
-<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed. </p>
+<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed.</p>
 <p>The nullifier is computed as <code>hash(serial_num, script_hash, input_hash, vault_hash)</code>.
 This achieves the following properties:</p>
 <ul>
@@ -210,7 +210,7 @@ This achieves the following properties:</p>
 <li>The Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
 <li>The note can now be consumed in a seperate transaction - to consume the note, the note's data must be known</li>
 <li>A note is consumed when the its nullifier in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> is set to <code>1</code></li>
-<li>Eventually the Operator will receive the note's nullifier together with a transaction proof </li>
+<li>Eventually the Operator will receive the note's nullifier together with a transaction proof</li>
 <li>After successful verification the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
 </ul>
 

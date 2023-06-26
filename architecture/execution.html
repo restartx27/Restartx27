@@ -149,14 +149,14 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
-<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks. </p>
-<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block. </p>
+<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks.</p>
+<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block.</p>
 <p align="center">
   <img src="../diagrams/architecture/execution/Execution.png">
 </p>
 <h2 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h2>
 <p>Every transaction will result in a ZK proof that attests to its correctness.</p>
-<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node. </p>
+<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node.</p>
 <h2 id="transaction-batching"><a class="header" href="#transaction-batching">Transaction Batching</a></h2>
 <p>To reduce the required space on the Ethereum blockchain, transaction proofs are being aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof thereof. Verifying a STARK proof within the VM is relatively efficient - but it is still a pretty costly operation (we aim for 2^16 cycles).</p>
 <h2 id="block-production"><a class="header" href="#block-production">Block Production</a></h2>
