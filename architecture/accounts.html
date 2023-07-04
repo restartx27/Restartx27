@@ -171,47 +171,59 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="accounts"><a class="header" href="#accounts">Accounts</a></h1>
-<p>An account is an entity which holds assets and defines rules of how these assets can be transferred. The diagram below illustrates basic components of an account. In Miden every account is a smart contract.</p>
+<p>Accounts are entities that hold assets and determine the rules for transferring those assets. The figure below depicts the fundamental components of an account. <strong>Every account in Miden is inherently a smart contract</strong>.</p>
 <p align="center">
     <img src="../diagrams/architecture/account/Account_Definition.png">
 </p>
-<p>In the above:</p>
+<p>In the above picture, you can see:</p>
 <ul>
-<li><strong>Account ID</strong> is a unique identifier of an account which does not change throughout its lifetime.</li>
-<li><strong>Storage</strong> is user-defined data which can be stored in an account.</li>
-<li><strong>Nonce</strong> is a counter which must be incremented whenever account state changes.</li>
-<li><strong>Vault</strong> is collection of assets stored in an account.</li>
-<li><strong>Code</strong> is a collection of functions which define an external interface for an account.</li>
+<li><strong>Account ID →</strong> a unique identifier of an account which does not change throughout its lifetime</li>
+<li><strong>Storage →</strong> a user-defined data which can be stored in an account</li>
+<li><strong>Nonce →</strong> a counter which must be incremented whenever account state changes</li>
+<li><strong>Vault →</strong> a collection of assets stored in an account</li>
+<li><strong>Code →</strong> a collection of functions which define an external interface for an account</li>
 </ul>
 <h2 id="account-id"><a class="header" href="#account-id">Account ID</a></h2>
-<p>8 bytes (60 bit) long identifier for the account. The first three significant bits specify its type and the storage mode. There are four types of accounts in Miden that can be stored in two differnt ways:</p>
-<h3 id="regular-account-with-updatable-code"><a class="header" href="#regular-account-with-updatable-code">Regular account with updatable code</a></h3>
-<p>This account type will be used by most users. They can specify and change their code and use this account for a wallet. The Account ID will start with <code>00</code>.</p>
-<h3 id="regular-account-with-immutable-code"><a class="header" href="#regular-account-with-immutable-code">Regular account with immutable code</a></h3>
-<p>This account type will be used by most regular smart contracts. Once deployed the code should not change and no one should be able to change it. The Account ID will start with <code>01</code>.</p>
-<h3 id="fungible-asset-faucet-with-immutable-code"><a class="header" href="#fungible-asset-faucet-with-immutable-code">Fungible asset faucet with immutable code</a></h3>
-<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>.</p>
-<h3 id="non-fungible-asset-faucet-with-immutable-code"><a class="header" href="#non-fungible-asset-faucet-with-immutable-code">Non-fungible asset faucet with immutable code</a></h3>
-<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
-<h3 id="account-storage-mode"><a class="header" href="#account-storage-mode">Account storage mode</a></h3>
-<p>Account data - stored by the Miden Node - can be public or private. The third most significant bit of the ID specifies whether the account data is public <code>0</code> or private <code>1</code>.</p>
-<ul>
-<li>Accounts with <strong>public state</strong>, where the actual state is stored on chain. These would be similar to how accounts work in public blockchains.</li>
-<li>Accounts with <strong>private state</strong>, where only the hash of the account is stored on chain. The hash is defined as: <br />
-<code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code></li>
-</ul>
-<h3 id="example-account-id"><a class="header" href="#example-account-id">Example account ID</a></h3>
+<p>The account identifier is <strong>8 bytes (64 bits)</strong> long. Its type and storage mode are specified by the first three significant bits. Miden has four different types of accounts that can be saved in two different ways. Below diagram depicts an example Account ID.</p>
 <p align="center">
     <img src="../diagrams/architecture/account/Account_ID.png">
 </p>
+<h3 id="account-types"><a class="header" href="#account-types">Account Types</a></h3>
+<ol>
+<li>
+<p>Regular account with updatable code
+This account type will be used by most users. They can specify and change their code and use this account for connecting with a wallet. The Account ID will always start with <code>00</code>.</p>
+</li>
+<li>
+<p>Regular account with immutable code
+This account type will be used by most smart contracts. The code should not change after it is deployed, and no one should be able to update it. The Account ID will begin with the letter '01'.</p>
+</li>
+<li>
+<p>Fungible asset faucet with immutable code
+Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>. </p>
+</li>
+<li>
+<p>Non-fungible asset faucet with immutable code
+Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
+</li>
+</ol>
+<h3 id="account-storage-modes"><a class="header" href="#account-storage-modes">Account Storage Modes</a></h3>
+<p>Account data which is stored in a Miden Node can be either <code>public</code> or <code>private</code>. The third most significant bit (<a href="https://en.wikipedia.org/wiki/Bit_numbering">MSb</a>) of the Account ID specifies whether the account data is public (<code>0</code>) or private (<code>1</code>).</p>
+<ol start="0">
+<li>Accounts with <strong>public state</strong> store their actual state on chain, similar to how accounts work in public blockchains like Ethereum.</li>
+<li>Accounts with <strong>private state</strong> store only the hash of their account on chain. The hash is defined as: <br />
+<code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code></li>
+</ol>
 <h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
-<p>User-defined data that can be stored in an account. Account storage is composed of two components. The first component is a simple sparse Merkle tree of depth 8 which is index addressable. This provides the user with 256 Word slots. Users that require additional storage can use the second component which is a <code>MerkleStore</code>. This will allow the user to store any Merkle structures they need. This is achieved by storing the root of the Merkle structure as a leaf in the simple sparse merkle tree. When <code>AccountStorage</code> is serialized it will check to see if any of the leafs in the simple sparse Merkle tree are Merkle roots of other Merkle structures. If any Merkle roots are found then the Merkle structures will be persisted in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
-<p>TODO ADD STORAGE DIAGRAM</p>
+<p>Storage refers to <code>AccountStorage</code>, the user-defined data that can be stored in an account. Account storage is made up of two components. The first component is an index addressable basic Sparse Merkle Tree of depth 8. This gives the user 256-word slots.</p>
+<p>Users that require additional storage can use the second component which is a <code>MerkleStore</code>. This will allow the user to store any Merkle structures they need. This is achieved by storing the Merkle structure's root as a leaf in the simple Sparse Merkle Tree. When <code>AccountStorage</code> is serialized, it will examine the leaves of the simple Sparse Merkle Tree to see whether any of them are Merkle roots of other Merkle structures. If any Merkle roots are found, the Merkle structures will be saved in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
+<ul>
+<li>TODO ADD STORAGE DIAGRAM</li>
+</ul>
 <h2 id="nonce"><a class="header" href="#nonce">Nonce</a></h2>
-<p>Counter which must be incremented whenever the account state changes. Nonce values must be strictly monotonically increasing and can be incremented by any value smaller than 2^{32} for every account update.</p>
+<p>It is basically a counter which must be incremented whenever the account state changes. Nonce values must be <strong>strictly monotonically increasing</strong> and can be incremented by any value smaller than 2<sup>32</sup> for every account update.</p>
 <h2 id="vault"><a class="header" href="#vault">Vault</a></h2>
-<p>Asset container for an account.</p>
-<p>An account vault can contain an unlimited number of assets. The assets are stored in a Sparse
+<p>Vault is the asset container of an account. It can contain an unlimited number of assets. The assets are stored in a Sparse
 Merkle tree as follows:</p>
 <ul>
 <li>For fungible assets, the index of a node is defined by the issuing faucet ID, and the value
@@ -222,22 +234,23 @@ the value of the node.</li>
 </ul>
 <p>An account vault can be reduced to a single hash which is the root of the Sparse Merkle tree.</p>
 <h2 id="code"><a class="header" href="#code">Code</a></h2>
-<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by note scripts. Functions exposed by the account have the following properties:</p>
+<p>Every account in Miden is a smart contract with an interface that exposes functions that note scripts can call.  The interface for accounts is referred to as Code.</p>
+<p>The account's exposed functions have the following properties:</p>
 <ul>
 <li>Functions are actually roots of <a href="https://wiki.polygon.technology/docs/miden/user_docs/assembly/main">Miden program MASTs</a> (i.e., 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
-<li>Only account functions have mutable access to an account's storage and vault. Said another way, the only way to modify an account's internal state is through one of account's functions.</li>
+<li>Only account functions have mutable access to an account's storage and vault. Therefore, the only way to modify an account's internal state is through one of account's functions.</li>
 <li>Account functions can take parameters and can create new notes.</li>
 </ul>
-<h1 id="account-creation"><a class="header" href="#account-creation">Account creation</a></h1>
-<p>For an account to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#account-database">Account DB</a> kept by the Miden Node(s). However, new accounts can be created locally by users using a wallet.</p>
+<h2 id="account-creation"><a class="header" href="#account-creation">Account creation</a></h2>
+<p>For an account to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#account-database">Account DB</a> kept by the Miden Node(s). However, new accounts can be created locally by users through a wallet.</p>
 <p>The process is as follows:</p>
 <ul>
-<li>Alice grinds a new Account ID according to the account types (see below) using a wallet</li>
-<li>Alice's Miden Client requests the Miden Node if new Account ID already exists</li>
-<li>Alice shares the new Account ID to Bob, e.g. when Alice wants to receive funds</li>
+<li>Alice grinds a new Account ID (according to the account types) using a wallet</li>
+<li>Alice's Miden Client requests the Miden Node to check if new Account ID already exists</li>
+<li>Alice shares the new Account ID to Bob (eg. when Alice wants to receive funds)</li>
 <li>Bob executes a transaction and creates a note that contains an asset for Alice</li>
 <li>Alice consumes Bob's note to receive the asset in a transaction</li>
-<li>Depending on the account storage mode (private vs. public) and transaction type (local vs. network) the Operator receives new Account ID eventually and - if transaction is correct - adds the ID to the Account DB</li>
+<li>Depending on the account storage mode (<code>private</code> or <code>public</code>) and transaction type (local or network), the Operator receives new Account ID eventually and adds the ID to the Account DB if transaction is correct.</li>
 </ul>
 
                     </main>

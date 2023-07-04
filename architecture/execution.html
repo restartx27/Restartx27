@@ -171,27 +171,22 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
-<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks.</p>
-<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block.</p>
+<p>Polygon Miden is an Ethereum Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block. The Execution Model describes how the state progresses on <strong>an individual level via transactions</strong> and <strong>at the global level expressed as aggregated state updates in blocks</strong>.</p>
 <p align="center">
   <img src="../diagrams/architecture/execution/Execution.png">
 </p>
 <h2 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h2>
 <p>Every transaction will result in a ZK proof that attests to its correctness.</p>
-<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node.</p>
+<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local and network. For every transaction there is a proof which is either created by the user in the Miden Client or by the Operator using the Miden Node. </p>
 <h2 id="transaction-batching"><a class="header" href="#transaction-batching">Transaction Batching</a></h2>
-<p>To reduce the required space on the Ethereum blockchain, transaction proofs are being aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof thereof. Verifying a STARK proof within the VM is relatively efficient - but it is still a pretty costly operation (we aim for 2^16 cycles).</p>
+<p>To reduce the required space on the Ethereum blockchain, transaction proofs are aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof. Verifying a STARK proof within the VM is relatively efficient but it is still a pretty costly operation (we aim for 2<sup>16</sup> cycles).</p>
 <h2 id="block-production"><a class="header" href="#block-production">Block Production</a></h2>
 <p>Several batch proofs are being aggregated together into one block. This can not happen in parallel and must be done by the Miden Operator running the Miden Node. The idea is the same, using recursive verification.</p>
-<h1 id="state-progress"><a class="header" href="#state-progress">State progress</a></h1>
-<p>At the beginning Miden will have a centralized operator running a Miden Node.</p>
-<ul>
-<li>The Miden Node collects proofs or transactions to be proven from the users.</li>
-<li>The Miden Node aggregates collected transaction proofs into batches using recursive verification.</li>
-<li>The Miden Node aggregates batch proofs into blocks.</li>
-<li>The blocks get submitted to Ethereum, and once a block is included in the L1 chain, the rollup chain is assumed to have moved to the next state. (not specified yet)</li>
-</ul>
-<p>A block which the Miden Node produces looks like this:</p>
+<h2 id="state-progress"><a class="header" href="#state-progress">State progress</a></h2>
+<p>At the beginning, Miden will have a centralized Operator running a Miden Node.</p>
+<p>Users will send either transaction proofs (using local execution) or transaction data (for network execution) to the Miden Node. Later on, the Miden Node will use recursive verification to aggregate transaction proofs into batches.</p>
+<p>Batch proofs are aggregated into blocks by the Miden Node. The blocks are then sent to Ethereum, and once a block is added to the L1 chain, the rollup chain is believed to have progressed to the next state.</p>
+<p>A block produced by the Miden Node looks somewhat like this:</p>
 <p align="center">
   <img src="../diagrams/architecture/execution/Block.png">
 </p>
@@ -200,7 +195,7 @@
 <li>The included <strong>zk proof</strong> attests that given a state commitment from the previous block, there was a sequence of valid transactions executed that resulted in the new state commitment, and also output included state updates.</li>
 <li>The block also contains full account and note data for public accounts and notes. For example, if account <code>123</code> is a public account which was updated, in the <em>state updates</em> section we'd have a records for it as <code>(123, 0x456..)</code>. The full new state of this account (which should hash to <code>0x456..</code>) would be included in a separate section.</li>
 </ul>
-<p>To verify that a block describes a valid transition, we do the following:</p>
+<p>To verify that a block describes a valid state transition, we do the following:</p>
 <ol>
 <li>Compute hashes of public account and note states.</li>
 <li>Make sure these hashes match records in the <em>state updates</em> section.</li>
@@ -212,10 +207,10 @@
 </ul>
 </li>
 </ol>
-<p>The above can be performed by a verifier contract on Ethereum.</p>
-<p>This structure has another nice property: it is very easy for a new node to sync up to the current state from genesis. The new node would need to do the following:</p>
+<p>The above can be performed by a verifier contract on Ethereum L1.</p>
+<p>This structure has another nice property. It is very easy for a new node to sync up to the current state from genesis. The new node would need to do the following:</p>
 <ol>
-<li>Download only the first parts of the blocks (i.e., without full account/note states) starting at the genesis up until the latest block.</li>
+<li>Download only the first part of the blocks (i.e., without full account/note states) starting at the genesis up until the latest block.</li>
 <li>Verify all ZKPs in the downloaded blocks. This will be super quick (exponentially faster than re-executing original transactions) and can also be done in parallel.</li>
 <li>Download the current states of account, note, and nullifier databases.</li>
 <li>Verify that the downloaded current state matches the state commitment in the latest block.</li>

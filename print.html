@@ -223,83 +223,109 @@
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
-<p>The Polygon Miden Architecture decribes the concepts of how the participants of the network can interact with each other. The architecture reflects the design goal: We aim to build an Ethereum scaling solution that extends its feature set. We want to enable developers to build faster, safer and more private dApps. Rollups allow the creation of new design spaces while retaining the collateral security of Ethereum. This is where to innovate, whereas the base layer should provide stability and evolve slowly.</p>
-<p>The <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> is our inspiration for achieving concurrent, local state changes in a distributed system like a blockchain. In the actor model, actors play the role of little state machines, meaning each actor is responsible for their own state. Actors have inboxes to send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
-<h2 id="concepts-in-miden"><a class="header" href="#concepts-in-miden">Concepts in Miden</a></h2>
-<p>Users can interact on the network executing transactions. In Polygon Miden, there are accounts and notes, both of which can hold assets. Transactions can be understood as facilitating account state changes. Basically, they take one single account and some notes as input and output the same account at a new state together with some other notes.</p>
-<p>The concepts which constitutes the Miden Architecture are</p>
+<p>The Miden Architecture document describes the concept of how the participants of the network interact with each other in Polygon Miden. The architecture reflects our design goal of <strong>building an Ethereum-scaling solution that extends its feature set</strong>. Miden enables developers to build faster, safer, and more private decentralized applications. Rollups allow the creation of new design spaces while retaining the collateral economic security of Ethereum. This is where we innovate while the base layer provides stability and keeps evolving slowly.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/Actor_model"><strong>Actor Model</strong></a> is our inspiration for achieving concurrent, local state changes in distributed systems like a blockchain. In the Actor Model, actors play the role of little state machines, meaning each actor is responsible for their own state. Actors have inboxes to send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
+<h2 id="basic-concepts"><a class="header" href="#basic-concepts">Basic Concepts</a></h2>
+<p>Users can interact with the network by executing transactions. There are <strong>Accounts</strong> and <strong>Notes</strong> in Polygon Miden, both of which can hold assets. Transactions can be thought of as facilitating changes to account states. They basically take one single account and certain notes as input and output the same account in a different condition along with some other notes.</p>
+<p>The Miden architecture's core concepts are as follows: </p>
 <ul>
-<li>Accounts and notes and the transaction model</li>
-<li>State and execution model</li>
+<li>Accounts, Notes and Transaction model</li>
+<li>State and Execution model</li>
 </ul>
-<h2 id="transaction-life-cycle"><a class="header" href="#transaction-life-cycle">Transaction life cycle</a></h2>
-<p>To illustrate the core protocol, let's look at how Alice can send Bob 5 MATIC in Polygon Miden. The core concepts of Polygon Miden are Accounts, Notes and Transactions.</p>
-<p><em>Note: Because of the asynchronous execution model two transactions are needed to transfer the assets.</em></p>
+<h2 id="transaction-life-cycle"><a class="header" href="#transaction-life-cycle">Transaction Life Cycle</a></h2>
+<p>Let's examine how Alice can send Bob 5 MATIC in Polygon Miden to demonstrate the core protocol. We'll be showcasing all three basic concepts i.e., Accounts, Notes, and Transactions.</p>
+<p><em>Note: Due to the asynchronous execution model, the assets must be transferred in two separate transactions.</em></p>
+<p>Let's assume that there exist two accounts in Miden that belong to Alice and Bob respectively.</p>
+<ul>
+<li>
+<p>Alice owns an <strong>Account</strong> that holds her assets.</p>
 <p align="center">
-    <img src="./diagrams/architecture/transaction_lifecycle/Account_Alice_1.png">
-</p>
-<p>Alice owns an account that holds her assets.</p>
+      <img src="./diagrams/architecture/transaction_lifecycle/Account_Alice_1.png">
+  </p>
+</li>
+<li>
+<p>Now, Alice executes a <strong>Transaction</strong> that creates a <strong>Note</strong> carrying 5 MATIC and changing her <strong>Account</strong> balance by 5 MATIC.</p>
 <p align="center">
-    <img src="./diagrams/architecture/transaction_lifecycle/Transaction_1.png">
-</p>
-<p>Alice can execute a transaction that creates a note carrying 5 MATIC and changing her account to own 5 MATIC less.</p>
+      <img src="./diagrams/architecture/transaction_lifecycle/Transaction_1.png">
+  </p>
+</li>
+<li>
+<p>In Miden, there would be Alice's account, the note and Bob's account (becuase Bob hasn't consumed the note yet).</p>
 <p align="center">
-    <img src="./diagrams/architecture/transaction_lifecycle/Account_Note_Account.png">
-</p>
-<p>Now in Miden there would be Alice's account, the note, and Bob's account. Because Bob hasn't consumed the note yet.</p>
+      <img src="./diagrams/architecture/transaction_lifecycle/Account_Note_Account.png">
+  </p>
+</li>
+<li>
+<p>For Bob to finally receive the 5 MATIC, he needs to consume the note that Alice created in her transaction. To do that, Bob needs to execute a second transaction.</p>
 <p align="center">
-    <img src="./diagrams/architecture/transaction_lifecycle/Transaction_2.png">
-</p>
-<p>For Bob to finally receive the 5 MATIC, he needs to consume the note that Alice created in her transaction. To do so, Bob needs to execute a second transaction.</p>
+      <img src="./diagrams/architecture/transaction_lifecycle/Transaction_2.png">
+  </p>
+</li>
+<li>
+<p>Now, Bob gets the 5 MATIC in his account. Voila! the transfer of assets is completed.</p>
 <p align="center">
-    <img src="./diagrams/architecture/transaction_lifecycle/Account_Bob_1.png">
-</p>
-<p>Now, Bob got 5 MATIC in his account.</p>
+      <img src="./diagrams/architecture/transaction_lifecycle/Account_Bob_1.png">
+  </p>
+</li>
+</ul>
 <h2 id="state-and-execution-model"><a class="header" href="#state-and-execution-model">State and Execution Model</a></h2>
-<p>The state model defines how the current state of all accounts and notes at a certain point in time can be thought of. And the execution model defines the rules about how this state progresses from <code>t</code> to <code>t+1</code>.</p>
+<p><strong>State model</strong> defines how the current state of all accounts and notes at a certain point in time can be thought of. And the <strong>Execution model</strong> defines the rules about how this state progresses from <code>t</code> to <code>t+1</code>.</p>
+<p>In the upcoming sections of this documentation, we'll dive deeper into State and Exectuions as well.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="accounts"><a class="header" href="#accounts">Accounts</a></h1>
-<p>An account is an entity which holds assets and defines rules of how these assets can be transferred. The diagram below illustrates basic components of an account. In Miden every account is a smart contract.</p>
+<p>Accounts are entities that hold assets and determine the rules for transferring those assets. The figure below depicts the fundamental components of an account. <strong>Every account in Miden is inherently a smart contract</strong>.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/account/Account_Definition.png">
 </p>
-<p>In the above:</p>
+<p>In the above picture, you can see:</p>
 <ul>
-<li><strong>Account ID</strong> is a unique identifier of an account which does not change throughout its lifetime.</li>
-<li><strong>Storage</strong> is user-defined data which can be stored in an account.</li>
-<li><strong>Nonce</strong> is a counter which must be incremented whenever account state changes.</li>
-<li><strong>Vault</strong> is collection of assets stored in an account.</li>
-<li><strong>Code</strong> is a collection of functions which define an external interface for an account.</li>
+<li><strong>Account ID →</strong> a unique identifier of an account which does not change throughout its lifetime</li>
+<li><strong>Storage →</strong> a user-defined data which can be stored in an account</li>
+<li><strong>Nonce →</strong> a counter which must be incremented whenever account state changes</li>
+<li><strong>Vault →</strong> a collection of assets stored in an account</li>
+<li><strong>Code →</strong> a collection of functions which define an external interface for an account</li>
 </ul>
 <h2 id="account-id"><a class="header" href="#account-id">Account ID</a></h2>
-<p>8 bytes (60 bit) long identifier for the account. The first three significant bits specify its type and the storage mode. There are four types of accounts in Miden that can be stored in two differnt ways:</p>
-<h3 id="regular-account-with-updatable-code"><a class="header" href="#regular-account-with-updatable-code">Regular account with updatable code</a></h3>
-<p>This account type will be used by most users. They can specify and change their code and use this account for a wallet. The Account ID will start with <code>00</code>.</p>
-<h3 id="regular-account-with-immutable-code"><a class="header" href="#regular-account-with-immutable-code">Regular account with immutable code</a></h3>
-<p>This account type will be used by most regular smart contracts. Once deployed the code should not change and no one should be able to change it. The Account ID will start with <code>01</code>.</p>
-<h3 id="fungible-asset-faucet-with-immutable-code"><a class="header" href="#fungible-asset-faucet-with-immutable-code">Fungible asset faucet with immutable code</a></h3>
-<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>.</p>
-<h3 id="non-fungible-asset-faucet-with-immutable-code"><a class="header" href="#non-fungible-asset-faucet-with-immutable-code">Non-fungible asset faucet with immutable code</a></h3>
-<p>Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
-<h3 id="account-storage-mode"><a class="header" href="#account-storage-mode">Account storage mode</a></h3>
-<p>Account data - stored by the Miden Node - can be public or private. The third most significant bit of the ID specifies whether the account data is public <code>0</code> or private <code>1</code>.</p>
-<ul>
-<li>Accounts with <strong>public state</strong>, where the actual state is stored on chain. These would be similar to how accounts work in public blockchains.</li>
-<li>Accounts with <strong>private state</strong>, where only the hash of the account is stored on chain. The hash is defined as: <br />
-<code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code></li>
-</ul>
-<h3 id="example-account-id"><a class="header" href="#example-account-id">Example account ID</a></h3>
+<p>The account identifier is <strong>8 bytes (64 bits)</strong> long. Its type and storage mode are specified by the first three significant bits. Miden has four different types of accounts that can be saved in two different ways. Below diagram depicts an example Account ID.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/account/Account_ID.png">
 </p>
+<h3 id="account-types"><a class="header" href="#account-types">Account Types</a></h3>
+<ol>
+<li>
+<p>Regular account with updatable code
+This account type will be used by most users. They can specify and change their code and use this account for connecting with a wallet. The Account ID will always start with <code>00</code>.</p>
+</li>
+<li>
+<p>Regular account with immutable code
+This account type will be used by most smart contracts. The code should not change after it is deployed, and no one should be able to update it. The Account ID will begin with the letter '01'.</p>
+</li>
+<li>
+<p>Fungible asset faucet with immutable code
+Assets need to be created by accounts in Miden. The Account ID will start with <code>10</code>. </p>
+</li>
+<li>
+<p>Non-fungible asset faucet with immutable code
+Assets need to be created by accounts in Miden. The Account ID will start with <code>11</code>.</p>
+</li>
+</ol>
+<h3 id="account-storage-modes"><a class="header" href="#account-storage-modes">Account Storage Modes</a></h3>
+<p>Account data which is stored in a Miden Node can be either <code>public</code> or <code>private</code>. The third most significant bit (<a href="https://en.wikipedia.org/wiki/Bit_numbering">MSb</a>) of the Account ID specifies whether the account data is public (<code>0</code>) or private (<code>1</code>).</p>
+<ol start="0">
+<li>Accounts with <strong>public state</strong> store their actual state on chain, similar to how accounts work in public blockchains like Ethereum.</li>
+<li>Accounts with <strong>private state</strong> store only the hash of their account on chain. The hash is defined as: <br />
+<code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code></li>
+</ol>
 <h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
-<p>User-defined data that can be stored in an account. Account storage is composed of two components. The first component is a simple sparse Merkle tree of depth 8 which is index addressable. This provides the user with 256 Word slots. Users that require additional storage can use the second component which is a <code>MerkleStore</code>. This will allow the user to store any Merkle structures they need. This is achieved by storing the root of the Merkle structure as a leaf in the simple sparse merkle tree. When <code>AccountStorage</code> is serialized it will check to see if any of the leafs in the simple sparse Merkle tree are Merkle roots of other Merkle structures. If any Merkle roots are found then the Merkle structures will be persisted in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
-<p>TODO ADD STORAGE DIAGRAM</p>
+<p>Storage refers to <code>AccountStorage</code>, the user-defined data that can be stored in an account. Account storage is made up of two components. The first component is an index addressable basic Sparse Merkle Tree of depth 8. This gives the user 256-word slots.</p>
+<p>Users that require additional storage can use the second component which is a <code>MerkleStore</code>. This will allow the user to store any Merkle structures they need. This is achieved by storing the Merkle structure's root as a leaf in the simple Sparse Merkle Tree. When <code>AccountStorage</code> is serialized, it will examine the leaves of the simple Sparse Merkle Tree to see whether any of them are Merkle roots of other Merkle structures. If any Merkle roots are found, the Merkle structures will be saved in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
+<ul>
+<li>TODO ADD STORAGE DIAGRAM</li>
+</ul>
 <h2 id="nonce"><a class="header" href="#nonce">Nonce</a></h2>
-<p>Counter which must be incremented whenever the account state changes. Nonce values must be strictly monotonically increasing and can be incremented by any value smaller than 2^{32} for every account update.</p>
+<p>It is basically a counter which must be incremented whenever the account state changes. Nonce values must be <strong>strictly monotonically increasing</strong> and can be incremented by any value smaller than 2<sup>32</sup> for every account update.</p>
 <h2 id="vault"><a class="header" href="#vault">Vault</a></h2>
-<p>Asset container for an account.</p>
-<p>An account vault can contain an unlimited number of assets. The assets are stored in a Sparse
+<p>Vault is the asset container of an account. It can contain an unlimited number of assets. The assets are stored in a Sparse
 Merkle tree as follows:</p>
 <ul>
 <li>For fungible assets, the index of a node is defined by the issuing faucet ID, and the value
@@ -310,127 +336,126 @@ the value of the node.</li>
 </ul>
 <p>An account vault can be reduced to a single hash which is the root of the Sparse Merkle tree.</p>
 <h2 id="code"><a class="header" href="#code">Code</a></h2>
-<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by note scripts. Functions exposed by the account have the following properties:</p>
+<p>Every account in Miden is a smart contract with an interface that exposes functions that note scripts can call.  The interface for accounts is referred to as Code.</p>
+<p>The account's exposed functions have the following properties:</p>
 <ul>
 <li>Functions are actually roots of <a href="https://wiki.polygon.technology/docs/miden/user_docs/assembly/main">Miden program MASTs</a> (i.e., 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
-<li>Only account functions have mutable access to an account's storage and vault. Said another way, the only way to modify an account's internal state is through one of account's functions.</li>
+<li>Only account functions have mutable access to an account's storage and vault. Therefore, the only way to modify an account's internal state is through one of account's functions.</li>
 <li>Account functions can take parameters and can create new notes.</li>
 </ul>
-<h1 id="account-creation"><a class="header" href="#account-creation">Account creation</a></h1>
-<p>For an account to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#account-database">Account DB</a> kept by the Miden Node(s). However, new accounts can be created locally by users using a wallet.</p>
+<h2 id="account-creation"><a class="header" href="#account-creation">Account creation</a></h2>
+<p>For an account to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#account-database">Account DB</a> kept by the Miden Node(s). However, new accounts can be created locally by users through a wallet.</p>
 <p>The process is as follows:</p>
 <ul>
-<li>Alice grinds a new Account ID according to the account types (see below) using a wallet</li>
-<li>Alice's Miden Client requests the Miden Node if new Account ID already exists</li>
-<li>Alice shares the new Account ID to Bob, e.g. when Alice wants to receive funds</li>
+<li>Alice grinds a new Account ID (according to the account types) using a wallet</li>
+<li>Alice's Miden Client requests the Miden Node to check if new Account ID already exists</li>
+<li>Alice shares the new Account ID to Bob (eg. when Alice wants to receive funds)</li>
 <li>Bob executes a transaction and creates a note that contains an asset for Alice</li>
 <li>Alice consumes Bob's note to receive the asset in a transaction</li>
-<li>Depending on the account storage mode (private vs. public) and transaction type (local vs. network) the Operator receives new Account ID eventually and - if transaction is correct - adds the ID to the Account DB</li>
+<li>Depending on the account storage mode (<code>private</code> or <code>public</code>) and transaction type (local or network), the Operator receives new Account ID eventually and adds the ID to the Account DB if transaction is correct.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="notes"><a class="header" href="#notes">Notes</a></h1>
-<p>A note is a way of transferring assets between accounts. A note consists of a vault and a script as shown in the diagram below.</p>
+<p>A note is a way of transferring assets between accounts. It consists of a vault and a script as shown in the diagram below.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/note/Note.png">
 </p>
-<p>In the above:</p>
+<p>As shown in the above picture:</p>
 <ul>
-<li><strong>Vault</strong> is a set of assets that are stored in note.</li>
-<li><strong>Script</strong> that must be executed in a context of some account to claim the assets.</li>
-<li><strong>Inputs</strong> which are placed onto the stack before a note's script is executed.</li>
-<li><strong>Serial number</strong> is the note's identifier.</li>
+<li><strong>Vault →</strong> a set of assets that are stored in note</li>
+<li><strong>Script →</strong> it must be executed in a context of some account to claim the assets</li>
+<li><strong>Inputs →</strong> these are placed onto the stack before a note's script is executed</li>
+<li><strong>Serial number →</strong> a note's unique identifier</li>
 </ul>
-<h2 id="vault-1"><a class="header" href="#vault-1">Vault</a></h2>
-<p>Asset container for a note. A note vault can contain up to 255 assets. The entire vault can be reduced to a single hash which is computed by sequentially hashing the list of the vault's assets.</p>
+<h3 id="vault-1"><a class="header" href="#vault-1">Vault</a></h3>
+<p>Vault is the asset container for a note. It can contain up to 255 assets. The entire vault can be reduced to a single hash which is computed by sequentially hashing the list of the vault's assets.</p>
 <p>A note's vault is basically the same as an account's vault.</p>
-<h2 id="script"><a class="header" href="#script">Script</a></h2>
-<p>Unlike an account, a note has a single executable script. This script is also a root of a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MAST</a>. A script is always executed in the context of a single account, and thus, may invoke account's functions. A note script does not have to call any of account's functions. More generally, a note's script can call zero or more of an account's function.</p>
-<h2 id="inputs"><a class="header" href="#inputs">Inputs</a></h2>
+<h3 id="script"><a class="header" href="#script">Script</a></h3>
+<p>Unlike an account, a note has a single executable script. This script is also a root of a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MAST</a>. A script is always executed in the context of a single account, and thus, may invoke account's functions. A note script does not have to call any of account's functions. More generally, a note's script can call zero or more of an account's functions.</p>
+<h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
 <p>A note script can take parameters (passed via the stack) as inputs.</p>
-<h2 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h2>
+<h3 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h3>
 <p>A note's serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
-<h1 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h1>
-<p>For every note the Miden Node stores metadata in the Note DB. This metadata includes:</p>
+<h2 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h2>
+<p>For every note, the Miden Node stores metadata in the Notes DB. This metadata includes: </p>
 <ul>
-<li>user-defined tag (1 field element)</li>
-<li>sender (1 field element)</li>
-<li>number of assets contained in the note (1 field element)</li>
+<li>User-defined tag (1 field element)</li>
+<li>Sender (1 field element)</li>
+<li>Number of assets contained in the note (1 field element)</li>
 </ul>
-<hr />
-<h1 id="types-of-notes"><a class="header" href="#types-of-notes">Types of notes</a></h1>
-<p>There are two types of notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stores publicly with all data.</p>
-<h1 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h1>
-<p>The note hash is computed as:</p>
+<h2 id="types-of-notes"><a class="header" href="#types-of-notes">Types of notes</a></h2>
+<p>There are two types of notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash or can be stored publicly with all the data.</p>
+<h2 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h2>
+<p>The note hash is computed as: </p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
 <p>This achieves the following properties:</p>
 <ul>
 <li>Every note can be reduced to a single unique hash.</li>
-<li>To compute a note's hash, we do not need to know the note's serial_num. Knowing the hash
-of the serial_num (as well as script hash, input hash and note vault) is sufficient.</li>
+<li>To compute a note's hash, we do not need to know the note's serial number. Knowing the hash
+of the <code>serial_num</code> (as well as script hash, input hash and note vault) is sufficient.</li>
 <li>Moreover, we define <code>recipient</code> as: <br />
 <code>hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash)</code>. This allows computing the note hash from recipient and note vault.</li>
 <li>We compute the hash of <code>serial_num</code> as <code>hash(serial_num, [0; 4])</code> to simplify processing within
 the VM.</li>
 </ul>
-<h1 id="note-nullifier"><a class="header" href="#note-nullifier">Note nullifier</a></h1>
-<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed.</p>
-<p>The nullifier is computed as <code>hash(serial_num, script_hash, input_hash, vault_hash)</code>.
-This achieves the following properties:</p>
+<h2 id="note-nullifier"><a class="header" href="#note-nullifier">Note nullifier</a></h2>
+<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information that whether a note was already consumed or not. </p>
+<p>The nullifier is computed as <code>hash(serial_num, script_hash, input_hash, vault_hash)</code>.</p>
+<p>This achieves the following properties:</p>
 <ul>
 <li>Every note can be reduced to a single unique nullifier.</li>
 <li>We cannot derive a note's hash from its nullifier.</li>
-<li>To compute the nullifier we must know all components of the note: <code>serial_num</code>, <code>script_hash</code>, <code>input_hash</code> and <code>vault_hash</code>.</li>
+<li>To compute the nullifier, we must know all components of the note: <code>serial_num</code>, <code>script_hash</code>, <code>input_hash</code>, and <code>vault_hash</code>.</li>
 </ul>
-<h1 id="note-lifecycle"><a class="header" href="#note-lifecycle">Note lifecycle</a></h1>
-<p>For a note to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> kept by the Miden Node(s). New notes are being produced when executing a transaction. They can be produced locally by users in local transactions or by the operator in a network transaction.</p>
-<p>The lifcycle is as follows:</p>
+<h2 id="lifecycle-of-a-note"><a class="header" href="#lifecycle-of-a-note">Lifecycle of a Note</a></h2>
+<p>For a note to exist, it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> kept by the Miden Node(s). New notes are produced while executing a transaction. They can be produced locally by users in local transactions or by the operator in a network transaction.</p>
+<p>The lifcycle of a note is as follows:</p>
 <ul>
-<li>A new note is being produced when a transaction is executed - regardless of the transaction type</li>
-<li>Eventually the Operator will receive the note hash and if the note is public also the corresponding note's data</li>
-<li>The Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
+<li>A new note is produced when a transaction is executed - regardless of the transaction type</li>
+<li>Operator will receive the note hash and if the note is public, it'll also receive the corresponding note's data</li>
+<li>Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
 <li>The note can now be consumed in a seperate transaction - to consume the note, the note's data must be known</li>
 <li>A note is consumed when the its nullifier in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> is set to <code>1</code></li>
-<li>Eventually the Operator will receive the note's nullifier together with a transaction proof</li>
-<li>After successful verification the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
+<li>Operator will receive the note's nullifier together with a transaction proof </li>
+<li>After successful verification, the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transactions"><a class="header" href="#transactions">Transactions</a></h1>
 <p>Asset transfers between accounts are done by executing transactions. A transaction is always executed against a single account and causes a provable state-change. It can consume zero or more notes, and it may produce zero or more notes as shown in the diagram below.</p>
-<p>It can be expressed as a state-transition function that takes an account and <code>0 to n</code> notes to map it to another version of that account and produces <code>0 to n</code> notes</p>
-<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1685em;vertical-align:-0.4185em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1691em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6698em;"><span style="top:-2.7102em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">i</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1698em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4185em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">)))</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1755em;vertical-align:-0.4236em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1742em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.677em;"><span style="top:-2.7175em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.177em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4236em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">))</span></span></span></span>
-, where  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal">cco</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">es</span></span></span></span></span></p>
-<p>It looks like</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction.png">
 </p>
-<p>In addition to specifying inputs and outputs, a transaction must also include an executable program. The transaction program has a well-defined structure which must do the following:</p>
+<p>It can be expressed as a state-transition function that takes an account and <code>0 to n</code> notes to map it to another version of that account and produces <code>0 to n</code> notes</p>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1685em;vertical-align:-0.4185em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1691em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6698em;"><span style="top:-2.7102em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">i</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1698em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4185em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1755em;vertical-align:-0.4236em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:0em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1742em;"><span style="top:-2.4003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.677em;"><span style="top:-2.7175em;"><span class="pstrut" style="height:2.7em;"></span><span class="mord mtight"><span class="mord mtight">0</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.177em;"><span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4236em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05724em;">j</span><span class="mclose">))</span></span></span></span>
+, where  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal">cco</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">s</span></span></span></span></span>, <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7224em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">o</span><span class="mord mathnormal">t</span><span class="mord mathnormal">es</span></span></span></span></span></p>
+<p>A transaction must include an executable program in addition to inputs and outputs. The transaction program has a well-defined structure and must perform the following functions:</p>
 <ol>
-<li>Build a single unified vault for all inputs.</li>
-<li>Execute scripts of all input notes (the scripts are executed one after another).</li>
-<li>Execute an optional user-defined script.</li>
-<li>Build a single unified vault for all outputs.</li>
-<li>Make sure the unified input and output vaults contain the same set of assets.</li>
+<li>Create a uniform vault for all inputs.</li>
+<li>Run scripts for all input notes (scripts are run one after the other).</li>
+<li>Run a user-defined script if desired.</li>
+<li>Create a uniform vault for all outputs.</li>
+<li>Ensure that the assets in the unified input and output vaults are the same.</li>
 </ol>
-<p>The last point ensures that a transaction does not create or destroy any assets.</p>
-<p>A transaction can also include a user-defined transaction script. <Some more info here is missing></p>
-<h2 id="execution-steps-of-a-transaction"><a class="header" href="#execution-steps-of-a-transaction">Execution steps of a transaction</a></h2>
-<p>Transaction execution consists of several steps. These steps (grouped slightly differently) are described below:</p>
+<p>The final point verifies that no assets are created or destroyed as a result of the transaction.</p>
+<p>A user-defined transaction script can also be included in a transaction.</p>
+<h2 id="execution-steps"><a class="header" href="#execution-steps">Execution Steps</a></h2>
+<p>There are various steps involved in transaction execution. These stages are detailed here (in a somewhat different order):</p>
 <ol>
-<li><strong>Prologue</strong>: during this step we build a single unified vault all all transaction inputs (account + notes).</li>
-<li><strong>Execution</strong>: during this step we first execute scripts of all input notes (one after another), and then execute an optional user-defined script (called tx script).</li>
-<li><strong>Epilogue</strong>: during this step we build a single unified vault of all transaction outputs (account + notes), and make sure it contains the same assets as the input vault.</li>
+<li><strong>Prologue</strong>: In this stage, we create a unified vault for all transaction inputs (accounts and notes).</li>
+<li><strong>Execution</strong>: In this stage, we first execute scripts for all input notes (one by one), and then an optional user-defined script (called tx script) is executed.</li>
+<li><strong>Epilogue</strong>: During this stage, we create a unified vault of all transaction outputs (accounts + notes) and ensure that it contains the same assets as the input vault.</li>
 </ol>
-<h3 id="example-1-transaction-that-sends-assets-out-of-a-wallet-creating-a-note"><a class="header" href="#example-1-transaction-that-sends-assets-out-of-a-wallet-creating-a-note">Example 1: transaction that sends assets out of a wallet (creating a note):</a></h3>
+<h3 id="example-transaction-that-sends-assets-out-of-a-wallet-creating-a-note"><a class="header" href="#example-transaction-that-sends-assets-out-of-a-wallet-creating-a-note">Example: Transaction that sends assets out of a wallet (creating a note):</a></h3>
+<p>This transaction does not consume any notes but has a transaction script that calls the send function. Send function then creates an output note (not pictured).</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction_Example_Send_Asset.png">
 </p>
-<p>This transaction does not consume any notes but has tx script which calls the send function. Send function then creates an output note (not pictured).</p>
-<h3 id="example-2-transaction-that-receives-assets-consuming-a-note"><a class="header" href="#example-2-transaction-that-receives-assets-consuming-a-note">Example 2: transaction that receives assets (consuming a note)</a></h3>
+<h3 id="example-transaction-that-receives-assets-consuming-a-note"><a class="header" href="#example-transaction-that-receives-assets-consuming-a-note">Example: Transaction that receives assets (consuming a note)</a></h3>
+<p>As opposed to the previous transaction, this transaction consumes a single note (<code>note1</code>) but does not have a tx script.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction_Example_Receive_Asset.png">
 </p>
-<p>As opposed to the previous transaction, this transaction consumes a single note (<code>note1</code>) but does not have a tx script.</p>
-<h2 id="example-3-asset-transfer-using-two-transactions"><a class="header" href="#example-3-asset-transfer-using-two-transactions">Example 3: asset transfer using two transactions</a></h2>
+<h2 id="example-asset-transfer-using-two-transactions"><a class="header" href="#example-asset-transfer-using-two-transactions">Example: Asset transfer using two transactions</a></h2>
 <p>Under this model transferring assets between accounts requires two transactions as shown in the diagram below.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction_Flow.png">
@@ -438,16 +463,16 @@ This achieves the following properties:</p>
 <p>The first transaction invokes a function on <code>account_a</code> (e.g., &quot;send&quot; function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., &quot;receive&quot; function), which also updates the internal state of <code>account_b</code>.</p>
 <p>It is important to note that both transactions can be executed asynchronously: first <code>transaction1</code> is executed, and then, some time later, <code>transaction2</code> can be executed. This opens up a few interesting possibilities:</p>
 <ul>
-<li>Owner of <code>account_b</code> two may wait until there are many notes sent to them and process all incoming notes in a single transaction.</li>
-<li>A note script may include a clause which allows the source account to consume the note after some time. Thus, if <code>account_b</code> does not consume the note after the specified time, the funds can be returned. This mechanism could be used to make sure funds sent to non-existent accounts are not lost.</li>
-<li>Neither sender nor the recipient need to know who the other side is. From the sender's perspective they just need to create <code>note1</code> (and for this they need to know the assets to be transferred and the root of the note's script) - they don't need any information on who will eventually consume the note. From the recipients perspective, they just need to consume <code>note1</code>. They don't need to know who created it.</li>
-<li>Both transactions can be executed &quot;locally&quot; - e.g., we could generate a ZKP proving that transaction1 was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. Same can be done for transaction2. Moreover, we can mix and match - e.g., transaction1 can be executed locally, but <code>transaction2</code> can be executed by the network, or vice-versa.</li>
+<li>Owner of <code>account_b</code> may wait until there are many notes sent to them and process all incoming notes in a single transaction.</li>
+<li>A note script may include a clause which allows the source account to consume the note after some time. Thus, if <code>account_b</code> does not consume the note after the specified time, the funds can be returned. This mechanism could be used to <strong>make sure funds sent to non-existent accounts are not lost</strong>.</li>
+<li>Neither sender nor the recipient need to know who the other side is. From the sender's perspective they just need to create <code>note1</code> (and for this they need to know the assets to be transferred and the root of the note's script). They don't need any information on who will eventually consume the note. From the recipient's perspective, they just need to consume <code>note1</code>. They don't need to know who created it.</li>
+<li>Both transactions can be executed &quot;locally&quot;. For example, we could generate a ZKP proving that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. Same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
 </ul>
 <h2 id="local-vs-network-transactions"><a class="header" href="#local-vs-network-transactions">Local vs. Network Transactions</a></h2>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Local_vs_Network_Transaction.png">
 </p>
-<p>There are two types of transactions: local transactions and network transactions.</p>
+<p>There are two types of transactions: local and network.</p>
 <p>For <strong>local transactions</strong>, clients executing the transactions also generate the proofs of their correct execution. So, no additional work needs to be performed by the network. Local transactions are useful for several reasons:</p>
 <ol>
 <li>They are cheaper (i.e., lower fees) as ZKPs are already generated by the clients.</li>
@@ -461,25 +486,24 @@ This achieves the following properties:</p>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="state"><a class="header" href="#state">State</a></h1>
-<p>The state of the network describes the current condition of all individual accounts and note states. It describes what is currently the case.</p>
-<p>The Miden Node(s) maintain three databases to describe the state:</p>
+<p>The state of the network describes the current condition of all individual accounts and note states. The Miden Node(s) maintain three databases to describe the state:</p>
 <ol>
-<li>A database of accounts.</li>
-<li>A database of notes.</li>
+<li>A database of accounts,</li>
+<li>A database of notes, and</li>
 <li>A database of nullifiers for already consumed notes.</li>
 </ol>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/State.png">
 </p>
 <h2 id="state-components"><a class="header" href="#state-components">State components</a></h2>
-<p>These databases are represented by authenticated data structures, such that we can easily prove that items were added to or removed from a database, and a commitment to the database would be very small.</p>
-<h3 id="account-database"><a class="header" href="#account-database">Account database</a></h3>
-<p>Current account states are recorded in a Sparse Merkle tree which maps account IDs to account hashes, where the account hash is computed as</p>
+<p>These databases are represented by authenticated data structures, which allows us to quickly show that objects were added to or withdrawn from a database, and a commitment to the database is minimal.</p>
+<h3 id="account-db"><a class="header" href="#account-db">Account DB</a></h3>
+<p>Current account states are recorded in a Tiered Sparse Merkle Tree which maps account IDs to account hashes, where the account hash is computed as:</p>
 <p><code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code>.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Account_DB.png">
 </p>
-<p>As described in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">accounts</a>, there are two types of accounts:</p>
+<p>As described in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">this document</a>, there are two types of accounts:</p>
 <ul>
 <li><strong>Public accounts</strong> where all account data is stored on-chain.</li>
 <li><strong>Private accounts</strong> where only the hashes of accounts are stored on-chain.</li>
@@ -487,8 +511,8 @@ This achieves the following properties:</p>
 <blockquote>
 <p>Losing a state of a private account would mean loss of funds (as the user won't be able to execute transactions) in a similar manner as a loss of a private key would. This problem can be easily mitigated by storing encrypted account state in a cloud or backing it up somewhere else. Unlike storing private keys in the cloud, this does not compromise privacy or security of an account.</p>
 </blockquote>
-<p>Note: Having many (or even most) of the accounts be private is very beneficial for the network as a private account contributes only 40 bytes to the global state (8 bytes account ID + 32 bytes account hash). Or, said another way, 1 billion private accounts takes up only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> GB of state.</p>
-<h3 id="note-database"><a class="header" href="#note-database">Note database</a></h3>
+<p>Note: Having many (or even most) of the accounts be private is very beneficial for the network as a private account contributes only 40 bytes to the global state (8 bytes account ID + 32 bytes account hash). Simply put, 1 billion private accounts takes up only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> GB of state.</p>
+<h3 id="note-db"><a class="header" href="#note-db">Note DB</a></h3>
 <p>Notes are recorded in an append-only accumulator, a <a href="https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md">Merkle Mountain Range</a>. This is important for two reasons:</p>
 <ol>
 <li>Membership witnesses against such an accumulator needs to be updated very infrequently.</li>
@@ -501,44 +525,39 @@ This achieves the following properties:</p>
 <li><strong>Private notes</strong> where only a note's hash is recorded in the state.</li>
 </ul>
 <p>As with accounts, there is a strong incentive to use private notes as they result in lower fees. This is also beneficial to the network as a private note adds only 64 bytes to the state (32 bytes when it is produced, and 32 bytes when it is consumed).</p>
-<p>Note database look as shown on the diagram below. Each leaf is a block header which contains the commitment to all notes created in that block. Note, the size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
+<p>As shown in the below diagram, each leaf is a block header which contains the commitment to all notes created in that block. Note that the size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Note_DB.png">
 </p>
-<p>Using a Merkle Mountain Range (append-only accumulator) means that we can't remove individual elements from it. This seemingly means that the size of the note database would grow indefinitely. Moreover, at high tps, it would grow very quickly: at 1K TPS we'd be adding about 1TB/year to the database.</p>
+<p>Using a Merkle Mountain Range (append-only accumulator) means that we can't remove individual elements from it. This seemingly means that the size of the note database would grow indefinitely. Moreover, at high TPS, it would grow very quickly: at 1K TPS we'd be adding about 1TB/year to the database.</p>
 <p>However, we need to explicitly store only the unconsumed public notes and enough info to construct membership proofs against them. Private notes, as well as public notes which have already been consumed, can be safely discarded. Such notes would still remain in the accumulator, but there is no need to store them explicitly as the append-only accumulator can be updated without knowing all items stored in it. This reduces actual storage requirements to a fraction of the database's nominal size.</p>
 <p>ToDo: Describe and specify life-time restrictions for notes on the database.</p>
-<h3 id="nullifier-database"><a class="header" href="#nullifier-database">Nullifier database</a></h3>
-<p>Nullifiers provide information on whether a specific note has been consumed yet. Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps nullifiers to <code>0</code> or <code>1</code>. Using this, one can check and prove that a given nullifier is not in the database.</p>
+<h3 id="nullifier-db"><a class="header" href="#nullifier-db">Nullifier DB</a></h3>
+<p>Nullifier DB provides information on whether a specific note has been consumed yet. Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps nullifiers to <code>0</code> or <code>1</code>. Using this, one can check and prove that a given nullifier is not in the database. </p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Nullifier_DB.png">
 </p>
-<p>To prove that nullifier <code>11</code> is not in the database the operator needs to provide a Merkle path to its node, and then show that the value in that node is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>. In our case nullifiers are 32 bytes each, and thus, the height of the Sparse Merkle tree need to be 256.</p>
-<p>To be able to add new nullifiers to the database, operators needs to maintain the entire nullifier set - otherwise they would not be able to compute the new root of the tree.</p>
+<p>To prove that nullifier <code>11</code> is not in the database, the Operator needs to provide a Merkle path to its node, and then show that the value in that node is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>. In our case nullifiers, are 32 bytes each and the height of the Sparse Merkle tree need to be 256.</p>
+<p>To be able to add new nullifiers to the database, Operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree. </p>
 <p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than 6 month old, there must be a merkle path provided to the Miden Node for verification.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
-<p>The Execution Model describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks.</p>
-<p>Polygon Miden is a Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block.</p>
+<p>Polygon Miden is an Ethereum Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block. The Execution Model describes how the state progresses on <strong>an individual level via transactions</strong> and <strong>at the global level expressed as aggregated state updates in blocks</strong>.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/execution/Execution.png">
 </p>
 <h2 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h2>
 <p>Every transaction will result in a ZK proof that attests to its correctness.</p>
-<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local transactions and network transactions. For every transaction there is a proof - either created by the user in the Miden Client or by the operator using the Miden Node.</p>
+<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local and network. For every transaction there is a proof which is either created by the user in the Miden Client or by the Operator using the Miden Node. </p>
 <h2 id="transaction-batching"><a class="header" href="#transaction-batching">Transaction Batching</a></h2>
-<p>To reduce the required space on the Ethereum blockchain, transaction proofs are being aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof thereof. Verifying a STARK proof within the VM is relatively efficient - but it is still a pretty costly operation (we aim for 2^16 cycles).</p>
+<p>To reduce the required space on the Ethereum blockchain, transaction proofs are aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof. Verifying a STARK proof within the VM is relatively efficient but it is still a pretty costly operation (we aim for 2<sup>16</sup> cycles).</p>
 <h2 id="block-production"><a class="header" href="#block-production">Block Production</a></h2>
 <p>Several batch proofs are being aggregated together into one block. This can not happen in parallel and must be done by the Miden Operator running the Miden Node. The idea is the same, using recursive verification.</p>
-<h1 id="state-progress"><a class="header" href="#state-progress">State progress</a></h1>
-<p>At the beginning Miden will have a centralized operator running a Miden Node.</p>
-<ul>
-<li>The Miden Node collects proofs or transactions to be proven from the users.</li>
-<li>The Miden Node aggregates collected transaction proofs into batches using recursive verification.</li>
-<li>The Miden Node aggregates batch proofs into blocks.</li>
-<li>The blocks get submitted to Ethereum, and once a block is included in the L1 chain, the rollup chain is assumed to have moved to the next state. (not specified yet)</li>
-</ul>
-<p>A block which the Miden Node produces looks like this:</p>
+<h2 id="state-progress"><a class="header" href="#state-progress">State progress</a></h2>
+<p>At the beginning, Miden will have a centralized Operator running a Miden Node.</p>
+<p>Users will send either transaction proofs (using local execution) or transaction data (for network execution) to the Miden Node. Later on, the Miden Node will use recursive verification to aggregate transaction proofs into batches.</p>
+<p>Batch proofs are aggregated into blocks by the Miden Node. The blocks are then sent to Ethereum, and once a block is added to the L1 chain, the rollup chain is believed to have progressed to the next state.</p>
+<p>A block produced by the Miden Node looks somewhat like this:</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/execution/Block.png">
 </p>
@@ -547,7 +566,7 @@ This achieves the following properties:</p>
 <li>The included <strong>zk proof</strong> attests that given a state commitment from the previous block, there was a sequence of valid transactions executed that resulted in the new state commitment, and also output included state updates.</li>
 <li>The block also contains full account and note data for public accounts and notes. For example, if account <code>123</code> is a public account which was updated, in the <em>state updates</em> section we'd have a records for it as <code>(123, 0x456..)</code>. The full new state of this account (which should hash to <code>0x456..</code>) would be included in a separate section.</li>
 </ul>
-<p>To verify that a block describes a valid transition, we do the following:</p>
+<p>To verify that a block describes a valid state transition, we do the following:</p>
 <ol>
 <li>Compute hashes of public account and note states.</li>
 <li>Make sure these hashes match records in the <em>state updates</em> section.</li>
@@ -559,10 +578,10 @@ This achieves the following properties:</p>
 </ul>
 </li>
 </ol>
-<p>The above can be performed by a verifier contract on Ethereum.</p>
-<p>This structure has another nice property: it is very easy for a new node to sync up to the current state from genesis. The new node would need to do the following:</p>
+<p>The above can be performed by a verifier contract on Ethereum L1.</p>
+<p>This structure has another nice property. It is very easy for a new node to sync up to the current state from genesis. The new node would need to do the following:</p>
 <ol>
-<li>Download only the first parts of the blocks (i.e., without full account/note states) starting at the genesis up until the latest block.</li>
+<li>Download only the first part of the blocks (i.e., without full account/note states) starting at the genesis up until the latest block.</li>
 <li>Verify all ZKPs in the downloaded blocks. This will be super quick (exponentially faster than re-executing original transactions) and can also be done in parallel.</li>
 <li>Download the current states of account, note, and nullifier databases.</li>
 <li>Verify that the downloaded current state matches the state commitment in the latest block.</li>
