@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/overview.html"><strong aria-hidden="true">1.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../introduction/getting-started.html"><strong aria-hidden="true">1.2.</strong> Getting started</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/accounts.html"><strong aria-hidden="true">2.1.</strong> Accounts</a></li><li class="chapter-item expanded "><a href="../architecture/notes.html"><strong aria-hidden="true">2.2.</strong> Notes</a></li><li class="chapter-item expanded "><a href="../architecture/assets.html"><strong aria-hidden="true">2.3.</strong> Assets</a></li><li class="chapter-item expanded "><a href="../architecture/transactions.html"><strong aria-hidden="true">2.4.</strong> Transactions</a></li><li class="chapter-item expanded "><a href="../architecture/state.html" class="active"><strong aria-hidden="true">2.5.</strong> State</a></li><li class="chapter-item expanded "><a href="../architecture/execution.html"><strong aria-hidden="true">2.6.</strong> Execution</a></li><li class="chapter-item expanded "><a href="../architecture/assets.html"><strong aria-hidden="true">2.7.</strong> Assets</a></li></ol></li><li class="chapter-item expanded "><a href="../network.html"><strong aria-hidden="true">3.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/miden-clients.html"><strong aria-hidden="true">3.1.</strong> Miden Clients</a></li><li class="chapter-item expanded "><a href="../network/miden-node.html"><strong aria-hidden="true">3.2.</strong> Miden Node</a></li><li class="chapter-item expanded "><a href="../network/verifier-contract.html"><strong aria-hidden="true">3.3.</strong> Verifier Contract</a></li><li class="chapter-item expanded "><a href="../network/bridge.html"><strong aria-hidden="true">3.4.</strong> Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../developer-info.html"><strong aria-hidden="true">4.</strong> Developer info</a></li><li class="chapter-item expanded "><a href="../specifications.html"><strong aria-hidden="true">5.</strong> Specifications</a></li><li class="chapter-item expanded "><a href="../crypto-primitives.html"><strong aria-hidden="true">6.</strong> Cryptographic primitives</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crypto-primitives/tsmt.html"><strong aria-hidden="true">6.1.</strong> Tiered Sparse Merkle Tree (TSMT)</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/overview.html"><strong aria-hidden="true">1.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../introduction/getting-started.html"><strong aria-hidden="true">1.2.</strong> Getting started</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/accounts.html"><strong aria-hidden="true">2.1.</strong> Accounts</a></li><li class="chapter-item expanded "><a href="../architecture/notes.html"><strong aria-hidden="true">2.2.</strong> Notes</a></li><li class="chapter-item expanded "><a href="../architecture/assets.html"><strong aria-hidden="true">2.3.</strong> Assets</a></li><li class="chapter-item expanded "><a href="../architecture/transactions.html"><strong aria-hidden="true">2.4.</strong> Transactions</a></li><li class="chapter-item expanded "><a href="../architecture/state.html" class="active"><strong aria-hidden="true">2.5.</strong> State</a></li><li class="chapter-item expanded "><a href="../architecture/execution.html"><strong aria-hidden="true">2.6.</strong> Execution</a></li></ol></li><li class="chapter-item expanded "><a href="../network.html"><strong aria-hidden="true">3.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/miden-clients.html"><strong aria-hidden="true">3.1.</strong> Miden Clients</a></li><li class="chapter-item expanded "><a href="../network/miden-node.html"><strong aria-hidden="true">3.2.</strong> Miden Node</a></li><li class="chapter-item expanded "><a href="../network/verifier-contract.html"><strong aria-hidden="true">3.3.</strong> Verifier Contract</a></li><li class="chapter-item expanded "><a href="../network/bridge.html"><strong aria-hidden="true">3.4.</strong> Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../developer-info.html"><strong aria-hidden="true">4.</strong> Developer info</a></li><li class="chapter-item expanded "><a href="../specifications.html"><strong aria-hidden="true">5.</strong> Specifications</a></li><li class="chapter-item expanded "><a href="../crypto-primitives.html"><strong aria-hidden="true">6.</strong> Cryptographic primitives</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crypto-primitives/tsmt.html"><strong aria-hidden="true">6.1.</strong> Tiered Sparse Merkle Tree (TSMT)</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -171,60 +171,72 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="state"><a class="header" href="#state">State</a></h1>
-<p>The state of the network describes the current condition of all individual accounts and note states. The Miden Node(s) maintain three databases to describe the state:</p>
+<p>The state of the Miden rollup describes the current condition of all accounts and note states. It describes what is currently the case. With its state model, using concurrent offchain state, Polygon Miden aims to realise private transactions, and execution and state bloat minimization. </p>
+<p>Privacy is realised from a UTXO-like state model consisting of notes and nullifiers combined with offchain execution using zero-knowledge proofs. Execution bloat happens when transactions get re-executed by all participants of the network. State bloat describes the ever growing state stored in blockchain nodes. Polygon Miden addresses these challenges via its state model that enables concurrent offchain execution and offchain storage.</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Minimize execution bloat</th><th>Minimize state bloat</th></tr></thead><tbody>
+<tr><td><strong>Result of</strong></td><td>Verfifying state by re-executing</td><td>Storing all data onchain as state</td></tr>
+<tr><td><strong>Zero-knowledge helps with</strong></td><td>Transactions executed only once</td><td>No need to know full state to validate blocks</td></tr>
+<tr><td><strong>Concurrent state model helps with</strong></td><td>Transactions executed concurrently by distinct actors</td><td>No need to kow full state to produce blocks</td></tr>
+</tbody></table>
+</div>
+<h2 id="state-components"><a class="header" href="#state-components">State components</a></h2>
+<p>The Miden Node(s) maintain three databases to describe the state:</p>
 <ol>
-<li>A database of accounts,</li>
-<li>A database of notes, and</li>
+<li>A database of accounts.</li>
+<li>A database of notes.</li>
 <li>A database of nullifiers for already consumed notes.</li>
 </ol>
 <p align="center">
-  <img src="../diagrams/architecture/state/State.png">
+  <img src="../diagrams/architecture/state/State.png" width="80%">
 </p>
-<h2 id="state-components"><a class="header" href="#state-components">State components</a></h2>
-<p>These databases are represented by authenticated data structures, which allows us to quickly show that objects were added to or withdrawn from a database, and a commitment to the database is minimal.</p>
-<h3 id="account-db"><a class="header" href="#account-db">Account DB</a></h3>
-<p>Current account states are recorded in a Tiered Sparse Merkle Tree which maps account IDs to account hashes, where the account hash is computed as:</p>
-<p><code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code>.</p>
+<p>These databases are represented by authenticated data structures, such that we can easily prove that items were added to or removed from a database, and a commitment to the database would be very small.</p>
+<p>Polygon Miden has two databases to capture the note states. The note database is append-only and stores all notes permanently. The nullifier database stores nullifiers that indicate that a note has been previsously consumed. Separating note storage into these two databases gives Polygon Miden client-side proving and advanced privacy.</p>
+<h3 id="account-database"><a class="header" href="#account-database">Account database</a></h3>
+<p>The latest account states - and data for onchain accounts - are recorded in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> which maps account IDs to account hashes and account data if needed. </p>
 <p align="center">
-  <img src="../diagrams/architecture/state/Account_DB.png">
+  <img src="../diagrams/architecture/state/Account_DB.png" width="80%">
 </p>
-<p>As described in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">this document</a>, there are two types of accounts:</p>
+<p>As described in <a href="http://localhost:3000/architecture/accounts.html#account-storage-modes">Accounts</a>, there are three types of accounts:</p>
 <ul>
-<li><strong>Public accounts</strong> where all account data is stored on-chain.</li>
-<li><strong>Private accounts</strong> where only the hashes of accounts are stored on-chain.</li>
+<li><strong>Public accounts</strong> where all account data is stored onchain.</li>
+<li><strong>Encrypted accounts</strong> where where the account data is stored onchain but in encrypted text.</li>
+<li><strong>Private accounts</strong> where only the hashes of accounts are stored onchain.</li>
 </ul>
+<p>Private accounts significantly reduce the storage overhead for nodes. A private account contributes only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> bytes to the global state (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span> bytes account ID + <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes account hash). Or, said another way, 1 billion private accounts takes up only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> GB of state.</p>
 <blockquote>
-<p>Losing a state of a private account would mean loss of funds (as the user won't be able to execute transactions) in a similar manner as a loss of a private key would. This problem can be easily mitigated by storing encrypted account state in a cloud or backing it up somewhere else. Unlike storing private keys in the cloud, this does not compromise privacy or security of an account.</p>
+<p>Losing the state of a private account would mean loss of funds (as the user won't be able to execute transactions) in a similar manner as a loss of a private key would. This problem can be easily mitigated by storing encrypted account state in a cloud or backing it up somewhere else. Unlike storing private keys in the cloud, this does not compromise privacy or security of an account.</p>
 </blockquote>
-<p>Note: Having many (or even most) of the accounts be private is very beneficial for the network as a private account contributes only 40 bytes to the global state (8 bytes account ID + 32 bytes account hash). Simply put, 1 billion private accounts takes up only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> GB of state.</p>
-<h3 id="note-db"><a class="header" href="#note-db">Note DB</a></h3>
-<p>Notes are recorded in an append-only accumulator, a <a href="https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md">Merkle Mountain Range</a>. This is important for two reasons:</p>
-<ol>
-<li>Membership witnesses against such an accumulator needs to be updated very infrequently.</li>
-<li>Old membership witnesses can be extended to be used with a new accumulator value, but this extension does not need to be done by the original witness holder.</li>
-</ol>
-<p>Both of these properties are needed for supporting local transactions and privacy.</p>
-<p>There are two types of <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a>:</p>
+<h3 id="note-database"><a class="header" href="#note-database">Note database</a></h3>
+<p>Notes are recorded in an append-only accumulator, a <a href="https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md">Merkle Mountain Range</a>. Each leaf is a block header which contains the commitment to all notes created in that block. The size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
+<p align="center">
+  <img src="../diagrams/architecture/state/Note_DB.png" width="80%">
+</p>
+<p>As described in <a href="http://localhost:3000/architecture/notes.html#note-storage-modes">Notes</a>, there are two types of <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a>:</p>
 <ul>
 <li><strong>Public notes</strong> where the entire note content is recorded in the state.</li>
 <li><strong>Private notes</strong> where only a note's hash is recorded in the state.</li>
 </ul>
-<p>As with accounts, there is a strong incentive to use private notes as they result in lower fees. This is also beneficial to the network as a private note adds only 64 bytes to the state (32 bytes when it is produced, and 32 bytes when it is consumed).</p>
-<p>As shown in the below diagram, each leaf is a block header which contains the commitment to all notes created in that block. Note that the size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
-<p align="center">
-  <img src="../diagrams/architecture/state/Note_DB.png">
-</p>
-<p>Using a Merkle Mountain Range (append-only accumulator) means that we can't remove individual elements from it. This seemingly means that the size of the note database would grow indefinitely. Moreover, at high TPS, it would grow very quickly: at 1K TPS we'd be adding about 1TB/year to the database.</p>
-<p>However, we need to explicitly store only the unconsumed public notes and enough info to construct membership proofs against them. Private notes, as well as public notes which have already been consumed, can be safely discarded. Such notes would still remain in the accumulator, but there is no need to store them explicitly as the append-only accumulator can be updated without knowing all items stored in it. This reduces actual storage requirements to a fraction of the database's nominal size.</p>
-<p>ToDo: Describe and specify life-time restrictions for notes on the database.</p>
-<h3 id="nullifier-db"><a class="header" href="#nullifier-db">Nullifier DB</a></h3>
-<p>Nullifier DB provides information on whether a specific note has been consumed yet. Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps nullifiers to <code>0</code> or <code>1</code>. Using this, one can check and prove that a given nullifier is not in the database. </p>
+<p>As with accounts, there is a strong incentive to use private notes as they result in lower fees. This is also beneficial to the network as a private note adds only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">64</span></span></span></span> bytes to the state (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes when it is produced, and <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes when it is consumed).</p>
+<p>Using a Merkle Mountain Range (append-only accumulator) is important for two reasons:</p>
+<ol>
+<li>Membership witnesses (a note exists in the database) against such an accumulator needs to be updated very infrequently.</li>
+<li>Old membership witnesses can be extended to be used with a new accumulator value, but this extension does not need to be done by the original witness holder.</li>
+</ol>
+<p>Both of these properties are needed for supporting local transactions using client-side proofs and privacy. In an append-only data structure, this witness data does not become stale when the data structure is updated. That means users can generate valid proofs even if they don’t have the latest state of this database, so there is no need to query the operator on a constantly changing state. </p>
+<p>However, the size of the note database does not grow indefinitely. Theoretically, at high tps, it would grow very quickly: at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>K TPS there would be about <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>TB/year added to the database. But, only the unconsumed public notes and enough info to construct membership proofs against them need to be stored explicitly. Private notes, as well as public notes which have already been consumed, can be safely discarded. Such notes would still remain in the accumulator, but there is no need to store them explicitly as the append-only accumulator can be updated without knowing all items stored in it. This reduces actual storage requirements to a fraction of the database's nominal size.</p>
+<h3 id="nullifier-database"><a class="header" href="#nullifier-database">Nullifier database</a></h3>
+<p>Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">Note Nullifiers</a> to <code>0</code> or <code>1</code>. Nullifiers provide information on whether a specific note has been consumed yet. The database allows proving that a given nullifier is not in the database.</p>
 <p align="center">
   <img src="../diagrams/architecture/state/Nullifier_DB.png">
 </p>
-<p>To prove that nullifier <code>11</code> is not in the database, the Operator needs to provide a Merkle path to its node, and then show that the value in that node is <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>. In our case nullifiers, are 32 bytes each and the height of the Sparse Merkle tree need to be 256.</p>
+<p>To prove that a note has not been consumed previously, the operator needs to provide a Merkle path to its node, and then show that the value in that node is <code>0</code>. In our case nullifiers are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes each, and thus, the height of the Sparse Merkle tree need to be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span>.</p>
 <p>To be able to add new nullifiers to the database, Operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree. </p>
-<p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than 6 month old, there must be a merkle path provided to the Miden Node for verification.</p>
+<p>*Note: Nullifiers as constructed in Miden break linkability of privately stored notes and the information about the note's consumption. To know the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">note's nullifier</a> one must know the note's data. </p>
+<p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span> month old, there must be a merkle path provided to the Miden Node for verification.</p>
+<h2 id="state-bloat-minimization"><a class="header" href="#state-bloat-minimization">State bloat minimization</a></h2>
+<p>Operators don’t need to know the entire state to verify or produce a new block. No operator is required to store the entire state.</p>
+<p>At its core, the idea is simple: Instead of storing the full state data with the operators, the users store their data, and the rollup only keeps track of commitments to the data. At least for private accounts, some smart contracts need to be publicly visible. This minimizes state bloat—as the operator doesn’t need to store an ever-growing database—and provides privacy because all other users and the operator only see a hash of other users’ data.</p>
+<p>That way the account and note databases can remain manageable, even at high usage for extended periods of time. </p>
 
                     </main>
 
