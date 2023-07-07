@@ -171,7 +171,9 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="notes"><a class="header" href="#notes">Notes</a></h1>
-<p>A note is a way of transferring assets between accounts. It consists of a vault and a script as shown in the diagram below.</p>
+<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. In Miden, an note is a way of transferring assets between accounts. Notes can be consumed and produced asynchronously and privately. </p>
+<h2 id="note-design"><a class="header" href="#note-design">Note design</a></h2>
+<p>The diagram below illustrates the contents of a note:</p>
 <p align="center">
     <img src="../diagrams/architecture/note/Note.png">
 </p>
@@ -183,38 +185,38 @@
 <li><strong>Serial number →</strong> a note's unique identifier</li>
 </ul>
 <h3 id="vault"><a class="header" href="#vault">Vault</a></h3>
-<p>Vault is the asset container for a note. It can contain up to 255 assets. The entire vault can be reduced to a single hash which is computed by sequentially hashing the list of the vault's assets.</p>
-<p>A note's vault is basically the same as an account's vault.</p>
+<p>Asset container for a note. A note vault can contain up to <code>255</code> assets stored in an array. The entire vault can be reduced to a single hash which is computed by sequentially hashing the list of the vault's assets.</p>
 <h3 id="script"><a class="header" href="#script">Script</a></h3>
-<p>Unlike an account, a note has a single executable script. This script is also a root of a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MAST</a>. A script is always executed in the context of a single account, and thus, may invoke account's functions. A note script does not have to call any of account's functions. More generally, a note's script can call zero or more of an account's functions.</p>
+<p>Unlike an account, a note has a single executable script. This script will be executed in a <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html">transaction</a>. This script is also the root of a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MAST</a>. A script is always executed in the context of a single account, and thus, may invoke account's functions. A note's script can call zero or more of an account's function.</p>
+<p><em>Note: Since code in Miden is expresed as MAST, every function is a commitment to the underlying code. The code cannot change unnoticed to the user because its hash would change.</em></p>
 <h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
 <p>A note script can take parameters (passed via the stack) as inputs.</p>
 <h3 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h3>
-<p>A note's serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
+<p>A note's unique serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier. </p>
 <h2 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h2>
-<p>For every note, the Miden Node stores metadata in the Notes DB. This metadata includes: </p>
+<p>For every note the Miden Operator stores metadata in the Note DB. This metadata includes:</p>
 <ul>
-<li>User-defined tag (1 field element)</li>
-<li>Sender (1 field element)</li>
-<li>Number of assets contained in the note (1 field element)</li>
+<li>A <strong>user-defined tag</strong> as a means to quickly grab all notes for a certain application or use case.</li>
+<li>A <strong>sender</strong> to be able to provide also ERC20 contract functionality. </li>
+<li>The <strong>number of assets</strong> contained in the note.</li>
 </ul>
-<h2 id="types-of-notes"><a class="header" href="#types-of-notes">Types of notes</a></h2>
-<p>There are two types of notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash or can be stored publicly with all the data.</p>
+<h2 id="note-storage-modes"><a class="header" href="#note-storage-modes">Note storage modes</a></h2>
+<p>Similar to accounts, there are two storage modes for notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stored publicly with all data.</p>
+<p>Privately stored notes can only be consumed if the note data is known to the consumer. That means, there must be some offchain communication to transmit the note's data from the sender to the receipient. </p>
 <h2 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h2>
-<p>The note hash is computed as: </p>
+<p>The note hash is computed as:</p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
 <p>This achieves the following properties:</p>
 <ul>
 <li>Every note can be reduced to a single unique hash.</li>
-<li>To compute a note's hash, we do not need to know the note's serial number. Knowing the hash
-of the <code>serial_num</code> (as well as script hash, input hash and note vault) is sufficient.</li>
-<li>Moreover, we define <code>recipient</code> as: <br />
-<code>hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash)</code>. This allows computing the note hash from recipient and note vault.</li>
+<li>To compute a note's hash, we do not need to know the note's <code>serial_num</code>. Knowing the hash
+of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input_hash</code> and <code>note_vault</code>) is sufficient.</li>
+<li>Moreover, we define <code>recipient</code> as: <code>hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash)</code>. This allows computing the note hash from recipient and note vault.</li>
 <li>We compute the hash of <code>serial_num</code> as <code>hash(serial_num, [0; 4])</code> to simplify processing within
 the VM.</li>
 </ul>
 <h2 id="note-nullifier"><a class="header" href="#note-nullifier">Note nullifier</a></h2>
-<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information that whether a note was already consumed or not. </p>
+<p>The nullifier is the note's index in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a>. The Nullifier DB stores the information whether a note was already consumed.</p>
 <p>The nullifier is computed as <code>hash(serial_num, script_hash, input_hash, vault_hash)</code>.</p>
 <p>This achieves the following properties:</p>
 <ul>
@@ -222,8 +224,12 @@ the VM.</li>
 <li>We cannot derive a note's hash from its nullifier.</li>
 <li>To compute the nullifier, we must know all components of the note: <code>serial_num</code>, <code>script_hash</code>, <code>input_hash</code>, and <code>vault_hash</code>.</li>
 </ul>
-<h2 id="lifecycle-of-a-note"><a class="header" href="#lifecycle-of-a-note">Lifecycle of a Note</a></h2>
-<p>For a note to exist, it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> kept by the Miden Node(s). New notes are produced while executing a transaction. They can be produced locally by users in local transactions or by the operator in a network transaction.</p>
+<p>To know a note’s nullifier, one needs to know all details of the note. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach. </p>
+<p align="center">
+    <img src="../diagrams/architecture/note/Nullifier.png">
+</p>
+<h2 id="note-lifecycle"><a class="header" href="#note-lifecycle">Note lifecycle</a></h2>
+<p>For a note to exist it must be present in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> kept by the Miden Node(s). New notes are being produced when executing a transaction. They can be produced locally by users in local transactions or by the operator in a network transaction.</p>
 <p>The lifcycle of a note is as follows:</p>
 <ul>
 <li>A new note is produced when a transaction is executed - regardless of the transaction type</li>
