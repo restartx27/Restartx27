@@ -21,6 +21,7 @@ pub enum AssetPreservationStatus {
 }
 
 pub fn mock_notes(
+    account_id: AccountId,
     assembler: &mut Assembler,
     asset_preservation: AssetPreservationStatus,
 ) -> (Vec<Note>, Vec<Note>) {
@@ -89,20 +90,25 @@ pub fn mock_notes(
     // create note 1 script
     let note_1_script_src = format!(
         "\
+        use.context::account_{account_id}
+
+        proc.wrap_create_note
+            call.account_{account_id}::create_note
+            drop dropw dropw
+        end
+
         begin
             # create note 0
             push.{created_note_0_recipient}
             push.{created_note_0_tag}
             push.{created_note_0_asset}
-            call.0x33e6e544bce56ad3bd235d9806e23910a4f03371e7e0a8549d730d0ee61266d8
-            drop dropw dropw 
+            exec.wrap_create_note
 
             # create note 1
             push.{created_note_1_recipient}
             push.{created_note_1_tag}
             push.{created_note_1_asset}
-            call.0x33e6e544bce56ad3bd235d9806e23910a4f03371e7e0a8549d730d0ee61266d8
-            drop dropw dropw
+            exec.wrap_create_note
         end
     ",
         created_note_0_recipient = prepare_word(&created_notes[0].recipient()),
@@ -118,13 +124,19 @@ pub fn mock_notes(
     // create note 2 script
     let note_2_script_src = format!(
         "\
+        use.context::account_{account_id}
+
+        proc.wrap_create_note_2
+            call.account_{account_id}::create_note
+            drop dropw dropw
+        end
+
         begin
             # create note 2
             push.{created_note_2_recipient}
             push.{created_note_2_tag}
             push.{created_note_2_asset}
-            call.0x33e6e544bce56ad3bd235d9806e23910a4f03371e7e0a8549d730d0ee61266d8
-            drop dropw dropw
+            exec.wrap_create_note_2
         end
         ",
         created_note_2_recipient = prepare_word(&created_notes[2].recipient()),

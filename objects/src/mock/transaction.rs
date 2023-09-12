@@ -26,7 +26,8 @@ pub fn mock_inputs(
     };
 
     // mock notes
-    let (mut consumed_notes, _created_notes) = mock_notes(&mut assembler, asset_preservation);
+    let (mut consumed_notes, _created_notes) =
+        mock_notes(account.id(), &mut assembler, asset_preservation);
 
     // Chain data
     let chain_mmr: ChainMmr = mock_chain_data(&mut consumed_notes);
@@ -55,7 +56,8 @@ pub fn mock_executed_tx(asset_preservation: AssetPreservationStatus) -> Executed
         mock_account(Felt::new(2), Some(initial_account.code().clone()), &mut assembler);
 
     // mock notes
-    let (mut consumed_notes, created_notes) = mock_notes(&mut assembler, asset_preservation);
+    let (mut consumed_notes, created_notes) =
+        mock_notes(initial_account.id(), &mut assembler, asset_preservation);
 
     // Chain data
     let chain_mmr: ChainMmr = mock_chain_data(&mut consumed_notes);
