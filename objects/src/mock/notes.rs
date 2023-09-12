@@ -92,23 +92,20 @@ pub fn mock_notes(
         "\
         use.context::account_{account_id}
 
-        proc.wrap_create_note
-            call.account_{account_id}::create_note
-            drop dropw dropw
-        end
-
         begin
             # create note 0
             push.{created_note_0_recipient}
             push.{created_note_0_tag}
             push.{created_note_0_asset}
-            exec.wrap_create_note
+            call.account_{account_id}::create_note
+            drop dropw dropw
 
             # create note 1
             push.{created_note_1_recipient}
             push.{created_note_1_tag}
             push.{created_note_1_asset}
-            exec.wrap_create_note
+            call.account_{account_id}::create_note
+            drop dropw dropw
         end
     ",
         created_note_0_recipient = prepare_word(&created_notes[0].recipient()),
@@ -126,17 +123,13 @@ pub fn mock_notes(
         "\
         use.context::account_{account_id}
 
-        proc.wrap_create_note_2
-            call.account_{account_id}::create_note
-            drop dropw dropw
-        end
-
         begin
             # create note 2
             push.{created_note_2_recipient}
             push.{created_note_2_tag}
             push.{created_note_2_asset}
-            exec.wrap_create_note_2
+            call.account_{account_id}::create_note
+            drop dropw dropw
         end
         ",
         created_note_2_recipient = prepare_word(&created_notes[2].recipient()),
