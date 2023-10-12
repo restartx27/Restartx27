@@ -224,7 +224,7 @@ the value of the node.</li>
 <h3 id="code"><a class="header" href="#code">Code</a></h3>
 <p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by note scripts. Functions exposed by the account have the following properties:</p>
 <ul>
-<li>Functions are actually roots of <a href="https://wiki.polygon.technology/docs/miden/user_docs/assembly/main">Miden program MASTs</a> (i.e., 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
+<li>Functions are actually roots of <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MASTs</a> (i.e., 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
 <li>Only account functions have mutable access to an account's storage and vault. Therefore, the only way to modify an account's internal state is through one of account's functions.</li>
 <li>Account functions can take parameters and can create new notes.</li>
 </ul>
