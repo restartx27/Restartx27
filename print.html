@@ -228,18 +228,18 @@
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
-<p>The Polygon Miden Architecture decribes the concepts of how the participants of the network can interact. </p>
-<p>The architecture reflects the design goals for the rollup: </p>
+<p>The Polygon Miden Architecture decribes the concepts of how the participants of the network can interact.</p>
+<p>The architecture reflects the design goals for the rollup:</p>
 <ul>
-<li><strong>High throughput</strong> </li>
+<li><strong>High throughput</strong></li>
 <li><strong>Privacy</strong></li>
 <li><strong>Asset Safety</strong></li>
 </ul>
-<p>On Miden, developers can build dApps currently infeasible anywhere else. </p>
+<p>On Miden, developers can build dApps currently infeasible anywhere else.</p>
 <h2 id="actor-model"><a class="header" href="#actor-model">Actor Model</a></h2>
 <p>The <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> inspires Miden to achieve concurrent and local state changes. Actors are little state machines with inboxes, meaning each actor is responsible for their state. Actors can send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
 <h2 id="concepts-in-miden"><a class="header" href="#concepts-in-miden">Concepts in Miden</a></h2>
-<p>There are accounts and notes which can hold assets. Accounts consume and produce notes in transactions. Transactions are account state changes of single accounts. The state model captures all individual states of all accounts and notes. Finally, the execution model describes state progress in a sequence of blocks. </p>
+<p>There are accounts and notes which can hold assets. Accounts consume and produce notes in transactions. Transactions are account state changes of single accounts. The state model captures all individual states of all accounts and notes. Finally, the execution model describes state progress in a sequence of blocks.</p>
 <h3 id="accounts"><a class="header" href="#accounts">Accounts</a></h3>
 <p>Accounts can hold assets and define rules how those can be transferred. Accounts can represent users or autonomous smart contracts. This chapter describes the design, the storage types, and the creation of an account.</p>
 <h3 id="notes"><a class="header" href="#notes">Notes</a></h3>
@@ -249,7 +249,7 @@
 <h3 id="transactions"><a class="header" href="#transactions">Transactions</a></h3>
 <p>Transactions describe production or consumption of notes by a single account. For every transaction there is always a STARK proof in Miden. This chapter describes the transaction design and the different transaction modes.</p>
 <h3 id="state-model"><a class="header" href="#state-model">State Model</a></h3>
-<p>State describes everything that is the case at a certain point in time. Individual state of accounts or notes can be stored onchain and offchain to provide privacy. This chapter describes the three different state databases in Miden. </p>
+<p>State describes everything that is the case at a certain point in time. Individual state of accounts or notes can be stored onchain and offchain to provide privacy. This chapter describes the three different state databases in Miden.</p>
 <h3 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h3>
 <p>Execution describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks. This chapter describes the execution model and how blocks are built.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
@@ -282,8 +282,8 @@
 </p>
 <p><em>Note: Miden uses little-endian by default, but big_endian for better readability in the picture above.</em></p>
 <h3 id="account-storage"><a class="header" href="#account-storage">Account Storage</a></h3>
-<p>User-defined data that can be stored in an account. <code>AccountStorage</code> is composed of two components. </p>
-<p>The first component is a simple sparse Merkle tree of depth <code>8</code> which is index addressable. This provides the user with <code>256</code> <code>Word</code> slots. </p>
+<p>User-defined data that can be stored in an account. <code>AccountStorage</code> is composed of two components.</p>
+<p>The first component is a simple sparse Merkle tree of depth <code>8</code> which is index addressable. This provides the user with <code>256</code> <code>Word</code> slots.</p>
 <p>Users requiring additional storage can use the second component a <code>MerkleStore</code>. It allows users to store any Merkle structures they need. The root of the Merkle structure can be stored as a leaf in the simple sparse Merkle tree. When <code>AccountStorage</code> is serialized it will check to see if any of the leafs in the simple sparse Merkle tree are Merkle roots of other Merkle structures. If any Merkle roots are found then the Merkle structures will be persisted in the <code>AccountStorage</code> <code>MerkleStore</code>.</p>
 <h3 id="nonce"><a class="header" href="#nonce">Nonce</a></h3>
 <p>Counter which must be incremented whenever the account state changes. Nonce values must be strictly monotonically increasing and can be incremented by any value smaller than 2^{32} for every account update.</p>
@@ -323,11 +323,11 @@ the value of the node.</li>
 <ul>
 <li>Accounts with <strong>public state</strong>, where the actual state is stored onchain. These would be similar to how accounts work in public blockchains. Smart contracts that depend on public shared state should be stored public on Miden, e.g., DEX contract.</li>
 <li>Account with <strong>encrypted state</strong>, where the account data is stored onchain but in encrypted text. It provides liveness guarantee of the protocol for the account in question.</li>
-<li>Accounts with <strong>private state</strong>, where only the hash of the account is stored onchain. Users who want stay private and take care of their own data should choose this mode. The hash is defined as: <code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code>. </li>
+<li>Accounts with <strong>private state</strong>, where only the hash of the account is stored onchain. Users who want stay private and take care of their own data should choose this mode. The hash is defined as: <code>hash([account ID, 0, 0, nonce], [vault root], [storage root], [code root])</code>.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="notes-1"><a class="header" href="#notes-1">Notes</a></h1>
-<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. In Miden, an note is a way of transferring assets between accounts. Notes can be consumed and produced asynchronously and privately. </p>
+<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. In Miden, an note is a way of transferring assets between accounts. Notes can be consumed and produced asynchronously and privately.</p>
 <h2 id="note-design"><a class="header" href="#note-design">Note design</a></h2>
 <p>The diagram below illustrates the contents of a note:</p>
 <p align="center">
@@ -348,17 +348,17 @@ the value of the node.</li>
 <h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
 <p>A note script can take parameters (passed via the stack) as inputs.</p>
 <h3 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h3>
-<p>A note's unique serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier. </p>
+<p>A note's unique serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
 <h2 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h2>
 <p>For every note the Miden Operator stores metadata in the Note DB. This metadata includes:</p>
 <ul>
 <li>A <strong>user-defined tag</strong> as a means to quickly grab all notes for a certain application or use case.</li>
-<li>A <strong>sender</strong> to be able to provide also ERC20 contract functionality. </li>
+<li>A <strong>sender</strong> to be able to provide also ERC20 contract functionality.</li>
 <li>The <strong>number of assets</strong> contained in the note.</li>
 </ul>
 <h2 id="note-storage-modes"><a class="header" href="#note-storage-modes">Note storage modes</a></h2>
 <p>Similar to accounts, there are two storage modes for notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stored publicly with all data.</p>
-<p>Privately stored notes can only be consumed if the note data is known to the consumer. That means, there must be some offchain communication to transmit the note's data from the sender to the receipient. </p>
+<p>Privately stored notes can only be consumed if the note data is known to the consumer. That means, there must be some offchain communication to transmit the note's data from the sender to the receipient.</p>
 <h2 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h2>
 <p>The note hash is computed as:</p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
@@ -380,7 +380,7 @@ the VM.</li>
 <li>We cannot derive a note's hash from its nullifier.</li>
 <li>To compute the nullifier, we must know all components of the note: <code>serial_num</code>, <code>script_hash</code>, <code>input_hash</code>, and <code>vault_hash</code>.</li>
 </ul>
-<p>To know a note’s nullifier, one needs to know all details of the note. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach. </p>
+<p>To know a note’s nullifier, one needs to know all details of the note. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/note/Nullifier.png">
 </p>
@@ -393,45 +393,45 @@ the VM.</li>
 <li>Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
 <li>The note can now be consumed in a seperate transaction - to consume the note, the note's data must be known</li>
 <li>A note is consumed when the its nullifier in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> is set to <code>1</code></li>
-<li>Operator will receive the note's nullifier together with a transaction proof </li>
+<li>Operator will receive the note's nullifier together with a transaction proof</li>
 <li>After successful verification, the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="assets-1"><a class="header" href="#assets-1">Assets</a></h1>
-<p>In Miden, users can create and trade arbitrary fungible and non-fungible assets. </p>
+<p>In Miden, users can create and trade arbitrary fungible and non-fungible assets.</p>
 <p>We differentiate between native and non-native assets in Miden. Native assets follow the Miden asset model. Non-native assets are all other data structures of value that can be exchanged.</p>
 <p>Recording of native assets in Polygon Miden suffices four goals:</p>
 <ul>
-<li>Asset exchange should be parallelizable </li>
-<li>Asset ownership should be private </li>
+<li>Asset exchange should be parallelizable</li>
+<li>Asset ownership should be private</li>
 <li>Asset usage should be indeed censorship resistant</li>
 <li>Fees can be paid using any asset</li>
 </ul>
-<p>All native assets in Miden are stored directly in accounts, like Ether in Ethereum. Miden does not track ownership of assets using global hashmaps, e.g., ERC20 contracts. Storage of assets locally in accounts provides privacy and the ability for client-side proofs. That is because ownership changes always involve only one account and not the change of a global hashmap. Thus, they can happen in parallel. Additionally, asset exchange is censorship resistant at this level because there is no global contract the transfer must pass through. Finally, users can pay fees in any asset. </p>
+<p>All native assets in Miden are stored directly in accounts, like Ether in Ethereum. Miden does not track ownership of assets using global hashmaps, e.g., ERC20 contracts. Storage of assets locally in accounts provides privacy and the ability for client-side proofs. That is because ownership changes always involve only one account and not the change of a global hashmap. Thus, they can happen in parallel. Additionally, asset exchange is censorship resistant at this level because there is no global contract the transfer must pass through. Finally, users can pay fees in any asset.</p>
 <h2 id="native-assets"><a class="header" href="#native-assets">Native assets</a></h2>
-<p>Native assets are data structures that follow the Miden asset model (encoding, issuance, storing). All native assets are encoded using a single <code>Word</code> (4 field elements). The asset encodes both the ID of the issuing account and the asset details. Having the issuer's ID encoded in the asset makes it cost-efficient to determine the type of an asset inside and outside Miden VM. And, representing the asset in a <code>Word</code> means the representation is always a commitment to the asset data itself. That is particularly interesting for non-fungible assets. </p>
+<p>Native assets are data structures that follow the Miden asset model (encoding, issuance, storing). All native assets are encoded using a single <code>Word</code> (4 field elements). The asset encodes both the ID of the issuing account and the asset details. Having the issuer's ID encoded in the asset makes it cost-efficient to determine the type of an asset inside and outside Miden VM. And, representing the asset in a <code>Word</code> means the representation is always a commitment to the asset data itself. That is particularly interesting for non-fungible assets.</p>
 <h3 id="issuance"><a class="header" href="#issuance">Issuance</a></h3>
-<p>Only specialized accounts called faucets can issue assets. Just like with regular accounts, anyone can create a faucet account. Faucets can issue only either fungible or non-fungible assets - but not both. The <code>faucet_id</code> identifies the faucet and is starts with a different sequence depending on the asset type, see <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-id">here</a>. The faucet's code defines rules for how assets can be minted, who can mint them etc. Conceptually, faucet accounts on Miden are similar to ERC20 contracts on Ethereum. But, there is no ownership tracking in Miden faucets. </p>
+<p>Only specialized accounts called faucets can issue assets. Just like with regular accounts, anyone can create a faucet account. Faucets can issue only either fungible or non-fungible assets - but not both. The <code>faucet_id</code> identifies the faucet and is starts with a different sequence depending on the asset type, see <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-id">here</a>. The faucet's code defines rules for how assets can be minted, who can mint them etc. Conceptually, faucet accounts on Miden are similar to ERC20 contracts on Ethereum. But, there is no ownership tracking in Miden faucets.</p>
 <p>Faucets can create assets and immediately distribute them by producing notes. However, assets can also stay in the faucet after creation to be sent later, e.g., in a bundle. That way, one can mint a million NFTs locally in a single transaction and then send them out as needed in separate transactions in the future.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/asset/Asset_Issuance.png">
 </p>
 <h3 id="fungible-assets"><a class="header" href="#fungible-assets">Fungible assets</a></h3>
 <p>A fungible asset is encoded using the amount and the <code>faucet_id</code> of the faucet which issued the asset. The amount is guaranteed to be  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> or smaller, the maximum supply for any fungible asset. Examples of fungible assets are ETH and stablecoins, e.g., DAI, USDT, and USDC.</p>
-<p>If the <code>faucet_id</code> of MATIC were to be <code>2</code>, 100 MATIC are encoded as <code>[100, 0, 0, 2]</code> - whereas the <code>0</code>s in the middle help to quickly distinguish between fungible and non-fungible assets. </p>
+<p>If the <code>faucet_id</code> of MATIC were to be <code>2</code>, 100 MATIC are encoded as <code>[100, 0, 0, 2]</code> - whereas the <code>0</code>s in the middle help to quickly distinguish between fungible and non-fungible assets.</p>
 <h3 id="non-fungible-assets"><a class="header" href="#non-fungible-assets">Non-fungible assets</a></h3>
 <p>A non-fungible asset is encoded by hashing the asset data into a <code>Word</code> and then replacing the second element with the <code>faucet_id</code> of the issuing account. It looks like <code>[e0, faucet_id, e2, e3]</code>. Note that the second element is guaranteed to be non-Zero.</p>
 <p>Examples of non-fungible assets are all NFTs, e.g., a DevCon ticket. The ticket's data might be represented in a JSON string - which DevCon, the date, the initial price, etc. . Now, users can create a faucet for non-fungible DevCon tickets. This DevCon faucet would hash the JSON string into a <code>Word</code> to transform the ticket into an asset.</p>
 <h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
-<p><a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">Accounts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a> contain asset vaults that are used to store assets. Accounts can keep unlimited assets in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> called <code>account vault</code>. Notes can only store up to <code>255</code> distinct assets. </p>
+<p><a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">Accounts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a> contain asset vaults that are used to store assets. Accounts can keep unlimited assets in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> called <code>account vault</code>. Notes can only store up to <code>255</code> distinct assets.</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/asset/Asset_Storage.png">
 </p>
-<p>The information on which and how many assets are owned can be private depending on the account's storage mode or the note. This is true for any native asset in Miden. </p>
+<p>The information on which and how many assets are owned can be private depending on the account's storage mode or the note. This is true for any native asset in Miden.</p>
 <h2 id="non-native-assets"><a class="header" href="#non-native-assets">Non-native assets</a></h2>
-<p>Miden is flexible enough to create other types of assets as well. </p>
-<p>For example, developers can fully replicate Ethereum's ERC20 model, where ownership of fungible assets is recorded in a single account. To transact, users must send a note to that account to change the global hashmap. </p>
-<p>Furthermore, a complete account can be treated as a programmable asset because ownership of accounts is transferrable. An account could be a &quot;crypto kitty&quot; with specific attributes and rules, and people can trade these &quot;crypto kitties&quot; by transferring accounts between each other. </p>
+<p>Miden is flexible enough to create other types of assets as well.</p>
+<p>For example, developers can fully replicate Ethereum's ERC20 model, where ownership of fungible assets is recorded in a single account. To transact, users must send a note to that account to change the global hashmap.</p>
+<p>Furthermore, a complete account can be treated as a programmable asset because ownership of accounts is transferrable. An account could be a &quot;crypto kitty&quot; with specific attributes and rules, and people can trade these &quot;crypto kitties&quot; by transferring accounts between each other.</p>
 <p>We can also think of an account representing a car. The owner of the car can change so the car account - granting access to the physical car - can be treated as an asset. In this car account, there could be rules defining who is allowed to drive the car and when.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transactions-1"><a class="header" href="#transactions-1">Transactions</a></h1>
@@ -492,7 +492,7 @@ the VM.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="state"><a class="header" href="#state">State</a></h1>
-<p>The state of the Miden rollup describes the current condition of all accounts and note states. It describes what is currently the case. With its state model, using concurrent offchain state, Polygon Miden aims to realise private transactions, and execution and state bloat minimization. </p>
+<p>The state of the Miden rollup describes the current condition of all accounts and note states. It describes what is currently the case. With its state model, using concurrent offchain state, Polygon Miden aims to realise private transactions, and execution and state bloat minimization.</p>
 <p>Privacy is realised from a UTXO-like state model consisting of notes and nullifiers combined with offchain execution using zero-knowledge proofs. Execution bloat happens when transactions get re-executed by all participants of the network. State bloat describes the ever growing state stored in blockchain nodes. Polygon Miden addresses these challenges via its state model that enables concurrent offchain execution and offchain storage.</p>
 <div class="table-wrapper"><table><thead><tr><th></th><th>Minimize execution bloat</th><th>Minimize state bloat</th></tr></thead><tbody>
 <tr><td><strong>Result of</strong></td><td>Verfifying state by re-executing</td><td>Storing all data onchain as state</td></tr>
@@ -513,7 +513,7 @@ the VM.</li>
 <p>These databases are represented by authenticated data structures, such that we can easily prove that items were added to or removed from a database, and a commitment to the database would be very small.</p>
 <p>Polygon Miden has two databases to capture the note states. The note database is append-only and stores all notes permanently. The nullifier database stores nullifiers that indicate that a note has been previsously consumed. Separating note storage into these two databases gives Polygon Miden client-side proving and advanced privacy.</p>
 <h3 id="account-database"><a class="header" href="#account-database">Account database</a></h3>
-<p>The latest account states - and data for onchain accounts - are recorded in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> which maps account IDs to account hashes and account data if needed. </p>
+<p>The latest account states - and data for onchain accounts - are recorded in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> which maps account IDs to account hashes and account data if needed.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Account_DB.png" width="80%">
 </p>
@@ -543,7 +543,7 @@ the VM.</li>
 <li>Membership witnesses (a note exists in the database) against such an accumulator needs to be updated very infrequently.</li>
 <li>Old membership witnesses can be extended to be used with a new accumulator value, but this extension does not need to be done by the original witness holder.</li>
 </ol>
-<p>Both of these properties are needed for supporting local transactions using client-side proofs and privacy. In an append-only data structure, this witness data does not become stale when the data structure is updated. That means users can generate valid proofs even if they don’t have the latest state of this database, so there is no need to query the operator on a constantly changing state. </p>
+<p>Both of these properties are needed for supporting local transactions using client-side proofs and privacy. In an append-only data structure, this witness data does not become stale when the data structure is updated. That means users can generate valid proofs even if they don’t have the latest state of this database, so there is no need to query the operator on a constantly changing state.</p>
 <p>However, the size of the note database does not grow indefinitely. Theoretically, at high tps, it would grow very quickly: at <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>K TPS there would be about <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>TB/year added to the database. But, only the unconsumed public notes and enough info to construct membership proofs against them need to be stored explicitly. Private notes, as well as public notes which have already been consumed, can be safely discarded. Such notes would still remain in the accumulator, but there is no need to store them explicitly as the append-only accumulator can be updated without knowing all items stored in it. This reduces actual storage requirements to a fraction of the database's nominal size.</p>
 <h3 id="nullifier-database"><a class="header" href="#nullifier-database">Nullifier database</a></h3>
 <p>Nullifiers are stored in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">Tiered Sparse Merkle Tree</a>, which maps <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">Note Nullifiers</a> to <code>0</code> or <code>1</code>. Nullifiers provide information on whether a specific note has been consumed yet. The database allows proving that a given nullifier is not in the database.</p>
@@ -551,13 +551,13 @@ the VM.</li>
   <img src="architecture/../diagrams/architecture/state/Nullifier_DB.png">
 </p>
 <p>To prove that a note has not been consumed previously, the operator needs to provide a Merkle path to its node, and then show that the value in that node is <code>0</code>. In our case nullifiers are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes each, and thus, the height of the Sparse Merkle tree need to be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span>.</p>
-<p>To be able to add new nullifiers to the database, Operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree. </p>
-<p>*Note: Nullifiers as constructed in Miden break linkability of privately stored notes and the information about the note's consumption. To know the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">note's nullifier</a> one must know the note's data. </p>
+<p>To be able to add new nullifiers to the database, Operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree.</p>
+<p>*Note: Nullifiers as constructed in Miden break linkability of privately stored notes and the information about the note's consumption. To know the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">note's nullifier</a> one must know the note's data.</p>
 <p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span> month old, there must be a merkle path provided to the Miden Node for verification.</p>
 <h2 id="state-bloat-minimization"><a class="header" href="#state-bloat-minimization">State bloat minimization</a></h2>
 <p>Operators don’t need to know the entire state to verify or produce a new block. No operator is required to store the entire state.</p>
 <p>At its core, the idea is simple: Instead of storing the full state data with the operators, the users store their data, and the rollup only keeps track of commitments to the data. At least for private accounts, some smart contracts need to be publicly visible. This minimizes state bloat—as the operator doesn’t need to store an ever-growing database—and provides privacy because all other users and the operator only see a hash of other users’ data.</p>
-<p>That way the account and note databases can remain manageable, even at high usage for extended periods of time. </p>
+<p>That way the account and note databases can remain manageable, even at high usage for extended periods of time.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="execution-model-1"><a class="header" href="#execution-model-1">Execution Model</a></h1>
 <p>Polygon Miden is an Ethereum Rollup. It batches transactions - or more precisely, proofs thereof - that happen together in the same time period into a block. The Execution Model describes how the state progresses on <strong>an individual level via transactions</strong> and <strong>at the global level expressed as aggregated state updates in blocks</strong>.</p>
@@ -566,7 +566,7 @@ the VM.</li>
 </p>
 <h2 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h2>
 <p>Every transaction will result in a ZK proof that attests to its correctness.</p>
-<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local and network. For every transaction there is a proof which is either created by the user in the Miden Client or by the Operator using the Miden Node. </p>
+<p>As mentioned in <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html#local-vs-network-transactions">transactions</a>, there are two types of transactions: local and network. For every transaction there is a proof which is either created by the user in the Miden Client or by the Operator using the Miden Node.</p>
 <h2 id="transaction-batching"><a class="header" href="#transaction-batching">Transaction Batching</a></h2>
 <p>To reduce the required space on the Ethereum blockchain, transaction proofs are aggregated into batches. This can happen in parallel by different machines that need to verify several proofs using the Miden VM and thus creating a proof. Verifying a STARK proof within the VM is relatively efficient but it is still a pretty costly operation (we aim for 2<sup>16</sup> cycles).</p>
 <h2 id="block-production"><a class="header" href="#block-production">Block Production</a></h2>

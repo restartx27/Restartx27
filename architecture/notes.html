@@ -176,7 +176,7 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="notes"><a class="header" href="#notes">Notes</a></h1>
-<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. In Miden, an note is a way of transferring assets between accounts. Notes can be consumed and produced asynchronously and privately. </p>
+<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. In Miden, an note is a way of transferring assets between accounts. Notes can be consumed and produced asynchronously and privately.</p>
 <h2 id="note-design"><a class="header" href="#note-design">Note design</a></h2>
 <p>The diagram below illustrates the contents of a note:</p>
 <p align="center">
@@ -197,17 +197,17 @@
 <h3 id="inputs"><a class="header" href="#inputs">Inputs</a></h3>
 <p>A note script can take parameters (passed via the stack) as inputs.</p>
 <h3 id="serial-number"><a class="header" href="#serial-number">Serial number</a></h3>
-<p>A note's unique serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier. </p>
+<p>A note's unique serial number identifies the note and this is needed to create the note's hash and nullifier. The serial number is used to break linkability between note hash and note nullifier.</p>
 <h2 id="note-metadata"><a class="header" href="#note-metadata">Note metadata</a></h2>
 <p>For every note the Miden Operator stores metadata in the Note DB. This metadata includes:</p>
 <ul>
 <li>A <strong>user-defined tag</strong> as a means to quickly grab all notes for a certain application or use case.</li>
-<li>A <strong>sender</strong> to be able to provide also ERC20 contract functionality. </li>
+<li>A <strong>sender</strong> to be able to provide also ERC20 contract functionality.</li>
 <li>The <strong>number of assets</strong> contained in the note.</li>
 </ul>
 <h2 id="note-storage-modes"><a class="header" href="#note-storage-modes">Note storage modes</a></h2>
 <p>Similar to accounts, there are two storage modes for notes in Miden. Notes can be stored privately in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a> with only the note hash. Or notes can be stored publicly with all data.</p>
-<p>Privately stored notes can only be consumed if the note data is known to the consumer. That means, there must be some offchain communication to transmit the note's data from the sender to the receipient. </p>
+<p>Privately stored notes can only be consumed if the note data is known to the consumer. That means, there must be some offchain communication to transmit the note's data from the sender to the receipient.</p>
 <h2 id="note-hash"><a class="header" href="#note-hash">Note hash</a></h2>
 <p>The note hash is computed as:</p>
 <p><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)</code></p>
@@ -229,7 +229,7 @@ the VM.</li>
 <li>We cannot derive a note's hash from its nullifier.</li>
 <li>To compute the nullifier, we must know all components of the note: <code>serial_num</code>, <code>script_hash</code>, <code>input_hash</code>, and <code>vault_hash</code>.</li>
 </ul>
-<p>To know a note’s nullifier, one needs to know all details of the note. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach. </p>
+<p>To know a note’s nullifier, one needs to know all details of the note. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach.</p>
 <p align="center">
     <img src="../diagrams/architecture/note/Nullifier.png">
 </p>
@@ -242,7 +242,7 @@ the VM.</li>
 <li>Operator verifies the correctness of the underlying transaction before adding the note hash to the Notes DB</li>
 <li>The note can now be consumed in a seperate transaction - to consume the note, the note's data must be known</li>
 <li>A note is consumed when the its nullifier in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> is set to <code>1</code></li>
-<li>Operator will receive the note's nullifier together with a transaction proof </li>
+<li>Operator will receive the note's nullifier together with a transaction proof</li>
 <li>After successful verification, the Operator sets the corresponding entry in the Nullifier DB to <code>1</code></li>
 </ul>
 

@@ -176,18 +176,18 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
-<p>The Polygon Miden Architecture decribes the concepts of how the participants of the network can interact. </p>
-<p>The architecture reflects the design goals for the rollup: </p>
+<p>The Polygon Miden Architecture decribes the concepts of how the participants of the network can interact.</p>
+<p>The architecture reflects the design goals for the rollup:</p>
 <ul>
-<li><strong>High throughput</strong> </li>
+<li><strong>High throughput</strong></li>
 <li><strong>Privacy</strong></li>
 <li><strong>Asset Safety</strong></li>
 </ul>
-<p>On Miden, developers can build dApps currently infeasible anywhere else. </p>
+<p>On Miden, developers can build dApps currently infeasible anywhere else.</p>
 <h2 id="actor-model"><a class="header" href="#actor-model">Actor Model</a></h2>
 <p>The <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> inspires Miden to achieve concurrent and local state changes. Actors are little state machines with inboxes, meaning each actor is responsible for their state. Actors can send and receive messages to communicate with other actors. Messages can be read asynchronously.</p>
 <h2 id="concepts-in-miden"><a class="header" href="#concepts-in-miden">Concepts in Miden</a></h2>
-<p>There are accounts and notes which can hold assets. Accounts consume and produce notes in transactions. Transactions are account state changes of single accounts. The state model captures all individual states of all accounts and notes. Finally, the execution model describes state progress in a sequence of blocks. </p>
+<p>There are accounts and notes which can hold assets. Accounts consume and produce notes in transactions. Transactions are account state changes of single accounts. The state model captures all individual states of all accounts and notes. Finally, the execution model describes state progress in a sequence of blocks.</p>
 <h3 id="accounts"><a class="header" href="#accounts">Accounts</a></h3>
 <p>Accounts can hold assets and define rules how those can be transferred. Accounts can represent users or autonomous smart contracts. This chapter describes the design, the storage types, and the creation of an account.</p>
 <h3 id="notes"><a class="header" href="#notes">Notes</a></h3>
@@ -197,7 +197,7 @@
 <h3 id="transactions"><a class="header" href="#transactions">Transactions</a></h3>
 <p>Transactions describe production or consumption of notes by a single account. For every transaction there is always a STARK proof in Miden. This chapter describes the transaction design and the different transaction modes.</p>
 <h3 id="state-model"><a class="header" href="#state-model">State Model</a></h3>
-<p>State describes everything that is the case at a certain point in time. Individual state of accounts or notes can be stored onchain and offchain to provide privacy. This chapter describes the three different state databases in Miden. </p>
+<p>State describes everything that is the case at a certain point in time. Individual state of accounts or notes can be stored onchain and offchain to provide privacy. This chapter describes the three different state databases in Miden.</p>
 <h3 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h3>
 <p>Execution describes how the state progresses - on an individual level via transactions and at the global level expressed as aggregated state updates in blocks. This chapter describes the execution model and how blocks are built.</p>
 
