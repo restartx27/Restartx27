@@ -350,7 +350,7 @@ the value of the node.</li>
 <h1 id="note-design"><a class="header" href="#note-design">Note design</a></h1>
 <p>The diagram below illustrates the contents of a note:</p>
 <p align="center">
-    <img src="architecture/../../diagrams/architecture/note/Note.png">
+    <img src="architecture/../diagrams/architecture/note/Note.png">
 </p>
 <p>As shown in the above picture:</p>
 <ul>
@@ -397,12 +397,12 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
 </ul>
 <p>To know a note’s nullifier, one needs to know all details of the note, e.g. the note's serial number. That means if a note is private and the operator stores only the note's hash, only those with the note details know if this note has been consumed already. Zcash first introduced this approach.</p>
 <p align="center">
-    <img src="architecture/../../diagrams/architecture/note/Nullifier.png">
+    <img src="architecture/../diagrams/architecture/note/Nullifier.png">
 </p>
 <h1 id="note-lifecycle"><a class="header" href="#note-lifecycle">Note lifecycle</a></h1>
 <p>New notes are being produced when executing a transaction. After verifying the transaction proof the Operator adds the note to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Notes DB</a>. Notes can be produced and consumed locally by users in local transactions or by the operator in a network transaction. Note consumption requires the transacting party to know the note data to compute the nullifier. After successful verification, the Operator sets the corresponding entry in the Nullifier DB to <code>1</code>. </p>
 <p align="center">
-    <img src="architecture/../../diagrams/architecture/note/Note_life_cycle.png">
+    <img src="architecture/../diagrams/architecture/note/Note_life_cycle.png">
 </p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="assets-1"><a class="header" href="#assets-1">Assets</a></h1>
@@ -449,7 +449,7 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
 <p><br />
 </p>
 <p align="center">
-    <img src="architecture/../diagrams/architecture/transaction/Transaction_Diagram.png" style="width: 75%;">
+    <img src="architecture/../diagrams/architecture/transaction/Transaction_diagram.png" style="width: 75%;">
 </p>
 <p><br />
 </p>
@@ -471,7 +471,7 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
 </ol>
 <p>The last point ensures that a transaction does not create or destroy any assets. A transaction can also include a user-defined transaction script. A transaction script is different to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#script">note scripts</a> that are executed during a transaction.</p>
 <p align="center">
-    <img src="architecture/../diagrams/architecture/transaction/Transaction_Program.png" style="width: 75%;">
+    <img src="architecture/../diagrams/architecture/transaction/Transaction_program.png" style="width: 75%;">
 </p>
 <h3 id="transaction-outputs"><a class="header" href="#transaction-outputs">Transaction outputs</a></h3>
 <p>A successfully executed transaction results the a new state of the provided account, a vector of all created Notes and a vector of all the consumed Notes and their Nullifiers and a STARK-proof. </p>
@@ -507,14 +507,14 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="state"><a class="header" href="#state">State</a></h1>
-<p>The state of the Miden rollup describes the current condition of all accounts and note states. It describes what is currently the case. With its state model, using concurrent off-chain state, Polygon Miden aims to realise private, and parallel transaction execution and state bloat minimization. Midens aims to realise:</p>
-<ul>
-<li><strong>Notes and nullifiers</strong> ensure privacy of note consumption</li>
-<li><strong>Flexible data storage</strong> for users who can store their data off-chain or with the network</li>
-<li><strong>Parallel transactions</strong> executed concurrently by distinct actors</li>
-<li><strong>Concurrent state model</strong> allows block production without knowing the full state</li>
-</ul>
-<p>Privacy is realised from a UTXO-like state model consisting of notes and nullifiers combined with off-chain execution using zero-knowledge proofs. State bloat describes the ever growing state stored in blockchain nodes. Polygon Miden addresses this challenges via its state model that enables concurrent off-chain execution and off-chain storage. Simply put, in Miden users can store their own data locally which reduces the burden on the network - integrity is ensured using zero-knowledge.</p>
+<p>The state of the Miden rollup describes the current condition of all accounts and note states. It describes what is currently the case. With its state model, using concurrent offchain state, Polygon Miden aims to realise private transactions, and execution and state bloat minimization.</p>
+<p>Privacy is realised from a UTXO-like state model consisting of notes and nullifiers combined with offchain execution using zero-knowledge proofs. Execution bloat happens when transactions get re-executed by all participants of the network. State bloat describes the ever growing state stored in blockchain nodes. Polygon Miden addresses these challenges via its state model that enables concurrent offchain execution and offchain storage.</p>
+<div class="table-wrapper"><table><thead><tr><th></th><th>Minimize execution bloat</th><th>Minimize state bloat</th></tr></thead><tbody>
+<tr><td><strong>Result of</strong></td><td>Verfifying state by re-executing</td><td>Storing all data onchain as state</td></tr>
+<tr><td><strong>Zero-knowledge helps with</strong></td><td>Transactions executed only once</td><td>No need to know full state to validate blocks</td></tr>
+<tr><td><strong>Concurrent state model helps with</strong></td><td>Transactions executed concurrently by distinct actors</td><td>No need to kow full state to produce blocks</td></tr>
+</tbody></table>
+</div>
 <h2 id="state-components"><a class="header" href="#state-components">State components</a></h2>
 <p>The Miden Node(s) maintain three databases to describe the state:</p>
 <ol>
@@ -528,22 +528,22 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
 <p>These databases are represented by authenticated data structures, such that we can easily prove that items were added to or removed from a database, and a commitment to the database would be very small.</p>
 <p>Polygon Miden has two databases to capture the note states. The note database is append-only and stores all notes permanently. The nullifier database stores nullifiers that indicate that a note has been previsously consumed. Separating note storage into these two databases gives Polygon Miden client-side proving and advanced privacy.</p>
 <h3 id="account-database"><a class="header" href="#account-database">Account database</a></h3>
-<p>The latest account states - and data for onchain accounts - are recorded in a [sparse Merkle tree] which maps account IDs to account hashes and account data if needed.</p>
+<p>The latest account states - and data for onchain accounts - are recorded in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> which maps account IDs to account hashes and account data if needed.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Account_DB.png" width="80%">
 </p>
-<p>As described in <a href="http://localhost:3000/architecture/accounts.html#account-storage-modes">Accounts</a>, there are two types of accounts:</p>
+<p>As described in <a href="http://localhost:3000/architecture/accounts.html#account-storage-modes">Accounts</a>, there are three types of accounts:</p>
 <ul>
 <li><strong>Public accounts</strong> where all account data is stored onchain.</li>
+<li><strong>Encrypted accounts</strong> where where the account data is stored onchain but in encrypted text.</li>
 <li><strong>Private accounts</strong> where only the hashes of accounts are stored onchain.</li>
 </ul>
 <p>Private accounts significantly reduce the storage overhead for nodes. A private account contributes only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> bytes to the global state (<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">8</span></span></span></span> bytes account ID + <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes account hash). Or, said another way, 1 billion private accounts takes up only <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">40</span></span></span></span> GB of state.</p>
 <blockquote>
 <p>Losing the state of a private account would mean loss of funds (as the user won't be able to execute transactions) in a similar manner as a loss of a private key would. This problem can be easily mitigated by storing encrypted account state in a cloud or backing it up somewhere else. Unlike storing private keys in the cloud, this does not compromise privacy or security of an account.</p>
 </blockquote>
-<p>In the future we also want to enable <strong>Encrypted accounts</strong> where the account data is stored onchain but in an encrypted format. This is especially interesting for shared accounts like advanced multi-sig wallets.</p>
 <h3 id="note-database"><a class="header" href="#note-database">Note database</a></h3>
-<p>Notes are recorded in an append-only accumulator, a <a href="https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md">Merkle Mountain Range</a>. Each leaf is a block header which contains the commitment to all notes created in that block. The commitment is a sparse Merkle tree of all the notes in a block. The size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
+<p>Notes are recorded in an append-only accumulator, a <a href="https://github.com/opentimestamps/opentimestamps-server/blob/master/doc/merkle-mountain-range.md">Merkle Mountain Range</a>. Each leaf is a block header which contains the commitment to all notes created in that block. The size of the Merkle Mountain Range grows logarithmically with the number of items in it.</p>
 <p align="center">
   <img src="architecture/../diagrams/architecture/state/Note_DB.png" width="80%">
 </p>
@@ -566,9 +566,9 @@ of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input
   <img src="architecture/../diagrams/architecture/state/Nullifier_DB.png">
 </p>
 <p>To prove that a note has not been consumed previously, the operator needs to provide a Merkle path to its node, and then show that the value in that node is <code>0</code>. In our case nullifiers are <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> bytes each, and thus, the height of the Sparse Merkle tree need to be <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span>.</p>
-<p>To be able to add new nullifiers to the database, operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree.</p>
+<p>To be able to add new nullifiers to the database, Operators needs to maintain the entire nullifier set. Otherwise, they would not be able to compute the new root of the tree.</p>
 <p>*Note: Nullifiers as constructed in Miden break linkability of privately stored notes and the information about the note's consumption. To know the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">note's nullifier</a> one must know the note's data.</p>
-<p>In the future, when the network experiences a large number of transactions per second (TPS), there will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span> month old, there must be a merkle path provided to the Miden Node for verification.</p>
+<p>There will be one tree per epoch (~3 months), and Miden nodes always store trees for at least two epochs. However, the roots of the old trees are still stored. If a user wants to consume a note that is more than <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span> month old, there must be a merkle path provided to the Miden Node for verification.</p>
 <h2 id="state-bloat-minimization"><a class="header" href="#state-bloat-minimization">State bloat minimization</a></h2>
 <p>Operators don’t need to know the entire state to verify or produce a new block. No operator is required to store the entire state.</p>
 <p>At its core, the idea is simple: Instead of storing the full state data with the operators, the users store their data, and the rollup only keeps track of commitments to the data. At least for private accounts, some smart contracts need to be publicly visible. This minimizes state bloat—as the operator doesn’t need to store an ever-growing database—and provides privacy because all other users and the operator only see a hash of other users’ data.</p>
