@@ -194,7 +194,7 @@
 <p>Only specialized accounts called faucets can issue assets. Just like with regular accounts, anyone can create a faucet account. Faucets can issue only either fungible or non-fungible assets - but not both. The <code>faucet_id</code> identifies the faucet and is starts with a different sequence depending on the asset type, see <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-id">here</a>. The faucet's code defines rules for how assets can be minted, who can mint them etc. Conceptually, faucet accounts on Miden are similar to ERC20 contracts on Ethereum. But, there is no ownership tracking in Miden faucets.</p>
 <p>Faucets can create assets and immediately distribute them by producing notes. However, assets can also stay in the faucet after creation to be sent later, e.g., in a bundle. That way, one can mint a million NFTs locally in a single transaction and then send them out as needed in separate transactions in the future.</p>
 <p align="center">
-    <img src="../diagrams/architecture/asset/Asset_Issuance.png">
+    <img src="../diagrams/architecture/asset/Asset_Issuance.png" style="width: 50%;">
 </p>
 <h3 id="fungible-assets"><a class="header" href="#fungible-assets">Fungible assets</a></h3>
 <p>A fungible asset is encoded using the amount and the <code>faucet_id</code> of the faucet which issued the asset. The amount is guaranteed to be  <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">63</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> or smaller, the maximum supply for any fungible asset. Examples of fungible assets are ETH and stablecoins, e.g., DAI, USDT, and USDC.</p>
@@ -205,9 +205,9 @@
 <h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
 <p><a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html">Accounts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html">notes</a> contain asset vaults that are used to store assets. Accounts can keep unlimited assets in a <a href="https://0xpolygonmiden.github.io/miden-base/crypto-primitives/tsmt.html">tiered sparse Merkle tree</a> called <code>account vault</code>. Notes can only store up to <code>255</code> distinct assets.</p>
 <p align="center">
-    <img src="../diagrams/architecture/asset/Asset_Storage.png">
+    <img src="../diagrams/architecture/asset/Asset_Storage.png" style="width: 50%;">
 </p>
-<p>The information on which and how many assets are owned can be private depending on the account's storage mode or the note. This is true for any native asset in Miden.</p>
+<p>The information on which and how many assets are owned can be private depending on the account's or note's storage mode. This is true for any native asset in Miden.</p>
 <h2 id="non-native-assets"><a class="header" href="#non-native-assets">Non-native assets</a></h2>
 <p>Miden is flexible enough to create other types of assets as well.</p>
 <p>For example, developers can fully replicate Ethereum's ERC20 model, where ownership of fungible assets is recorded in a single account. To transact, users must send a note to that account to change the global hashmap.</p>
