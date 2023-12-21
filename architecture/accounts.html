@@ -239,7 +239,7 @@ the value of the node.</li>
 <tr><td><strong>Most significant bits</strong></td><td><code>00</code></td><td><code>01</code></td><td><code>10</code></td><td><code>11</code></td></tr>
 </tbody></table>
 </div>
-<h2 id="account-storage-mode"><a class="header" href="#account-storage-mode">Account storage mode</a></h2>
+<h2 id="account-storage-modes"><a class="header" href="#account-storage-modes">Account storage modes</a></h2>
 <p>Account data - stored by the Miden Node - can be public, private, or encrypted. The third and fourth most significant bits of the account ID specifies whether the account data is public <code>00</code>, encrypted <code>01</code>, or private <code>11</code>.</p>
 <ul>
 <li>Accounts with <strong>public state</strong>, where the actual state is stored onchain. These would be similar to how accounts work in public blockchains. Smart contracts that depend on public shared state should be stored public on Miden, e.g., DEX contract.</li>
