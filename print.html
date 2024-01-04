@@ -679,7 +679,7 @@ Below, we provide high-level details about each of the interface methods.</p>
     self.add_asset(asset)
 end
 </code></pre>
-<p>In the above, <code>add_asset</code> is a kernel procedure <code>miden::sat::account::add_asset</code> of the Tx Kernel.</p>
+<p>In the above, <code>add_asset</code> is a kernel procedure <code>miden::account::add_asset</code> of the Tx Kernel.</p>
 <p>Note: this method does not increment account nonce. The nonce will be incremented in auth_tx method described below. Thus, receiving assets requires authentication.</p>
 <h3 id="send_asset-method"><a class="header" href="#send_asset-method"><code>send_asset method</code></a></h3>
 <p>The purpose of this method is to create a note which sends a single asset to the specified recipient. Pseudo-code for this method could look like so:</p>
@@ -688,7 +688,7 @@ end
     tx.create_note(recipient, asset)
 end
 </code></pre>
-<p>In the above, <code>remove_asset</code> is a kernel procedure <code>miden::sat::account::remove_asset</code> and <code>create_note</code> is a kernel procedure <code>miden::sat::tx::create_note</code>, both in the Tx Kernel.</p>
+<p>In the above, <code>remove_asset</code> is a kernel procedure <code>miden::account::remove_asset</code> and <code>create_note</code> is a kernel procedure <code>miden::tx::create_note</code>, both in the Tx Kernel.</p>
 <p><code>recipient</code> is a partial hash of the created note computed outside the VM as <code>hash(hash(hash(serial_num), script_hash), input_hash)</code>. This allows computing note hash as <code>hash(recipient, vault_hash)</code> where the <code>vault_hash</code> can be computed inside the VM based on the specified asset.</p>
 <p>Note: this method also does not increment account nonce. The nonce will be incremented in auth_tx method described below. Thus, sending assets requires authentication.</p>
 <h3 id="auth_tx-method"><a class="header" href="#auth_tx-method"><code>auth_tx method</code></a></h3>
