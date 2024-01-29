@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Transactions - Polygon Miden Documentation</title>
+        <title>Miden node block producer - Polygon Miden Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/overview.html"><strong aria-hidden="true">1.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../introduction/getting-started.html"><strong aria-hidden="true">1.2.</strong> Getting started</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/accounts.html"><strong aria-hidden="true">2.1.</strong> Accounts</a></li><li class="chapter-item expanded "><a href="../architecture/notes.html"><strong aria-hidden="true">2.2.</strong> Notes</a></li><li class="chapter-item expanded "><a href="../architecture/assets.html"><strong aria-hidden="true">2.3.</strong> Assets</a></li><li class="chapter-item expanded "><a href="../architecture/transactions.html" class="active"><strong aria-hidden="true">2.4.</strong> Transactions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../transactions/transaction-execution.html"><strong aria-hidden="true">2.4.1.</strong> Transaction Execution</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-kernel.html"><strong aria-hidden="true">2.4.2.</strong> Transaction Kernel</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-procedures.html"><strong aria-hidden="true">2.4.3.</strong> Transaction Procedures</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-modes.html"><strong aria-hidden="true">2.4.4.</strong> Transaction Modes</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture/state.html"><strong aria-hidden="true">2.5.</strong> State</a></li><li class="chapter-item expanded "><a href="../architecture/execution.html"><strong aria-hidden="true">2.6.</strong> Execution</a></li></ol></li><li class="chapter-item expanded "><a href="../network.html"><strong aria-hidden="true">3.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/miden-clients.html"><strong aria-hidden="true">3.1.</strong> Miden Clients</a></li><li class="chapter-item expanded "><a href="../network/miden-node.html"><strong aria-hidden="true">3.2.</strong> Miden Node</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../miden-node/miden-node-rpc.html"><strong aria-hidden="true">3.2.1.</strong> Miden node RPC</a></li><li class="chapter-item expanded "><a href="../miden-node/miden-node-store.html"><strong aria-hidden="true">3.2.2.</strong> Miden node store</a></li><li class="chapter-item expanded "><a href="../miden-node/miden-node-block-producer.html"><strong aria-hidden="true">3.2.3.</strong> Miden node block producer</a></li></ol></li><li class="chapter-item expanded "><a href="../network/verifier-contract.html"><strong aria-hidden="true">3.3.</strong> Verifier Contract</a></li><li class="chapter-item expanded "><a href="../network/bridge.html"><strong aria-hidden="true">3.4.</strong> Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../roadmap.html"><strong aria-hidden="true">4.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="../crypto-primitives.html"><strong aria-hidden="true">5.</strong> Cryptographic primitives</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crypto-primitives/tsmt.html"><strong aria-hidden="true">5.1.</strong> Tiered Sparse Merkle Tree (TSMT)</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../introduction/overview.html"><strong aria-hidden="true">1.1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../introduction/getting-started.html"><strong aria-hidden="true">1.2.</strong> Getting started</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture.html"><strong aria-hidden="true">2.</strong> Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../architecture/accounts.html"><strong aria-hidden="true">2.1.</strong> Accounts</a></li><li class="chapter-item expanded "><a href="../architecture/notes.html"><strong aria-hidden="true">2.2.</strong> Notes</a></li><li class="chapter-item expanded "><a href="../architecture/assets.html"><strong aria-hidden="true">2.3.</strong> Assets</a></li><li class="chapter-item expanded "><a href="../architecture/transactions.html"><strong aria-hidden="true">2.4.</strong> Transactions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../transactions/transaction-execution.html"><strong aria-hidden="true">2.4.1.</strong> Transaction Execution</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-kernel.html"><strong aria-hidden="true">2.4.2.</strong> Transaction Kernel</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-procedures.html"><strong aria-hidden="true">2.4.3.</strong> Transaction Procedures</a></li><li class="chapter-item expanded "><a href="../transactions/transaction-modes.html"><strong aria-hidden="true">2.4.4.</strong> Transaction Modes</a></li></ol></li><li class="chapter-item expanded "><a href="../architecture/state.html"><strong aria-hidden="true">2.5.</strong> State</a></li><li class="chapter-item expanded "><a href="../architecture/execution.html"><strong aria-hidden="true">2.6.</strong> Execution</a></li></ol></li><li class="chapter-item expanded "><a href="../network.html"><strong aria-hidden="true">3.</strong> Network</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../network/miden-clients.html"><strong aria-hidden="true">3.1.</strong> Miden Clients</a></li><li class="chapter-item expanded "><a href="../network/miden-node.html"><strong aria-hidden="true">3.2.</strong> Miden Node</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../miden-node/miden-node-rpc.html"><strong aria-hidden="true">3.2.1.</strong> Miden node RPC</a></li><li class="chapter-item expanded "><a href="../miden-node/miden-node-store.html"><strong aria-hidden="true">3.2.2.</strong> Miden node store</a></li><li class="chapter-item expanded "><a href="../miden-node/miden-node-block-producer.html" class="active"><strong aria-hidden="true">3.2.3.</strong> Miden node block producer</a></li></ol></li><li class="chapter-item expanded "><a href="../network/verifier-contract.html"><strong aria-hidden="true">3.3.</strong> Verifier Contract</a></li><li class="chapter-item expanded "><a href="../network/bridge.html"><strong aria-hidden="true">3.4.</strong> Bridge</a></li></ol></li><li class="chapter-item expanded "><a href="../roadmap.html"><strong aria-hidden="true">4.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="../crypto-primitives.html"><strong aria-hidden="true">5.</strong> Cryptographic primitives</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../crypto-primitives/tsmt.html"><strong aria-hidden="true">5.1.</strong> Tiered Sparse Merkle Tree (TSMT)</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -177,49 +177,32 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-<h1 id="transactions"><a class="header" href="#transactions">Transactions</a></h1>
-<p>Transactions in Miden can be understood as facilitating account state changes. Asset transfers between accounts are done by executing transactions. They take a single account and some <a href="notes.html">notes</a> as input and output the same account at a new state together with some other notes. </p>
-<p>Miden aims for parallel and private transaction execution. Because a transaction is always performed against a single account, Miden obtains asynchronicity. And, because every transaction causes a provable state-change with a STARK proof, it provides privacy when executed locally.</p>
-<h2 id="transaction-design"><a class="header" href="#transaction-design">Transaction design</a></h2>
-<p>Transactions describe the state-transition of a single account that takes chain data and <code>0 to 1023</code> notes as input and produces a <code>TransactionWitness</code> and <code>0 to 4096</code> notes as output.</p>
-<p><br />
-</p>
-<p align="center">
-    <img src="../diagrams/architecture/transaction/Transaction_diagram.png" style="width: 75%;">
-</p>
-<p><br />
-</p>
-<p>At its core, a transaction is an executable program - the transaction kernel program - that processes the provided inputs and creates the requested outputs. Because the program is executed by the Miden VM, a STARK-proof is generated for every transaction.</p>
-<p>The next sections will explain the details of a Miden transaction </p>
+<h1 id="miden-block-producer"><a class="header" href="#miden-block-producer">Miden block producer</a></h1>
+<p>The <strong>Block producer</strong> receives transactions from the RPC component, processes them, creates block containing those transactions before sending created blocks to the store. </p>
+<p><strong>Block Producer</strong> is one of components of the Miden node. </p>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<p><code>TODO</code></p>
+<h2 id="api"><a class="header" href="#api">API</a></h2>
+<p>The <strong>Block Producer</strong> serves connections using the <a href="https://grpc.io">gRPC protocol</a> on a port, set in the previously mentioned configuration file. The API cannot directly be called by the Miden Client. </p>
+<p>Here is a brief description of supported methods.</p>
+<h3 id="submitproventransaction"><a class="header" href="#submitproventransaction">SubmitProvenTransaction</a></h3>
+<p>Submits proven transaction to the Miden network.</p>
+<p><strong>Parameters</strong></p>
 <ul>
-<li>Transaction <a href="../transactions/transaction-execution.html">execution</a> </li>
-<li>Transaction <a href="../transactions/transaction-kernel.html">kernel</a></li>
-<li>Transaction <a href="../transactions/transaction-procedures.html">procedures</a></li>
-<li>Transaction <a href="../transactions/transaction-modes.html">modes</a></li>
+<li><code>transaction</code>: <code>bytes</code> - transaction encoded using Miden's native format.</li>
 </ul>
-<h2 id="asset-transfer-using-two-transactions"><a class="header" href="#asset-transfer-using-two-transactions">Asset transfer using two transactions</a></h2>
-<p>Transferring assets between accounts requires two transactions as shown in the diagram below.</p>
-<p align="center">
-    <img src="../diagrams/architecture/transaction/Transaction_Flow.png">
-</p>
-<p>The first transaction invokes a function on <code>account_a</code> (e.g., &quot;send_asset&quot; function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., &quot;receive_asset&quot; function), which also updates the internal state of <code>account_b</code>.</p>
-<p>It is important to note that both transactions can be executed asynchronously: first <code>transaction1</code> is executed, and then, some time later, <code>transaction2</code> can be executed. This opens up a few interesting possibilities:</p>
-<ul>
-<li>Owner of <code>account_b</code> may wait until they receive many notes and process them all in a single transaction.</li>
-<li>A note script may include a clause which allows the source account to consume the note after some time. Thus, if <code>account_b</code> does not consume the note after the specified time, the funds can be returned. This mechanism could be used to make sure funds sent to non-existent accounts are not lost.</li>
-<li>Neither sender nor the recipient need to know who the other side is. From the sender's perspective they just need to create <code>note1</code> (and for this they need to know the assets to be transferred and the root of the note's script). They don't need any information on who will eventually consume the note. From the recipient's perspective, they just need to consume <code>note1</code>. They don't need to know who created it.</li>
-<li>Both transactions can be executed &quot;locally&quot;. For example, we could generate a zk-proof that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. The same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
-</ul>
+<p><strong>Returns</strong></p>
+<p>This method doesn't return any data.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../architecture/assets.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../miden-node/miden-node-store.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../transactions/transaction-execution.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../network/verifier-contract.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -229,11 +212,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../architecture/assets.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../miden-node/miden-node-store.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../transactions/transaction-execution.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../network/verifier-contract.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
