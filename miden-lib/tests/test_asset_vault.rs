@@ -1,7 +1,8 @@
+use miden_lib::transaction::memory;
 use miden_objects::{
     accounts::AccountId,
     assets::{Asset, FungibleAsset, NonFungibleAsset, NonFungibleAssetDetails},
-    StarkField,
+    Felt, StarkField, Word, ONE, ZERO,
 };
 use mock::{
     constants::{
@@ -13,9 +14,7 @@ use mock::{
     procedures::prepare_word,
     run_tx,
 };
-
-use super::{ContextId, Felt, ProcessState, Word, ONE, ZERO};
-use crate::transaction::memory;
+use vm_processor::{ContextId, ProcessState};
 
 #[test]
 fn test_get_balance() {

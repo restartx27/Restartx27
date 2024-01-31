@@ -1,6 +1,11 @@
+use miden_lib::transaction::memory::{
+    CREATED_NOTE_ASSETS_OFFSET, CREATED_NOTE_METADATA_OFFSET, CREATED_NOTE_NUM_ASSETS_OFFSET,
+    CREATED_NOTE_RECIPIENT_OFFSET, CREATED_NOTE_SECTION_OFFSET, NUM_CREATED_NOTES_PTR,
+};
 use miden_objects::{
     notes::Note,
     transaction::{OutputNote, OutputNotes},
+    Felt, Word, ONE, ZERO,
 };
 use mock::{
     constants::ACCOUNT_ID_FUNGIBLE_FAUCET_ON_CHAIN,
@@ -12,14 +17,7 @@ use mock::{
     procedures::prepare_word,
     run_tx, run_within_tx_kernel,
 };
-
-use super::{
-    ContextId, Felt, MemAdviceProvider, Process, ProcessState, StackInputs, Word, ONE, ZERO,
-};
-use crate::transaction::memory::{
-    CREATED_NOTE_ASSETS_OFFSET, CREATED_NOTE_METADATA_OFFSET, CREATED_NOTE_NUM_ASSETS_OFFSET,
-    CREATED_NOTE_RECIPIENT_OFFSET, CREATED_NOTE_SECTION_OFFSET, NUM_CREATED_NOTES_PTR,
-};
+use vm_processor::{ContextId, MemAdviceProvider, Process, ProcessState, StackInputs};
 
 #[test]
 fn test_create_note() {

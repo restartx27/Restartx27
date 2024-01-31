@@ -1,7 +1,20 @@
+use common::{build_module_path, TX_KERNEL_DIR};
+use miden_lib::transaction::{
+    memory::{
+        ACCT_CODE_ROOT_PTR, ACCT_DB_ROOT_PTR, ACCT_ID_AND_NONCE_PTR, ACCT_ID_PTR,
+        ACCT_STORAGE_ROOT_PTR, ACCT_STORAGE_SLOT_TYPE_DATA_OFFSET, ACCT_VAULT_ROOT_PTR,
+        BATCH_ROOT_PTR, BLK_HASH_PTR, BLOCK_METADATA_PTR, BLOCK_NUMBER_IDX,
+        CHAIN_MMR_NUM_LEAVES_PTR, CHAIN_MMR_PEAKS_PTR, CHAIN_ROOT_PTR,
+        CONSUMED_NOTE_SECTION_OFFSET, INIT_ACCT_HASH_PTR, INIT_NONCE_PTR, NOTE_ROOT_PTR,
+        NULLIFIER_COM_PTR, NULLIFIER_DB_ROOT_PTR, PREV_BLOCK_HASH_PTR, PROOF_HASH_PTR,
+        PROTOCOL_VERSION_IDX, TIMESTAMP_IDX, TX_SCRIPT_ROOT_PTR,
+    },
+    TransactionKernel,
+};
 use miden_objects::{
     assembly::ProgramAst,
     transaction::{PreparedTransaction, TransactionScript},
-    Digest,
+    Digest, Felt, Word, ZERO,
 };
 use mock::{
     constants::{generate_account_seed, AccountSeedType},
@@ -14,21 +27,9 @@ use mock::{
     },
     prepare_transaction, run_tx, run_tx_with_inputs,
 };
-use vm_processor::AdviceInputs;
+use vm_processor::{AdviceInputs, ContextId, Process, ProcessState};
 
-use super::{build_module_path, ContextId, Felt, Process, ProcessState, Word, TX_KERNEL_DIR, ZERO};
-use crate::transaction::{
-    memory::{
-        ACCT_CODE_ROOT_PTR, ACCT_DB_ROOT_PTR, ACCT_ID_AND_NONCE_PTR, ACCT_ID_PTR,
-        ACCT_STORAGE_ROOT_PTR, ACCT_STORAGE_SLOT_TYPE_DATA_OFFSET, ACCT_VAULT_ROOT_PTR,
-        BATCH_ROOT_PTR, BLK_HASH_PTR, BLOCK_METADATA_PTR, BLOCK_NUMBER_IDX,
-        CHAIN_MMR_NUM_LEAVES_PTR, CHAIN_MMR_PEAKS_PTR, CHAIN_ROOT_PTR,
-        CONSUMED_NOTE_SECTION_OFFSET, INIT_ACCT_HASH_PTR, INIT_NONCE_PTR, NOTE_ROOT_PTR,
-        NULLIFIER_COM_PTR, NULLIFIER_DB_ROOT_PTR, PREV_BLOCK_HASH_PTR, PROOF_HASH_PTR,
-        PROTOCOL_VERSION_IDX, TIMESTAMP_IDX, TX_SCRIPT_ROOT_PTR,
-    },
-    TransactionKernel,
-};
+mod common;
 
 const PROLOGUE_FILE: &str = "prologue.masm";
 

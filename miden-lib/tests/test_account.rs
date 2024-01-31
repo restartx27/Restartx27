@@ -1,3 +1,7 @@
+use miden_lib::transaction::{
+    memory::{ACCT_CODE_ROOT_PTR, ACCT_NEW_CODE_ROOT_PTR},
+    ToTransactionKernelInputs,
+};
 use miden_objects::{
     accounts::{
         AccountId, AccountType, ACCOUNT_ID_FUNGIBLE_FAUCET_ON_CHAIN, ACCOUNT_ID_INSUFFICIENT_ONES,
@@ -6,6 +10,7 @@ use miden_objects::{
         ACCOUNT_ID_REGULAR_ACCOUNT_UPDATABLE_CODE_OFF_CHAIN,
     },
     crypto::merkle::LeafIndex,
+    Felt, Word, ONE, ZERO,
 };
 use mock::{
     constants::{
@@ -22,12 +27,7 @@ use mock::{
     procedures::{output_notes_data_procedure, prepare_word},
     run_tx, run_within_host, run_within_tx_kernel,
 };
-
-use super::{
-    super::transaction::ToTransactionKernelInputs, ContextId, Felt, MemAdviceProvider,
-    ProcessState, StackInputs, Word, ONE, ZERO,
-};
-use crate::transaction::memory::{ACCT_CODE_ROOT_PTR, ACCT_NEW_CODE_ROOT_PTR};
+use vm_processor::{ContextId, MemAdviceProvider, ProcessState, StackInputs};
 
 // ACCOUNT CODE TESTS
 // ================================================================================================
