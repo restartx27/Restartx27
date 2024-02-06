@@ -177,9 +177,102 @@
                 <div id="content" class="content">
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-<blockquote>
-<p>[WIP]</p>
-</blockquote>
+<h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<p>This tutorial guides you through the process of connecting to a remote Miden node using the Miden client. The Miden node processes transactions and creates blocks for the Miden rollup. The Miden client provides a way to execute and prove transactions, facilitating the interaction with the Miden rollup. By the end of this tutorial, you will be able to configure the Miden client, connect to a Miden node, and perform basic operations like sending transactions, generating and consuming notes.</p>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>Before starting, ensure you have the following:</p>
+<ul>
+<li><strong>Rust Installed:</strong> You must have the Rust programming language installed on your machine. If you haven't installed Rust, you can download it from <a href="https://www.rust-lang.org/learn/get-started">the Rust website</a>.</li>
+<li><strong>Node IP Address:</strong> Obtain the IP address of the running Miden node. This information can be acquired by contacting one of the Miden engineers.</li>
+<li><strong>Miden client Installation:</strong> You need to install the <a href="https://github.com/0xPolygonMiden/miden-client">Miden client</a> and configure it to point to the remote node.</li>
+</ul>
+<h2 id="step-1-configuring-the-miden-client"><a class="header" href="#step-1-configuring-the-miden-client">Step 1: Configuring the Miden client</a></h2>
+<ol>
+<li>
+<p><strong>Download the Miden client:</strong> First, download the Miden client from its repository. Use the following command:</p>
+<pre><code class="language-shell">git clone https://github.com/0xPolygonMiden/miden-client
+</code></pre>
+</li>
+<li>
+<p><strong>Navigate &amp; Configure the client:</strong> Navigate to the client directory and modify the configuration file to point to the remote Miden node. You can find the configuration file at <code>./miden-client.toml</code>. In the <code>[RPC]</code> section replace the <code>endpoint = { host: }</code> field with the address provided by the Miden engineer.</p>
+<pre><code class="language-shell">cd miden-client
+</code></pre>
+<p>Configuration file example:</p>
+<pre><code class="language-toml"> [rpc]
+ endpoint = { protocol = &quot;http&quot;, host = &quot;&lt;NODE_IP_ADDRESS&gt;&quot;, port = 57291 }
+
+ [store]
+ database_filepath = &quot;store.sqlite3&quot;
+</code></pre>
+</li>
+<li>
+<p><strong>Build &amp; install the Client:</strong> install the client using cargo:</p>
+<pre><code class="language-shell">cargo install --features testing,concurrent --path .
+</code></pre>
+<p>you should now be able to use the following command:</p>
+<pre><code class="language-shell">miden-client --help
+</code></pre>
+</li>
+</ol>
+<h2 id="step-2-setting-up-the-miden-client"><a class="header" href="#step-2-setting-up-the-miden-client">Step 2: Setting-up the Miden client</a></h2>
+<ol>
+<li>
+<p><strong>Creating new accounts:</strong> To be able to interact with the Miden node we will need to generate accounts. For this example we will be generating 3 accounts: <code>basic-immutable</code> account A, <code>basic-immutable</code> account B and a <code>fungible-faucet</code>. You can generate new accounts using the following commands:</p>
+<pre><code class="language-shell">miden-client account new basic-immutable
+miden-client account new basic-immutable
+miden-client account new fungible-faucet [...]
+</code></pre>
+<p>Please refer to the documentation of the CLI</p>
+</li>
+<li>
+<p><strong>Listing accounts:</strong> To view the newly created accounts we can run the following command:</p>
+<pre><code class="language-shell">miden-client account -l
+</code></pre>
+<p>We should now see 3 available accounts listed:</p>
+<ul>
+<li><code>basic-immutable</code> account A</li>
+<li><code>basic-immutable</code> account B</li>
+<li><code>fungible-faucet</code> account</li>
+</ul>
+</li>
+<li>
+<p><strong>Syncing node state:</strong> The client needs to periodically query the node to receive updates about entities that might be important in order to run transactions. The way to do so is by running the <code>sync</code> command:</p>
+<pre><code class="language-shell">miden-client sync
+</code></pre>
+</li>
+</ol>
+<h2 id="step-3-minting-an-asset"><a class="header" href="#step-3-minting-an-asset">Step 3: Minting an asset</a></h2>
+<p>Since we have now synced our local view of the blockchain and have account information, we are ready to execute and submit tranasctions. For a first test, we are going to mint a fungible asset for a regular account.</p>
+<pre><code class="language-shell">miden-client tx new mint &lt;regular-account-id-A&gt; &lt;faucet-account-id&gt; 1000
+</code></pre>
+<p>This will execute, prove and submit a transaction that mints assets to the node. The account that executes this transaction will be the faucet as was defined in the node's configuration file. In this case, it is minting <code>1000</code> fungible tokens to <code>&lt;regular-account-id-A&gt;</code>.</p>
+<p>This will add a transaction and an output note (containing the minted asset) to the local store in order to track their lifecycles. You can display them by running <code>miden-client tx list</code> and <code>miden-client input-notes list</code> respectively. If you do so, you will notice that they do not show a <code>commit height</code> even though they were submitted to the operator. This is because our local view of the network has not yet been updated. After updating it with a <code>sync</code>, you should see the height at which the transaction and the note containing the asset were committed. This will allow us to prove transactions that make use of this note, as we can compute valid proofs that state that the note exists in the blockchain.</p>
+<h2 id="step-4-consuming-the-note"><a class="header" href="#step-4-consuming-the-note">Step 4: Consuming the note</a></h2>
+<p>After creating the note with the minted asset, the regular account can now consume it and add the tokens to its vault. You can do this the following way:</p>
+<pre><code class="language-bash">miden-client tx new consume-note &lt;regular-account-id-A&gt; &lt;input-note-id&gt;
+</code></pre>
+<p>This will consume the input note, which you can get by listing them as explained in the previous step. You will now be able to see the asset in the account's vault by running:</p>
+<pre><code class="language-bash">miden-client account show &lt;regular-account-id-A&gt; -v
+</code></pre>
+<h2 id="step-5-transferring-assets-between-accounts"><a class="header" href="#step-5-transferring-assets-between-accounts">Step 5: Transferring assets between accounts</a></h2>
+<p>Some of the tokens we minted can now be transferred to our second regular account. To do so, you can run:</p>
+<pre><code class="language-shell">miden-client sync # Make sure we have an updated view of the state
+miden-client tx new p2id &lt;regular-account-id-A&gt; &lt;regular-account-id-B&gt; &lt;faucet-account-id&gt; 50 # Transfers 50 tokens to account ID B
+</code></pre>
+<p>This will generate a Pay-to-ID (<code>P2ID</code>) note containing 50 assets, transferred from one regular account to the other. If we sync, we can now make use of the note and consume it for the receiving account:</p>
+<pre><code class="language-shell">miden-client sync # Make sure we have an updated view of the state
+miden-client tx new consume-note &lt;regular-account-ID-B&gt; # Consume the note
+</code></pre>
+<p>That's it! You will now be able to see <code>950</code> fungible tokens in the first regular account, and <code>50</code> tokens in the remaining regular account:</p>
+<pre><code class="language-shell">miden-client account show &lt;regular-account-ID-B&gt; -v # Show account B's vault assets (50 fungible tokens)
+miden-client account show &lt;regular-account-ID-A&gt; -v # Show account A's vault assets (950 fungible tokens)
+</code></pre>
+<h3 id="clearing-the-state"><a class="header" href="#clearing-the-state">Clearing the state</a></h3>
+<p>All state is maintained in <code>store.sqlite3</code>, located in the directory defined in the <code>miden-client.toml</code> file. In case it needs to be cleared, the file can be deleted; it will later be created again when any command is executed.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>Congratulations! You have successfully configured and used the Miden client to interact with a Miden node. With these steps, you can perform basic Miden rollup operations like sending transactions, generating and consuming notes.</p>
+<p>For more informations on the Miden clienr, refer to the <a href="https://github.com/0xPolygonMiden/miden-client">Readme of the Miden Client</a></p>
+<p>For more informations on the Miden rollup, refer to the <a href="https://0xpolygonmiden.github.io/miden-base/introduction.html">Miden documentation</a>.</p>
 
                     </main>
 
