@@ -195,25 +195,25 @@
 <h2 id="the-prologue"><a class="header" href="#the-prologue">The Prologue</a></h2>
 <p>The transaction prologue is executed at the beginning of a transaction. It needs to accomplish the following tasks:</p>
 <ol>
-<li>&quot;Unhash&quot; the inputs and lay them out in root context's memory.</li>
-<li>Build a single vault (&quot;tx vault&quot;) containing assets of all inputs (input notes and initial account state).</li>
+<li>"Unhash" the inputs and lay them out in root context's memory.</li>
+<li>Build a single vault ("tx vault") containing assets of all inputs (input notes and initial account state).</li>
 <li>Verify that all input notes are present in the Note DB.</li>
 </ol>
-<p>In other words, the prologue stores all provided information from the inputs and the advice provider into the appropriate memory slots. It then reads the data for account and notes from the advice provider, writes it to memory, hashes it, and verifies that the resulting hash matches the commitments provided via the stack. Finally, it creates a single vault for the assets that are involved. </p>
-<p>The memory layout looks as follows. The kernel context has access to all of those memory slots. </p>
+<p>In other words, the prologue stores all provided information from the inputs and the advice provider into the appropriate memory slots. It then reads the data for account and notes from the advice provider, writes it to memory, hashes it, and verifies that the resulting hash matches the commitments provided via the stack. Finally, it creates a single vault for the assets that are involved.</p>
+<p>The memory layout looks as follows. The kernel context has access to all of those memory slots.</p>
 <p align="center">
     <img src="../diagrams/architecture/transaction/Memory_layout_kernel.png" style="width: 75%;">
 </p>
-<p>The book keeping section is needed to keep track of variables which are used internally by the transaction kernel. </p>
+<p>The book keeping section is needed to keep track of variables which are used internally by the transaction kernel.</p>
 <p>First, all <strong>global inputs</strong> are being stored in the pre-defined memory slots. Global inputs are being provided via the <code>operand_stack</code> to the VM at transaction execution. The include the block hash, the account ID, the initial account hash, and the Nullifier commitment. This is a sequential hash of all <code>(nullifier, ZERO)</code> pairs for the notes consumed in the transaction.</p>
 <p>Second, the <strong>block data</strong> is being processed. This involves reading the block data from the advice provider and storing it at the appropriate memory addresses. Block data is provided from the latest known block and consists of note, state and batch root, the block;s the previous hash and proof hash, as well as the block number. As the data is read from the advice provider, the block hash is computed. It is asserted that the computed block hash matches the block hash stored in the global inputs.</p>
-<p>Third, the <strong>chain data</strong> is being processed in a similar way as the block data. In this case the chain root is being recomputed and compared against the chain root stored in the block data section. </p>
+<p>Third, the <strong>chain data</strong> is being processed in a similar way as the block data. In this case the chain root is being recomputed and compared against the chain root stored in the block data section.</p>
 <p>Fourth, the <strong>account data</strong> is being processed. This involves reading the data from the advice provider and storing it at the appropriate memory addresses. The account data consists of roots of the account's vault, its storage and code. As the account data is read from the advice provider, the account hash is computed. If the account is new then the global initial account hash is updated and the new account is validated.  If the account already exists then it is asserted that the computed account hash matches the account hash provided via global inputs. It is also asserted that the account id matches the account id provided via the global inputs (<code>operand_stack</code>).</p>
-<p>Fifth, the <strong>input notes</strong> are being processed. This involves per note reading the data from the advice provider and storing it at the appropriate memory addresses. Next to the total number of consumed notes, input note data consists of its serial number, the roots of the script, inputs and asset vault, its metadata and all its assets. As each note is consumed its hash and nullifier is computed. The transaction Nullifier commitment is computed via a sequential hash of all <code>(nullifier, ZERO)</code> pairs for all consumed notes. This step involves authentication that the input note data provided via the advice provider is consistent with the chain history. </p>
+<p>Fifth, the <strong>input notes</strong> are being processed. This involves per note reading the data from the advice provider and storing it at the appropriate memory addresses. Next to the total number of consumed notes, input note data consists of its serial number, the roots of the script, inputs and asset vault, its metadata and all its assets. As each note is consumed its hash and nullifier is computed. The transaction Nullifier commitment is computed via a sequential hash of all <code>(nullifier, ZERO)</code> pairs for all consumed notes. This step involves authentication that the input note data provided via the advice provider is consistent with the chain history.</p>
 <p><em>Note: One needs to provide the note data to compute the Nullifier, e.g. the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#script">note script</a> and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#serial-number">serial number</a>. So one needs to know the note data to execute the prologue of a transaction. This is how the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-recipient">note recipient</a> defines the set of users who can consume a specific note. The executing account needs to provide the pre-image data to the recipient at the time of execution.</em></p>
-<p>Lastly, if a transaction script is provided, its root is being stored at the pre-defined memory address. </p>
+<p>Lastly, if a transaction script is provided, its root is being stored at the pre-defined memory address.</p>
 <h2 id="the-note-processing"><a class="header" href="#the-note-processing">The Note Processing</a></h2>
-<p>If there are input notes they are being consumed in a loop. For every note, the <a href="https://0xpolygonmiden.github.io/miden-vm/design/programs.html">MAST root</a> of the note script is being loaded onto the stack. Then, by calling a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/code_organization.html?highlight=dyncall#dynamic-procedure-invocation"><code>dyncall</code></a> the note script is being executed in a new context to prevent unwanted memory access. </p>
+<p>If there are input notes they are being consumed in a loop. For every note, the <a href="https://0xpolygonmiden.github.io/miden-vm/design/programs.html">MAST root</a> of the note script is being loaded onto the stack. Then, by calling a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/code_organization.html?highlight=dyncall#dynamic-procedure-invocation"><code>dyncall</code></a> the note script is being executed in a new context to prevent unwanted memory access.</p>
 <pre><code>    # loop while we have notes to consume
     while.true
         # execute the note setup script
@@ -248,7 +248,7 @@
 </code></pre>
 <p><em>Note: The executing account must expose the <code>auth_tx_rpo_falcon512</code> function in order for the transaction script to call it.</em></p>
 <h2 id="the-epilogue"><a class="header" href="#the-epilogue">The Epilogue</a></h2>
-<p>The Epilogue finalizes the transaction. It </p>
+<p>The Epilogue finalizes the transaction. It</p>
 <ol>
 <li>computes the final account hash</li>
 <li>if the account has changed, assert that the final account nonce is greater than the initial
@@ -256,9 +256,9 @@ account nonce</li>
 <li>computes the created notes commitment</li>
 <li>asserts that the input and output vault roots are equal</li>
 </ol>
-<p>There is an exception for special accounts, called faucets, which can mint or burn assets. In that case input and output vault roots are not equal. </p>
+<p>There is an exception for special accounts, called faucets, which can mint or burn assets. In that case input and output vault roots are not equal.</p>
 <h2 id="the-outputs"><a class="header" href="#the-outputs">The Outputs</a></h2>
-<p>The transaction kernel program outputs the transaction script root, a commitment of all newly created outputs notes, and the account hash in its new state. </p>
+<p>The transaction kernel program outputs the transaction script root, a commitment of all newly created outputs notes, and the account hash in its new state.</p>
 
                     </main>
 

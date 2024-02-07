@@ -186,7 +186,7 @@
 <p>The Miden node is made up of three main components, which communicate over gRPC:</p>
 <ul>
 <li><strong><a href="../miden-node/miden-node-rpc.html">RPC</a>:</strong> an externally-facing component through which clients can interact with the node. It receives client requests (e.g., to synchronize with the latest state of the chain, or to submit transactions), performs basic validation, and forwards the requests to the appropriate internal components.</li>
-<li><strong><a href="../miden-node/miden-node-store.html">Store</a>:</strong> maintains the state of the chain. It serves as the &quot;source of truth&quot; for the chain - i.e., if it is not in the store, the node does not consider it to be part of the chain.</li>
+<li><strong><a href="../miden-node/miden-node-store.html">Store</a>:</strong> maintains the state of the chain. It serves as the "source of truth" for the chain - i.e., if it is not in the store, the node does not consider it to be part of the chain.</li>
 <li><strong><a href="../miden-node/miden-node-block-producer.html">Block Producer</a>:</strong> accepts transactions from the RPC component, creates blocks containing those transactions, and sends them to the store.</li>
 </ul>
 <p>All three components can either run as one process, or each component can run in its own process.</p>

@@ -193,7 +193,7 @@
 <li><strong>Code →</strong> a collection of functions which define the external interface for an account</li>
 </ul>
 <h3 id="account-id"><a class="header" href="#account-id">Account ID</a></h3>
-<p>~63 bits (1 field element) long identifier for the account. The four most significant bits specify its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-types">account type</a> - regular, immutable, faucet - and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-storage-modes">storage mode</a> - public or private. </p>
+<p>~63 bits (1 field element) long identifier for the account. The four most significant bits specify its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-types">account type</a> - regular, immutable, faucet - and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-storage-modes">storage mode</a> - public or private.</p>
 <h3 id="account-storage"><a class="header" href="#account-storage">Account Storage</a></h3>
 <p>Storage for user-defined data. <code>AccountStorage</code> is composed of two components.</p>
 <p>The first component is a simple sparse Merkle tree of depth <code>8</code> which is index addressable. This provides the user with <code>256</code> <code>Word</code> slots.</p>
@@ -213,7 +213,7 @@ the value of the node.</li>
 </ul>
 <p>An account vault can be reduced to a single hash which is the root of the sparse Merkle tree.</p>
 <h3 id="code"><a class="header" href="#code">Code</a></h3>
-<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-scripts">note scripts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-kernel.html#the-transaction-script-processing">transaction scripts</a>. Users cannot call those functions directly. </p>
+<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-scripts">note scripts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-kernel.html#the-transaction-script-processing">transaction scripts</a>. Users cannot call those functions directly.</p>
 <p>Functions exposed by the account have the following properties:</p>
 <ul>
 <li>Functions are actually roots of <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MASTs</a> (i.e., a 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
@@ -222,7 +222,7 @@ the value of the node.</li>
 </ul>
 <p><em>Note: Since code in Miden is expressed as MAST, every function is a commitment to the underlying code. The code cannot change unnoticed to the user because its hash would change. Behind any MAST root there can only be <code>256</code> functions</em></p>
 <h4 id="example-account-code"><a class="header" href="#example-account-code">Example Account Code</a></h4>
-<p>Currently, Miden provides two standard implementations for account code. </p>
+<p>Currently, Miden provides two standard implementations for account code.</p>
 <h5 id="basic-user-account-regular-updatable-account"><a class="header" href="#basic-user-account-regular-updatable-account">Basic user account (Regular updatable account)</a></h5>
 <p>There is a standard for a basic user account. It exposes three functions via its interface.</p>
 <details>

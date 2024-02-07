@@ -191,11 +191,11 @@
 <p><em>This documentation is still Work In Progress. Some topics have been discussed in greater depth, while others require additional clarification. Sections of this documentation might later be reorganized in order to achieve a better flow.</em></p>
 </blockquote>
 <h2 id="status-and-features"><a class="header" href="#status-and-features">Status and features</a></h2>
-<p>Polygon Miden is currently on release v0.1. This is an early version of the protocol and its components. We expect to keep making even breaking changes to all components. </p>
+<p>Polygon Miden is currently on release v0.1. This is an early version of the protocol and its components. We expect to keep making even breaking changes to all components.</p>
 <p>At this point, adventurous Pioneers can execute first transactions and send assets to each other. Polygon Miden doesn't offer all the features one would expect from a zkRollup, yet. During 2024, we expect to offer gradually more features. Eventually, developers should be able to code any application they want on Polygon Miden.</p>
 <h3 id="feature-highlights"><a class="header" href="#feature-highlights">Feature highlights</a></h3>
 <ul>
-<li><strong>Private accounts</strong>. The Miden Operator only tracks a commitment to any account data in the public database. Users can only execute smart contracts of which they know the interface. </li>
+<li><strong>Private accounts</strong>. The Miden Operator only tracks a commitment to any account data in the public database. Users can only execute smart contracts of which they know the interface.</li>
 <li><strong>Private notes</strong>. Like private accounts, the Miden Operator only tracks a commitment to any notes in the public database. Users need to communicate note details to each other off-chain (via any side channel) in order to consume private notes in transactions.</li>
 <li><strong>Local transaction execution</strong>. The Miden Client allows for local transaction execution and proving. The Miden Operator verifies the proof and if valid, the state DBs are updated with the new data.</li>
 <li><strong>Simple smart contracts</strong>. Currently, there are three different smart contracts available. A basic wallet smart contracts to send and receive assets, and fungible and non-fungible faucets to mint and burn assets. All accounts are written in MASM.</li>
@@ -206,12 +206,12 @@
 <h3 id="planned-features"><a class="header" href="#planned-features">Planned features</a></h3>
 <ul>
 <li><strong>Public accounts</strong>. Polygon Miden will support public smart contracts as know on Ethereum. Code and state of those accounts will be visible to the network and anyone can execute transactions against them.</li>
-<li><strong>Public notes</strong>. As with public accounts, also public notes will be supported. That means, note data will be publicly stored by the Miden Operator. Note consumption will not be private. </li>
+<li><strong>Public notes</strong>. As with public accounts, also public notes will be supported. That means, note data will be publicly stored by the Miden Operator. Note consumption will not be private.</li>
 <li><strong>Customized smart contracts</strong>. Accounts can expose any interface in the future. This is the Miden version of a smart contract. Account code can be arbitrary complex due to the underlying Turing-complete Miden VM.</li>
 <li><strong>Customized note scripts</strong>. Users will be able to write their own note scripts using the Miden Client. Note scripts are executed during note consumption and they can be arbitrary complex due to the underlying Turing-complete Miden VM.</li>
 <li><strong>Network transactions</strong>. Transaction execution and proving can be outsourced to the network and to the Miden Operator. Those transactions will be necessary when it comes to public shared state, and they can be useful if the user's device is not powerful enough to prove transactions efficiently.</li>
-<li><strong>Rust compiler</strong>. In order to write account code, note or transaction scripts, in Rust, there will be a Rust -&gt; Miden Assembly compiler. </li>
-<li><strong>Block and epoch proofs</strong>. The Miden Node will recursively verify transactions and in doing so build batches of transactions, blocks and epochs. </li>
+<li><strong>Rust compiler</strong>. In order to write account code, note or transaction scripts, in Rust, there will be a Rust -&gt; Miden Assembly compiler.</li>
+<li><strong>Block and epoch proofs</strong>. The Miden Node will recursively verify transactions and in doing so build batches of transactions, blocks and epochs.</li>
 </ul>
 <h2 id="benefits-of-polygon-miden"><a class="header" href="#benefits-of-polygon-miden">Benefits of Polygon Miden</a></h2>
 <ul>
@@ -268,10 +268,10 @@
 </code></pre>
 <p>Configuration file example:</p>
 <pre><code class="language-toml"> [rpc]
- endpoint = { protocol = &quot;http&quot;, host = &quot;&lt;NODE_IP_ADDRESS&gt;&quot;, port = 57291 }
+ endpoint = { protocol = "http", host = "&lt;NODE_IP_ADDRESS&gt;", port = 57291 }
 
  [store]
- database_filepath = &quot;store.sqlite3&quot;
+ database_filepath = "store.sqlite3"
 </code></pre>
 </li>
 <li>
@@ -362,7 +362,7 @@ miden-client account show &lt;regular-account-ID-A&gt; -v # Show account A's vau
 <h3 id="assets"><a class="header" href="#assets">Assets</a></h3>
 <p><a href="./architecture/assets.html">Assets</a> can be fungible and non-fungible. They are stored in the owner’s account itself or in a note. This chapter describes asset issuance, customization, and storage.</p>
 <h3 id="transactions"><a class="header" href="#transactions">Transactions</a></h3>
-<p><a href="./architecture/transactions.html">Transactions</a> describe production and consumption of notes by a single account. Executing a transaction always results in a STARK proof. This chapter describes the transaction design and the implementation thereof. At it's core, transaction execution happens in the transaction kernel program which is explained in depth. </p>
+<p><a href="./architecture/transactions.html">Transactions</a> describe production and consumption of notes by a single account. Executing a transaction always results in a STARK proof. This chapter describes the transaction design and the implementation thereof. At it's core, transaction execution happens in the transaction kernel program which is explained in depth.</p>
 <h4 id="accounts-produce-and-consume-notes-to-communicate"><a class="header" href="#accounts-produce-and-consume-notes-to-communicate">Accounts produce and consume notes to communicate</a></h4>
 <p align="center">
     <img src="./diagrams/architecture/miden_architecture_core_concepts.gif" style="width: 80%;">
@@ -381,10 +381,10 @@ miden-client account show &lt;regular-account-ID-A&gt; -v # Show account A's vau
 <details>
   <summary>Want to know more on why we designed Miden as is?</summary>
 <h3 id="polygon-midens-architecture"><a class="header" href="#polygon-midens-architecture">Polygon Miden's architecture</a></h3>
-<p>Polygon Miden’s architecture departs considerably from typical blockchain designs to support privacy and parallel transaction execution. In traditional blockchains state and transactions must be transparent to be verifiable. This is necessary for block production and execution. User generated zero-knowledge proofs allow state transitions, e.g. transactions, to be verifiable without being transparent. </p>
+<p>Polygon Miden’s architecture departs considerably from typical blockchain designs to support privacy and parallel transaction execution. In traditional blockchains state and transactions must be transparent to be verifiable. This is necessary for block production and execution. User generated zero-knowledge proofs allow state transitions, e.g. transactions, to be verifiable without being transparent.</p>
 <h3 id="actor-based-execution-model"><a class="header" href="#actor-based-execution-model">Actor-based execution model</a></h3>
-<p>The actor model inspires Polygon Miden’s execution model. This is a well-known design paradigm in concurrent systems. In the actor model, actors are state machines responsible for maintaining their own state. In the context of Polygon Miden, each account is an actor. Actors communicate with each other by exchanging messages asynchronously. One actor can send a message to another, but it is up to the recipient to apply the requested change to their state. </p>
-<p>Polygon Miden’s architecture takes the actor model further and combines it with zero-knowledge proofs. Now, actors not only maintain and update their own state, but they can also prove the validity of their own state transitions to the rest of the network. This ability to independently prove state transitions enables local smart contract execution, private smart contracts, and much more. And it is quite unique in the rollup space. Normally only centralized entities - sequencer or prover - create zero-knowledge proofs, not the users. </p>
+<p>The actor model inspires Polygon Miden’s execution model. This is a well-known design paradigm in concurrent systems. In the actor model, actors are state machines responsible for maintaining their own state. In the context of Polygon Miden, each account is an actor. Actors communicate with each other by exchanging messages asynchronously. One actor can send a message to another, but it is up to the recipient to apply the requested change to their state.</p>
+<p>Polygon Miden’s architecture takes the actor model further and combines it with zero-knowledge proofs. Now, actors not only maintain and update their own state, but they can also prove the validity of their own state transitions to the rest of the network. This ability to independently prove state transitions enables local smart contract execution, private smart contracts, and much more. And it is quite unique in the rollup space. Normally only centralized entities - sequencer or prover - create zero-knowledge proofs, not the users.</p>
 <h3 id="hybrid-state-model"><a class="header" href="#hybrid-state-model">Hybrid state model</a></h3>
 <p>The actor-based execution model requires a radically different approach to recording the system's state. Actors and the messages they exchange must be treated as first-class citizens. Polygon Miden addresses this by combining the state models of account-based systems like Ethereum and UTXO-based systems like Bitcoin and Zcash.</p>
 </details><div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
@@ -404,7 +404,7 @@ miden-client account show &lt;regular-account-ID-A&gt; -v # Show account A's vau
 <li><strong>Code →</strong> a collection of functions which define the external interface for an account</li>
 </ul>
 <h3 id="account-id"><a class="header" href="#account-id">Account ID</a></h3>
-<p>~63 bits (1 field element) long identifier for the account. The four most significant bits specify its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-types">account type</a> - regular, immutable, faucet - and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-storage-modes">storage mode</a> - public or private. </p>
+<p>~63 bits (1 field element) long identifier for the account. The four most significant bits specify its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-types">account type</a> - regular, immutable, faucet - and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-storage-modes">storage mode</a> - public or private.</p>
 <h3 id="account-storage"><a class="header" href="#account-storage">Account Storage</a></h3>
 <p>Storage for user-defined data. <code>AccountStorage</code> is composed of two components.</p>
 <p>The first component is a simple sparse Merkle tree of depth <code>8</code> which is index addressable. This provides the user with <code>256</code> <code>Word</code> slots.</p>
@@ -424,7 +424,7 @@ the value of the node.</li>
 </ul>
 <p>An account vault can be reduced to a single hash which is the root of the sparse Merkle tree.</p>
 <h3 id="code"><a class="header" href="#code">Code</a></h3>
-<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-scripts">note scripts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-kernel.html#the-transaction-script-processing">transaction scripts</a>. Users cannot call those functions directly. </p>
+<p>Interface for accounts. In Miden every account is a smart contract. It has an interface that exposes functions that can be called by <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-scripts">note scripts</a> and <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-kernel.html#the-transaction-script-processing">transaction scripts</a>. Users cannot call those functions directly.</p>
 <p>Functions exposed by the account have the following properties:</p>
 <ul>
 <li>Functions are actually roots of <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MASTs</a> (i.e., a 32-byte hash). Thus, function identifier is a commitment to the code which is executed when a function is invoked.</li>
@@ -433,7 +433,7 @@ the value of the node.</li>
 </ul>
 <p><em>Note: Since code in Miden is expressed as MAST, every function is a commitment to the underlying code. The code cannot change unnoticed to the user because its hash would change. Behind any MAST root there can only be <code>256</code> functions</em></p>
 <h4 id="example-account-code"><a class="header" href="#example-account-code">Example Account Code</a></h4>
-<p>Currently, Miden provides two standard implementations for account code. </p>
+<p>Currently, Miden provides two standard implementations for account code.</p>
 <h5 id="basic-user-account-regular-updatable-account"><a class="header" href="#basic-user-account-regular-updatable-account">Basic user account (Regular updatable account)</a></h5>
 <p>There is a standard for a basic user account. It exposes three functions via its interface.</p>
 <details>
@@ -537,9 +537,9 @@ end
 <p>In the future we will also support <strong>encrypted state</strong> which will be onchain but encrypted. * Depending on the account storage mode (private vs. encrypted vs. public) and transaction type (local vs. network) the operator receives the new Account ID eventually and - if the transaction is correct - adds the ID to the Account DB</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="notes-1"><a class="header" href="#notes-1">Notes</a></h1>
-<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. That means, in Miden exist notes as a way of transferring assets between and to interact with accounts. Notes can be consumed and produced asynchronously and privately. The concept of notes is a key difference between Ethereum’s Account-based model and Polygon Miden, which uses a hybrid UTXO- and Account-based <a href="architecture/state.html">state-model</a>. </p>
+<p>Miden aims to achieve parallel transaction execution and privacy. The UTXO-model combined with client-side proofs provide those features. That means, in Miden exist notes as a way of transferring assets between and to interact with accounts. Notes can be consumed and produced asynchronously and privately. The concept of notes is a key difference between Ethereum’s Account-based model and Polygon Miden, which uses a hybrid UTXO- and Account-based <a href="architecture/state.html">state-model</a>.</p>
 <h1 id="note-design"><a class="header" href="#note-design">Note design</a></h1>
-<p>In Polygon Miden, accounts communicate with one another by producing and consuming notes. A note stores assets and a script that defines how this note can be consumed. </p>
+<p>In Polygon Miden, accounts communicate with one another by producing and consuming notes. A note stores assets and a script that defines how this note can be consumed.</p>
 <p>The diagram below illustrates the contents of a note:</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/note/Note.png" style="width: 25%;">
@@ -548,31 +548,31 @@ end
 <ul>
 <li><strong>Assets →</strong> serves as <a href="architecture/assets.html">asset</a> container for a note. It can contain up to <code>256</code> assets stored in an array which can be reduced to a single hash.</li>
 <li><strong>Script →</strong> will be executed in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/transactions.html">transaction</a> in which the note is consumed. The script defines the conditions for the consumption, if the script fails, the note cannot be consumed.</li>
-<li><strong>Inputs →</strong> used for the note script execution. They can be accessed by the note script via <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-procedures.html#note">transaction kernel procedures</a>. The number is limited to 16 and they must be defined at note creation. </li>
+<li><strong>Inputs →</strong> used for the note script execution. They can be accessed by the note script via <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-procedures.html#note">transaction kernel procedures</a>. The number is limited to 16 and they must be defined at note creation.</li>
 <li><strong>Serial number →</strong> a note's unique identifier to break linkability between <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-hash">note hash</a> and <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-nullifier">nullifier</a>. Should be a random <code>Word</code> chosen by the user - if revealed, the nullifier might be computed easily.</li>
 </ul>
 <p>In addition, a note has <strong>metadata</strong> including the sender and the note tag. Those values are always public regardless of the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-storage-mode">note storage mode</a>.</p>
 <h1 id="notes-lifecycle"><a class="header" href="#notes-lifecycle">Note's lifecycle</a></h1>
-<p>New notes are created by executing transactions. After verifying the transaction proof the operator adds either only the note hash (private notes) or the full note data (public notes) to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Note DB</a>. Notes can be produced and consumed locally by users in local transactions or by the operator in a network transaction. Note consumption requires the transacting party to know the note data to compute the nullifier. After successful verification, the operator sets the corresponding entry in the Nullifier DB to &quot;consumed&quot;. </p>
+<p>New notes are created by executing transactions. After verifying the transaction proof the operator adds either only the note hash (private notes) or the full note data (public notes) to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Note DB</a>. Notes can be produced and consumed locally by users in local transactions or by the operator in a network transaction. Note consumption requires the transacting party to know the note data to compute the nullifier. After successful verification, the operator sets the corresponding entry in the Nullifier DB to "consumed".</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/note/Note_life_cycle.png">
 </p>
-<p>The following sections will explain, how notes are created, stored, discovered and consumed. </p>
+<p>The following sections will explain, how notes are created, stored, discovered and consumed.</p>
 <h2 id="note-creation"><a class="header" href="#note-creation">Note creation</a></h2>
-<p>Notes are created as outputs (<code>OutputNotes</code>) of Miden transactions. Operators record those notes to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#note-database">Note DB</a>, after successful verification of the underlying transactions those notes can be consumed. </p>
+<p>Notes are created as outputs (<code>OutputNotes</code>) of Miden transactions. Operators record those notes to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#note-database">Note DB</a>, after successful verification of the underlying transactions those notes can be consumed.</p>
 <h2 id="the-note-script"><a class="header" href="#the-note-script">The note script</a></h2>
 <p>Every note has a script which gets executed at note consumption. It is always executed in the context of a single account, and thus, may invoke zero or more of the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#code">account's functions</a>. The script allows for more than just the transferring of assets, they could be of arbitrary complexity thanks to the Turing completeness of the Miden VM</p>
 <p>By design, every note script can be defined as a unique hash or the root of a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/main.html">Miden program MAST</a>. That also means every function is a commitment to the underlying code. That code cannot change unnoticed to the user because its hash would change. That way it is easy to recognize standardized notes and those which deviate.</p>
 <p>There exist <a href="https://github.com/0xPolygonMiden/miden-base/tree/main/miden-lib/asm/note_scripts">standard note scripts</a> (P2ID, P2IDR, SWAP) that users can create and add to their notes using the <a href="architecture/../network/miden-clients.html">Miden client</a> or by calling internal <a href="https://github.com/0xPolygonMiden/miden-base/blob/fa63b26d845f910d12bd5744f34a6e55c08d5cde/miden-lib/src/notes/mod.rs#L15-L66">Rust code</a>.</p>
 <ul>
-<li>P2ID and P2IDR scripts are used to send assets to a specific account ID. The scripts check at note consumption if the executing account ID equals the account ID that was set by the note creator as note inputs. The P2IDR script is reclaimable and thus after a certain block height can also be consumed by the sender itself. </li>
-<li>SWAP script is a simple way to swap assets. It adds an asset from the note into the consumer's vault and creates a new note consumable by the first note's issuer containing the requested asset. </li>
+<li>P2ID and P2IDR scripts are used to send assets to a specific account ID. The scripts check at note consumption if the executing account ID equals the account ID that was set by the note creator as note inputs. The P2IDR script is reclaimable and thus after a certain block height can also be consumed by the sender itself.</li>
+<li>SWAP script is a simple way to swap assets. It adds an asset from the note into the consumer's vault and creates a new note consumable by the first note's issuer containing the requested asset.</li>
 </ul>
 <h3 id="example-note-script-pay-to-id-p2id"><a class="header" href="#example-note-script-pay-to-id-p2id">Example note script Pay to ID (P2ID)</a></h3>
 <details>
   <summary>Want to know more how to ensure a note can only be consumed by a specified account?</summary>
 <h4 id="goal-of-the-p2id-script"><a class="header" href="#goal-of-the-p2id-script">Goal of the P2ID script</a></h4>
-<p>The P2ID script defines a specific target account ID as the only account that can consume the note. Such notes ensure a targeted asset transfer. </p>
+<p>The P2ID script defines a specific target account ID as the only account that can consume the note. Such notes ensure a targeted asset transfer.</p>
 <h4 id="imports-and-context"><a class="header" href="#imports-and-context">Imports and context</a></h4>
 <p>The P2ID script uses procedures from the account, note and wallet API.</p>
 <pre><code>use.miden::account
@@ -626,7 +626,7 @@ end
 <p>Every note script starts with the note script root on top of the stack. After the <code>dropw</code>, the stack is cleared. Next, the script stored the note inputs at pos 0 in the <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-procedures.html#transaction-contexts">relative note context memory</a> by  <code>push.0 exec.note::get_inputs</code>. Then, <code>mem_load</code> loads a <code>Felt</code> from the specified memory address and puts it on top of the stack, in that cases the   <code>target_account_id</code> defined by the creator of the note. Now, the note invokes <code>get_id</code> from the account API using <code>exec.account::get_id</code> - which is   possible even in the note context. Because, there are two account IDs on top of the stack now, <code>assert_eq</code> fails if the two account IDs (target_account_id and executing_account_id) are not the same. That means, the script cannot be successfully executed if executed by any other account than the account specified by the note creator using the note inputs.</p>
 <p>If execution hasn't failed, the script invokes a helper procedure <code>exec.add_note_assets_to_account</code> to add the note's assets into the executing account's vault.</p>
 <h4 id="add-assets"><a class="header" href="#add-assets">Add assets</a></h4>
-<p>This procedure adds the assets held by the note into the account's vault. </p>
+<p>This procedure adds the assets held by the note into the account's vault.</p>
 <pre><code>#! Helper procedure to add all assets of a note to an account.
 #!
 #! Inputs: []
@@ -668,32 +668,32 @@ proc.add_note_assets_to_account
     drop dropw drop
 end
 </code></pre>
-<p>The procedure starts by calling <code>exec.note::get_assets</code>. As with the note's inputs before, this writes the assets of the note into memory starting at the specified address. Assets are stored in consecutive memory slots, so <code>dup.1 add</code> provides the last memory slot. </p>
-<p>In Miden, <a href="architecture/assets.html">assets</a> are represented by <code>Words</code>, so we need to pad the stack with four <code>0</code>s to make room for an asset. Now, if there is at least one asset (checked by <code>dup dup.6 neq</code>), the loop starts. It first saves the pointer for later use (<code>dup movdn.5</code>), then loads the first asset <code>mem_loadw</code> on top of the stack. </p>
-<p>Now, the procedure calls the a function of the account interface <code>call.wallet::receive_asset</code> to put the asset into the account's vault. Due to different <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-procedures.html#transaction-contexts">contexts</a>, a note script cannot directly call an account function to add the asset. The account must expose this function in its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#example-account-code">interface</a>. </p>
+<p>The procedure starts by calling <code>exec.note::get_assets</code>. As with the note's inputs before, this writes the assets of the note into memory starting at the specified address. Assets are stored in consecutive memory slots, so <code>dup.1 add</code> provides the last memory slot.</p>
+<p>In Miden, <a href="architecture/assets.html">assets</a> are represented by <code>Words</code>, so we need to pad the stack with four <code>0</code>s to make room for an asset. Now, if there is at least one asset (checked by <code>dup dup.6 neq</code>), the loop starts. It first saves the pointer for later use (<code>dup movdn.5</code>), then loads the first asset <code>mem_loadw</code> on top of the stack.</p>
+<p>Now, the procedure calls the a function of the account interface <code>call.wallet::receive_asset</code> to put the asset into the account's vault. Due to different <a href="https://0xpolygonmiden.github.io/miden-base/transactions/transaction-procedures.html#transaction-contexts">contexts</a>, a note script cannot directly call an account function to add the asset. The account must expose this function in its <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#example-account-code">interface</a>.</p>
 <p>Lastly, the pointer gets incremented, and if there is a second asset, the loop continues (<code>movup.4 add.1 dup dup.6 neq</code>). Finally, when all assets were put into the account's vault, the stack is cleared (<code>drop dropw drop</code>).</p>
 </details>
 <h2 id="note-storage-mode"><a class="header" href="#note-storage-mode">Note storage mode</a></h2>
-<p>Similar to accounts, there are two storage modes for notes in Miden. Notes can be stored on-chain in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Note DB</a> with all data publicly visible for everyone. Alternatively, notes can be stored off-chain by committing only the note hash to the Note DB. </p>
+<p>Similar to accounts, there are two storage modes for notes in Miden. Notes can be stored on-chain in the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#notes-database">Note DB</a> with all data publicly visible for everyone. Alternatively, notes can be stored off-chain by committing only the note hash to the Note DB.</p>
 <p>Every note has a unique note hash. It is defined as follows:</p>
 <pre><code>hash(hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash), vault_hash)
 </code></pre>
 <p><em>Info: To compute a note's hash, we do not need to know the note's <code>serial_num</code>. Knowing the hash of the <code>serial_num</code> (as well as <code>script_hash</code>, <code>input_hash</code> and <code>note_vault</code>) is also sufficient. We compute the hash of <code>serial_num</code> as <code>hash(serial_num, [0; 4])</code> to simplify processing within the VM.</em></p>
 <h2 id="note-discovery"><a class="header" href="#note-discovery">Note discovery</a></h2>
-<p>Note discovery describes the process of Miden clients finding notes they want to consume. There are two ways to receive new relevant notes - getting notes via an off-chain channel or querying the Miden operator to request newly recorded relevant notes. 
+<p>Note discovery describes the process of Miden clients finding notes they want to consume. There are two ways to receive new relevant notes - getting notes via an off-chain channel or querying the Miden operator to request newly recorded relevant notes.
 The latter is done via note tags. Tags are part of the note's metadata and are represented by a <code>Felt</code>. The <code>SyncState</code> API of the <a href="architecture/../network/miden-node.html">Miden node</a> requires the Miden client to provide a <code>note_tag</code> value which is used as a filter in the operator's response. Tags are useful for note discovery enabling an easy collection of all notes matching a certain tag.</p>
 <h2 id="note-consumption"><a class="header" href="#note-consumption">Note consumption</a></h2>
-<p>As with creation, notes can only be consumed in Miden transactions. If a valid transaction consuming an <code>InputNote</code> gets verified by the Miden node, the note's unique nullifier gets added to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> and is therefore consumed. </p>
+<p>As with creation, notes can only be consumed in Miden transactions. If a valid transaction consuming an <code>InputNote</code> gets verified by the Miden node, the note's unique nullifier gets added to the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/state.html#nullifier-database">Nullifier DB</a> and is therefore consumed.</p>
 <p>Notes can only be consumed if the note data is known to the consumer. The note data must be provided as input to the <a href="architecture/../transactions/transaction-kernel.html">transaction kernel</a>. That means, for privately stored notes, there must be some off-chain communication to transmit the note's data from the sender to the target.</p>
 <h3 id="note-recipient-to-restrict-note-consumption"><a class="header" href="#note-recipient-to-restrict-note-consumption">Note recipient to restrict note consumption</a></h3>
-<p>There are several ways to restrict the set of accounts that can consume a specific note. One way is to specifically define the target account ID as done in the P2ID and P2IDR note scripts. Another way is by using the concept of a <code>RECIPIENT</code>. Miden defines a <code>RECIPIENT</code> (represented as <code>Word</code>) as: </p>
+<p>There are several ways to restrict the set of accounts that can consume a specific note. One way is to specifically define the target account ID as done in the P2ID and P2IDR note scripts. Another way is by using the concept of a <code>RECIPIENT</code>. Miden defines a <code>RECIPIENT</code> (represented as <code>Word</code>) as:</p>
 <pre><code>hash(hash(hash(serial_num, [0; 4]), script_hash), input_hash)
 </code></pre>
 <p>This concept restricts note consumption to those users who know the pre-image data of <code>RECIPIENT</code> - which might be a bigger set than a single account.</p>
-<p>During the <a href="architecture/../transactions/transaction-kernel.html">transaction prologue</a> the users needs to provide all the data to compute the note hash. That means, one can create notes that can only be consumed if the <code>serial_num</code> and other data is known. This information can be passed on off-chain by the sender to the consumer. This is only useful with private notes.For public notes, all note data is known, and anyone can compute the <code>RECIPIENT</code>. </p>
+<p>During the <a href="architecture/../transactions/transaction-kernel.html">transaction prologue</a> the users needs to provide all the data to compute the note hash. That means, one can create notes that can only be consumed if the <code>serial_num</code> and other data is known. This information can be passed on off-chain by the sender to the consumer. This is only useful with private notes.For public notes, all note data is known, and anyone can compute the <code>RECIPIENT</code>.</p>
 <p>You can see in the standard <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/note_scripts/SWAP.masm">SWAP note script</a> how <code>RECIPIENT</code> is used. Here, using a single hash, is sufficient to ensure that the swapped asset and its note can only be consumed by the defined target.</p>
 <h3 id="note-nullifier-to-ensure-private-consumption"><a class="header" href="#note-nullifier-to-ensure-private-consumption">Note nullifier to ensure private consumption</a></h3>
-<p>The note's nullifier is computed as: </p>
+<p>The note's nullifier is computed as:</p>
 <pre><code>hash(serial_num, script_hash, input_hash, vault_hash)
 </code></pre>
 <p>This achieves the following properties:</p>
@@ -741,25 +741,25 @@ The latter is done via note tags. Tags are part of the note's metadata and are r
 <h2 id="non-native-assets"><a class="header" href="#non-native-assets">Non-native assets</a></h2>
 <p>Miden is flexible enough to create other types of assets as well.</p>
 <p>For example, developers can fully replicate Ethereum's ERC20 model, where ownership of fungible assets is recorded in a single account. To transact, users must send a note to that account to change the global hashmap.</p>
-<p>Furthermore, a complete account can be treated as a programmable asset because ownership of accounts is transferrable. An account could be a &quot;crypto kitty&quot; with specific attributes and rules, and people can trade these &quot;crypto kitties&quot; by transferring accounts between each other.</p>
+<p>Furthermore, a complete account can be treated as a programmable asset because ownership of accounts is transferrable. An account could be a "crypto kitty" with specific attributes and rules, and people can trade these "crypto kitties" by transferring accounts between each other.</p>
 <p>We can also think of an account representing a car. The owner of the car can change so the car account - granting access to the physical car - can be treated as an asset. In this car account, there could be rules defining who is allowed to drive the car and when.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transactions-1"><a class="header" href="#transactions-1">Transactions</a></h1>
-<p>Transactions in Miden can be understood as facilitating account state changes. Asset transfers between accounts are done by executing transactions. They take a single account and some <a href="architecture/notes.html">notes</a> as input and output the same account at a new state together with some other notes. </p>
+<p>Transactions in Miden can be understood as facilitating account state changes. Asset transfers between accounts are done by executing transactions. They take a single account and some <a href="architecture/notes.html">notes</a> as input and output the same account at a new state together with some other notes.</p>
 <p>Miden aims for parallel and private transaction execution. Because a transaction is always performed against a single account, Miden obtains asynchronicity. And, because every transaction causes a provable state-change with a STARK proof, it provides privacy when executed locally.</p>
 <h2 id="transaction-design"><a class="header" href="#transaction-design">Transaction design</a></h2>
 <p>Transactions describe the state-transition of a single account that takes chain data and <code>0 to 1023</code> notes as input and produces a <code>TransactionWitness</code> and <code>0 to 4096</code> notes as output.</p>
 <p><br />
-</p>
+\</p>
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction_diagram.png" style="width: 75%;">
 </p>
 <p><br />
-</p>
+\</p>
 <p>At its core, a transaction is an executable program - the transaction kernel program - that processes the provided inputs and creates the requested outputs. Because the program is executed by the Miden VM, a STARK-proof is generated for every transaction.</p>
-<p>The next sections will explain the details of a Miden transaction </p>
+<p>The next sections will explain the details of a Miden transaction</p>
 <ul>
-<li>Transaction <a href="architecture/../transactions/transaction-execution.html">execution</a> </li>
+<li>Transaction <a href="architecture/../transactions/transaction-execution.html">execution</a></li>
 <li>Transaction <a href="architecture/../transactions/transaction-kernel.html">kernel</a></li>
 <li>Transaction <a href="architecture/../transactions/transaction-procedures.html">procedures</a></li>
 <li>Transaction <a href="architecture/../transactions/transaction-modes.html">modes</a></li>
@@ -769,13 +769,13 @@ The latter is done via note tags. Tags are part of the note's metadata and are r
 <p align="center">
     <img src="architecture/../diagrams/architecture/transaction/Transaction_Flow.png">
 </p>
-<p>The first transaction invokes a function on <code>account_a</code> (e.g., &quot;send_asset&quot; function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., &quot;receive_asset&quot; function), which also updates the internal state of <code>account_b</code>.</p>
+<p>The first transaction invokes a function on <code>account_a</code> (e.g., "send_asset" function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., "receive_asset" function), which also updates the internal state of <code>account_b</code>.</p>
 <p>It is important to note that both transactions can be executed asynchronously: first <code>transaction1</code> is executed, and then, some time later, <code>transaction2</code> can be executed. This opens up a few interesting possibilities:</p>
 <ul>
 <li>Owner of <code>account_b</code> may wait until they receive many notes and process them all in a single transaction.</li>
 <li>A note script may include a clause which allows the source account to consume the note after some time. Thus, if <code>account_b</code> does not consume the note after the specified time, the funds can be returned. This mechanism could be used to make sure funds sent to non-existent accounts are not lost.</li>
 <li>Neither sender nor the recipient need to know who the other side is. From the sender's perspective they just need to create <code>note1</code> (and for this they need to know the assets to be transferred and the root of the note's script). They don't need any information on who will eventually consume the note. From the recipient's perspective, they just need to consume <code>note1</code>. They don't need to know who created it.</li>
-<li>Both transactions can be executed &quot;locally&quot;. For example, we could generate a zk-proof that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. The same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
+<li>Both transactions can be executed "locally". For example, we could generate a zk-proof that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. The same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transaction-execution"><a class="header" href="#transaction-execution">Transaction Execution</a></h1>
@@ -789,20 +789,20 @@ The latter is done via note tags. Tags are part of the note's metadata and are r
 <p align="center">
     <img src="transactions/../diagrams/architecture/transaction/Transaction_execution_process.png" style="width: 75%;">
 </p>
-<p>One of the main reasons for splitting execution and proving is that it allows to have &quot;stateless provers&quot; - i.e., the executed transaction contains all data needed to re-execute and prove a transaction (no database access is needed). This is very powerful and allows the distribution of proof generation much more easily.</p>
+<p>One of the main reasons for splitting execution and proving is that it allows to have "stateless provers" - i.e., the executed transaction contains all data needed to re-execute and prove a transaction (no database access is needed). This is very powerful and allows the distribution of proof generation much more easily.</p>
 <h2 id="the-data-store-and-transaction-inputs"><a class="header" href="#the-data-store-and-transaction-inputs">The Data Store and Transaction Inputs</a></h2>
 <p>The data store defines the interface that transaction objects use to fetch data required for transaction execution. It stores account, chain, and input note data required to execute a transaction against the account with the specified ID.</p>
-<p>Specifically, it must provide the following inputs to the transaction </p>
+<p>Specifically, it must provide the following inputs to the transaction</p>
 <ul>
-<li>the <code>Account</code> including the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-id">AccountID</a> and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#code">AccountCode</a> which will be executed during the transaction. </li>
+<li>the <code>Account</code> including the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#account-id">AccountID</a> and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/accounts.html#code">AccountCode</a> which will be executed during the transaction.</li>
 <li>the <code>BlockHeader</code>, which contains metadata about the block, commitments to the current state of the chain and the hash of the proof that attests to the integrity of the chain.</li>
 <li>the <code>ChainMmr</code>, which allows for efficient authentication of consumed notes during transaction execution. Authentication is achieved by providing an inclusion proof for the consumed notes in the transaction against the <code>ChainMmr</code>-root associated with the latest block known at the time of transaction execution.</li>
 <li>the <code>InputNotes</code> that are being consumed in the transaction (InputNotes), including the corresponding note data, e.g. the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#script">note script</a> and <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#serial-number">serial number</a>.</li>
 </ul>
-<p><em>Note: The <code>InputNotes</code> must all be already recorded on-chain in order for the transaction to succeed. And there is no Nullifier-check during a transaction. Nullifiers are being checked by the Miden Operator during transaction verification. So at the transaction level, there is &quot;double spending&quot;.</em></p>
+<p><em>Note: The <code>InputNotes</code> must all be already recorded on-chain in order for the transaction to succeed. And there is no Nullifier-check during a transaction. Nullifiers are being checked by the Miden Operator during transaction verification. So at the transaction level, there is "double spending".</em></p>
 <h2 id="the-transaction-compiler"><a class="header" href="#the-transaction-compiler">The Transaction Compiler</a></h2>
-<p>Every transaction must be executed within the Miden VM to generate a transaction proof. In Miden there is a proof for every transaction. The transaction compiler is responsible for building executable programs. The generated programs - MASM programs - can then be executed on the Miden VM which generates a zkProof. In addition to transaction compilation, the transaction compiler provides methods which can be used to compile Miden account code, note scripts, and transaction scripts. </p>
-<p>Compilation results in an executable MASM Program, including the provided account interface and notes, an optional transaction script and the <a href="transactions/transaction-kernel.html">Transaction Kernel Program</a>. The Transaction Kernel Program defines procedures and the memory layout for all parts of the transaction. A detailed description can be found in the next section. </p>
+<p>Every transaction must be executed within the Miden VM to generate a transaction proof. In Miden there is a proof for every transaction. The transaction compiler is responsible for building executable programs. The generated programs - MASM programs - can then be executed on the Miden VM which generates a zkProof. In addition to transaction compilation, the transaction compiler provides methods which can be used to compile Miden account code, note scripts, and transaction scripts.</p>
+<p>Compilation results in an executable MASM Program, including the provided account interface and notes, an optional transaction script and the <a href="transactions/transaction-kernel.html">Transaction Kernel Program</a>. The Transaction Kernel Program defines procedures and the memory layout for all parts of the transaction. A detailed description can be found in the next section.</p>
 <p>Finally, after the transaction program has been compiled and the inputs including the advice provider were correctly populated, the transaction can be executed.</p>
 <h2 id="the-executed-transaction-and-the-transaction-outputs"><a class="header" href="#the-executed-transaction-and-the-transaction-outputs">The Executed Transaction and the Transaction Outputs</a></h2>
 <p>The <code>ExecutedTransaction</code> object represents the result of a transaction - not its proof yet. From it, the account, and storage delta can be extracted. Furthermore, it serves as an input of the transaction prover to generate the proof. A successfully executed transaction results in a new state of the provided account, a vector of all created Notes (<code>OutputNotes</code>) and a vector of all the consumed Notes (<code>InputNotes</code>) together with their Nullifiers.</p>
@@ -827,25 +827,25 @@ The latter is done via note tags. Tags are part of the note's metadata and are r
 <h2 id="the-prologue"><a class="header" href="#the-prologue">The Prologue</a></h2>
 <p>The transaction prologue is executed at the beginning of a transaction. It needs to accomplish the following tasks:</p>
 <ol>
-<li>&quot;Unhash&quot; the inputs and lay them out in root context's memory.</li>
-<li>Build a single vault (&quot;tx vault&quot;) containing assets of all inputs (input notes and initial account state).</li>
+<li>"Unhash" the inputs and lay them out in root context's memory.</li>
+<li>Build a single vault ("tx vault") containing assets of all inputs (input notes and initial account state).</li>
 <li>Verify that all input notes are present in the Note DB.</li>
 </ol>
-<p>In other words, the prologue stores all provided information from the inputs and the advice provider into the appropriate memory slots. It then reads the data for account and notes from the advice provider, writes it to memory, hashes it, and verifies that the resulting hash matches the commitments provided via the stack. Finally, it creates a single vault for the assets that are involved. </p>
-<p>The memory layout looks as follows. The kernel context has access to all of those memory slots. </p>
+<p>In other words, the prologue stores all provided information from the inputs and the advice provider into the appropriate memory slots. It then reads the data for account and notes from the advice provider, writes it to memory, hashes it, and verifies that the resulting hash matches the commitments provided via the stack. Finally, it creates a single vault for the assets that are involved.</p>
+<p>The memory layout looks as follows. The kernel context has access to all of those memory slots.</p>
 <p align="center">
     <img src="transactions/../diagrams/architecture/transaction/Memory_layout_kernel.png" style="width: 75%;">
 </p>
-<p>The book keeping section is needed to keep track of variables which are used internally by the transaction kernel. </p>
+<p>The book keeping section is needed to keep track of variables which are used internally by the transaction kernel.</p>
 <p>First, all <strong>global inputs</strong> are being stored in the pre-defined memory slots. Global inputs are being provided via the <code>operand_stack</code> to the VM at transaction execution. The include the block hash, the account ID, the initial account hash, and the Nullifier commitment. This is a sequential hash of all <code>(nullifier, ZERO)</code> pairs for the notes consumed in the transaction.</p>
 <p>Second, the <strong>block data</strong> is being processed. This involves reading the block data from the advice provider and storing it at the appropriate memory addresses. Block data is provided from the latest known block and consists of note, state and batch root, the block;s the previous hash and proof hash, as well as the block number. As the data is read from the advice provider, the block hash is computed. It is asserted that the computed block hash matches the block hash stored in the global inputs.</p>
-<p>Third, the <strong>chain data</strong> is being processed in a similar way as the block data. In this case the chain root is being recomputed and compared against the chain root stored in the block data section. </p>
+<p>Third, the <strong>chain data</strong> is being processed in a similar way as the block data. In this case the chain root is being recomputed and compared against the chain root stored in the block data section.</p>
 <p>Fourth, the <strong>account data</strong> is being processed. This involves reading the data from the advice provider and storing it at the appropriate memory addresses. The account data consists of roots of the account's vault, its storage and code. As the account data is read from the advice provider, the account hash is computed. If the account is new then the global initial account hash is updated and the new account is validated.  If the account already exists then it is asserted that the computed account hash matches the account hash provided via global inputs. It is also asserted that the account id matches the account id provided via the global inputs (<code>operand_stack</code>).</p>
-<p>Fifth, the <strong>input notes</strong> are being processed. This involves per note reading the data from the advice provider and storing it at the appropriate memory addresses. Next to the total number of consumed notes, input note data consists of its serial number, the roots of the script, inputs and asset vault, its metadata and all its assets. As each note is consumed its hash and nullifier is computed. The transaction Nullifier commitment is computed via a sequential hash of all <code>(nullifier, ZERO)</code> pairs for all consumed notes. This step involves authentication that the input note data provided via the advice provider is consistent with the chain history. </p>
+<p>Fifth, the <strong>input notes</strong> are being processed. This involves per note reading the data from the advice provider and storing it at the appropriate memory addresses. Next to the total number of consumed notes, input note data consists of its serial number, the roots of the script, inputs and asset vault, its metadata and all its assets. As each note is consumed its hash and nullifier is computed. The transaction Nullifier commitment is computed via a sequential hash of all <code>(nullifier, ZERO)</code> pairs for all consumed notes. This step involves authentication that the input note data provided via the advice provider is consistent with the chain history.</p>
 <p><em>Note: One needs to provide the note data to compute the Nullifier, e.g. the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#script">note script</a> and the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#serial-number">serial number</a>. So one needs to know the note data to execute the prologue of a transaction. This is how the <a href="https://0xpolygonmiden.github.io/miden-base/architecture/notes.html#note-recipient">note recipient</a> defines the set of users who can consume a specific note. The executing account needs to provide the pre-image data to the recipient at the time of execution.</em></p>
-<p>Lastly, if a transaction script is provided, its root is being stored at the pre-defined memory address. </p>
+<p>Lastly, if a transaction script is provided, its root is being stored at the pre-defined memory address.</p>
 <h2 id="the-note-processing"><a class="header" href="#the-note-processing">The Note Processing</a></h2>
-<p>If there are input notes they are being consumed in a loop. For every note, the <a href="https://0xpolygonmiden.github.io/miden-vm/design/programs.html">MAST root</a> of the note script is being loaded onto the stack. Then, by calling a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/code_organization.html?highlight=dyncall#dynamic-procedure-invocation"><code>dyncall</code></a> the note script is being executed in a new context to prevent unwanted memory access. </p>
+<p>If there are input notes they are being consumed in a loop. For every note, the <a href="https://0xpolygonmiden.github.io/miden-vm/design/programs.html">MAST root</a> of the note script is being loaded onto the stack. Then, by calling a <a href="https://0xpolygonmiden.github.io/miden-vm/user_docs/assembly/code_organization.html?highlight=dyncall#dynamic-procedure-invocation"><code>dyncall</code></a> the note script is being executed in a new context to prevent unwanted memory access.</p>
 <pre><code>    # loop while we have notes to consume
     while.true
         # execute the note setup script
@@ -880,7 +880,7 @@ The latter is done via note tags. Tags are part of the note's metadata and are r
 </code></pre>
 <p><em>Note: The executing account must expose the <code>auth_tx_rpo_falcon512</code> function in order for the transaction script to call it.</em></p>
 <h2 id="the-epilogue"><a class="header" href="#the-epilogue">The Epilogue</a></h2>
-<p>The Epilogue finalizes the transaction. It </p>
+<p>The Epilogue finalizes the transaction. It</p>
 <ol>
 <li>computes the final account hash</li>
 <li>if the account has changed, assert that the final account nonce is greater than the initial
@@ -888,22 +888,22 @@ account nonce</li>
 <li>computes the created notes commitment</li>
 <li>asserts that the input and output vault roots are equal</li>
 </ol>
-<p>There is an exception for special accounts, called faucets, which can mint or burn assets. In that case input and output vault roots are not equal. </p>
+<p>There is an exception for special accounts, called faucets, which can mint or burn assets. In that case input and output vault roots are not equal.</p>
 <h2 id="the-outputs"><a class="header" href="#the-outputs">The Outputs</a></h2>
-<p>The transaction kernel program outputs the transaction script root, a commitment of all newly created outputs notes, and the account hash in its new state. </p>
+<p>The transaction kernel program outputs the transaction script root, a commitment of all newly created outputs notes, and the account hash in its new state.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transaction-contexts"><a class="header" href="#transaction-contexts">Transaction Contexts</a></h1>
 <p>Miden assembly program execution can span multiple isolated contexts. An execution context defines its own memory space which is not accessible from other execution contexts. Note scripts cannot directly write into account data. This should be possible if only if the account exposes respective functions.</p>
-<p>The kernel program always starts executing in a root context. Thus, the prologue sets the memory for the root context. To move execution into a different context, we can invoke a procedure using the <code>call</code> or <code>dyncall</code> instruction. In fact, any time we invoke a procedure using the <code>call</code> instruction, the procedure is executed in a new context. </p>
+<p>The kernel program always starts executing in a root context. Thus, the prologue sets the memory for the root context. To move execution into a different context, we can invoke a procedure using the <code>call</code> or <code>dyncall</code> instruction. In fact, any time we invoke a procedure using the <code>call</code> instruction, the procedure is executed in a new context.</p>
 <p>While executing in a note, account, or tx script context, we can request to execute some procedures in the kernel context, which is where all necessary information was stored during the prologue. Switching to the kernle context can be done via the <code>syscall</code> instruction. The set of procedures which can be invoked via the <code>syscall</code> instruction is limited by the <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/kernels/transaction/api.masm">transaction kernel API</a>. Once the procedure call via <code>syscall</code> returns, the execution moves back to the note, account, or tx script from which it was invoked.</p>
 <p><br />
-</p>
+\</p>
 <p align="center">
     <img src="transactions/../diagrams/architecture/transaction/Transaction_contexts.png" style="width: 100%;">
 </p>
 <p><br />
-</p>
-<p>The above diagram shows different context switches in a simple transaction. In this example, an account consumes a <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/note_scripts/P2ID.masm">P2ID</a> note and receives the asset into its vault. As with in any MASM program, the transaction kernel program starts in the root context. It executes the Prologue and stores all necessary information into the root memory. </p>
+\</p>
+<p>The above diagram shows different context switches in a simple transaction. In this example, an account consumes a <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/note_scripts/P2ID.masm">P2ID</a> note and receives the asset into its vault. As with in any MASM program, the transaction kernel program starts in the root context. It executes the Prologue and stores all necessary information into the root memory.</p>
 <p>The next step, note processing, starts with a <code>dyncall</code> and in doing so, invoking the note script. This command moves execution into a different context <strong>(1)</strong>. In this new context, the note has no access to the kernel memory. After a successful ID check, which changes back to the kernel context twice to get the note inputs and the account id, the script executes the <code>add_note_assets_to_account</code> procedure.</p>
 <pre><code># Pay-to-ID script: adds all assets from the note to the account, assuming ID of the account
 # matches target account ID specified by the note inputs.
@@ -916,7 +916,7 @@ begin
     # =&gt; [...]
 end
 </code></pre>
-<p>The procedure cannot simply add assets to the account, because it is executed in a note context. Therefore, it needs to <code>call</code> the account interface. And in doing so, it moves execution into a second context - Account context - isolated from the note context <strong>(2)</strong>. </p>
+<p>The procedure cannot simply add assets to the account, because it is executed in a note context. Therefore, it needs to <code>call</code> the account interface. And in doing so, it moves execution into a second context - Account context - isolated from the note context <strong>(2)</strong>.</p>
 <pre><code>#! Helper procedure to add all assets of a note to an account.
 #! ...
 proc.add_note_assets_to_account
@@ -933,7 +933,7 @@ proc.add_note_assets_to_account
     ...
 end
 </code></pre>
-<p>The <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/miden/contracts/wallets/basic.masm">wallet</a> smart contract provides an interface for accounts to recieve and send assets. In this new context, the wallet calls the <code>add_asset</code> procedure of the account API. </p>
+<p>The <a href="https://github.com/0xPolygonMiden/miden-base/blob/main/miden-lib/asm/miden/contracts/wallets/basic.masm">wallet</a> smart contract provides an interface for accounts to recieve and send assets. In this new context, the wallet calls the <code>add_asset</code> procedure of the account API.</p>
 <pre><code>export.receive_asset
     exec.account::add_asset
     ...
@@ -946,11 +946,11 @@ export.add_asset
     syscall.account_vault_add_asset
 end
 </code></pre>
-<p>Now, the asset can be safely added to the vault within the kernel context and the note successfully be processed. </p>
+<p>Now, the asset can be safely added to the vault within the kernel context and the note successfully be processed.</p>
 <h1 id="transaction-procedures"><a class="header" href="#transaction-procedures">Transaction Procedures</a></h1>
-<p>There are user-facing procedures and kernel procedures. Users don't directly invoke kernel procedures, but indirectly via account code, note or transaction scripts. In that case, kernel procedures can only be invoked by a <code>syscall</code> instruction which always executes in the kernel context. </p>
+<p>There are user-facing procedures and kernel procedures. Users don't directly invoke kernel procedures, but indirectly via account code, note or transaction scripts. In that case, kernel procedures can only be invoked by a <code>syscall</code> instruction which always executes in the kernel context.</p>
 <h2 id="user-facing-procedures-apis"><a class="header" href="#user-facing-procedures-apis">User-facing Procedures (APIs)</a></h2>
-<p>These procedures can be used to create smart contract / account code, note scripts or account scripts. They basically serve as an API for the underlying kernel procedures. If a procedure can be called in the current context an <code>exec</code> is sufficient, otherwise if being the wrong context procedures must be invoked by <code>call</code>. Users will never need to invoke <code>syscall</code> procedures themselves. </p>
+<p>These procedures can be used to create smart contract / account code, note scripts or account scripts. They basically serve as an API for the underlying kernel procedures. If a procedure can be called in the current context an <code>exec</code> is sufficient, otherwise if being the wrong context procedures must be invoked by <code>call</code>. Users will never need to invoke <code>syscall</code> procedures themselves.</p>
 <p><em>Note: If capitalized, a variable represents a <code>Word</code>, e.g., <code>ACCT_HASH</code> consists of four <code>Felts</code>. If lowercase, the variable is represented by a single <code>Felt</code>.</em></p>
 <h3 id="account"><a class="header" href="#account">Account</a></h3>
 <p>To import the account procedures set <code>use.miden::account</code> at the beginning of the file. Any procedure that changes the account state, can only be invoked in the account context and not by note or transaction scripts. All procedures invoke <code>syscall</code> to the kernel API and some are restricted by the kernel procedure <code>exec.authenticate_account_origin</code>, which fails if the parent context is not the executing account.</p>
@@ -1006,7 +1006,7 @@ end
 </tbody></table>
 </div>
 <h2 id="kernel-procedures"><a class="header" href="#kernel-procedures">Kernel Procedures</a></h2>
-<p>WIP - we will add those later. </p>
+<p>WIP - we will add those later.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h2 id="transaction-modes"><a class="header" href="#transaction-modes">Transaction Modes</a></h2>
 <p>There are two types of transactions in Miden: local transactions and network transactions.</p>
@@ -1022,7 +1022,7 @@ end
 <p>For <strong>network transactions</strong>, the operator will execute the transaction and generate the proofs. Network transactions are useful for two reasons:</p>
 <ol>
 <li>Clients may not have sufficient resources to generate ZK proofs.</li>
-<li>Executing many transactions against the same public account by different clients would be challenging as the account state would change after every transaction. In this case, the Miden Node / Operator acts as a &quot;synchronizer&quot; as they can execute transactions sequentially and feed the output of the previous transaction into the subsequent one.</li>
+<li>Executing many transactions against the same public account by different clients would be challenging as the account state would change after every transaction. In this case, the Miden Node / Operator acts as a "synchronizer" as they can execute transactions sequentially and feed the output of the previous transaction into the subsequent one.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="state"><a class="header" href="#state">State</a></h1>
@@ -1244,7 +1244,7 @@ end
 <p>The Miden node is made up of three main components, which communicate over gRPC:</p>
 <ul>
 <li><strong><a href="network/../miden-node/miden-node-rpc.html">RPC</a>:</strong> an externally-facing component through which clients can interact with the node. It receives client requests (e.g., to synchronize with the latest state of the chain, or to submit transactions), performs basic validation, and forwards the requests to the appropriate internal components.</li>
-<li><strong><a href="network/../miden-node/miden-node-store.html">Store</a>:</strong> maintains the state of the chain. It serves as the &quot;source of truth&quot; for the chain - i.e., if it is not in the store, the node does not consider it to be part of the chain.</li>
+<li><strong><a href="network/../miden-node/miden-node-store.html">Store</a>:</strong> maintains the state of the chain. It serves as the "source of truth" for the chain - i.e., if it is not in the store, the node does not consider it to be part of the chain.</li>
 <li><strong><a href="network/../miden-node/miden-node-block-producer.html">Block Producer</a>:</strong> accepts transactions from the RPC component, creates blocks containing those transactions, and sends them to the store.</li>
 </ul>
 <p>All three components can either run as one process, or each component can run in its own process.</p>
@@ -1252,16 +1252,16 @@ end
 <p><img src="network/../diagrams/network/Miden_node.png" alt="Architecture diagram" /></p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="miden-node-rpc"><a class="header" href="#miden-node-rpc">Miden node RPC</a></h1>
-<p>The <strong>RPC</strong> is an externally-facing component through which clients can interact with the node. It receives client requests (e.g., to synchronize with the latest state of the chain, or to submit transactions), performs basic validation, 
+<p>The <strong>RPC</strong> is an externally-facing component through which clients can interact with the node. It receives client requests (e.g., to synchronize with the latest state of the chain, or to submit transactions), performs basic validation,
 and forwards the requests to the appropriate components.</p>
 <p><strong>RPC</strong> is one of components of the Miden node.</p>
 <h2 id="architecture-2"><a class="header" href="#architecture-2">Architecture</a></h2>
 <p><code>TODO</code></p>
 <h2 id="api"><a class="header" href="#api">API</a></h2>
-<p>The <strong>RPC</strong> serves connections using the <a href="https://grpc.io">gRPC protocol</a> on a port, set in the previously mentioned configuration file. 
+<p>The <strong>RPC</strong> serves connections using the <a href="https://grpc.io">gRPC protocol</a> on a port, set in the previously mentioned configuration file.
 Here is a brief description of supported methods.</p>
 <h3 id="checknullifiers"><a class="header" href="#checknullifiers">CheckNullifiers</a></h3>
-<p>Gets a list of proofs for given nullifier hashes, each proof as Tiered Sparse Merkle Trees (<a href="https://github.com/0xPolygonMiden/miden-node/blob/main/proto/proto/tsmt.proto">read more</a>). </p>
+<p>Gets a list of proofs for given nullifier hashes, each proof as Tiered Sparse Merkle Trees (<a href="https://github.com/0xPolygonMiden/miden-node/blob/main/proto/proto/tsmt.proto">read more</a>).</p>
 <p><strong>Parameters:</strong></p>
 <ul>
 <li><code>nullifiers</code>: <code>[Digest]</code> – array of nullifier hashes.</li>
@@ -1283,9 +1283,9 @@ Here is a brief description of supported methods.</p>
 <h3 id="syncstate"><a class="header" href="#syncstate">SyncState</a></h3>
 <p>Returns info which can be used by the client to sync up to the latest state of the chain
 for the objects (accounts, notes, nullifiers) the client is interested in.</p>
-<p>This request returns the next block containing requested data. It also returns <code>chain_tip</code> which is the latest block number in the chain. 
+<p>This request returns the next block containing requested data. It also returns <code>chain_tip</code> which is the latest block number in the chain.
 Client is expected to repeat these requests in a loop until <code>response.block_header.block_num == response.chain_tip</code>, at which point the client is fully synchronized with the chain.</p>
-<p>Each request also returns info about new notes, nullifiers etc. created. It also returns Chain MMR delta that can be used to update the state of Chain MMR. 
+<p>Each request also returns info about new notes, nullifiers etc. created. It also returns Chain MMR delta that can be used to update the state of Chain MMR.
 This includes both chain MMR peaks and chain MMR nodes.</p>
 <p>For preserving some degree of privacy, note tags and nullifiers filters contain only high part of hashes. Thus, returned data
 contains excessive notes and nullifiers, client can make additional filtering of that data on its side.</p>
@@ -1293,7 +1293,7 @@ contains excessive notes and nullifiers, client can make additional filtering of
 <ul>
 <li><code>block_num</code>: <code>uint32</code> – send updates to the client starting at this block.</li>
 <li><code>account_ids</code>: <code>[AccountId]</code> – accounts filter.</li>
-<li><code>note_tags</code>: <code>[uint32]</code> – note tags filter. Corresponds to the high 16 bits of the real values. </li>
+<li><code>note_tags</code>: <code>[uint32]</code> – note tags filter. Corresponds to the high 16 bits of the real values.</li>
 <li><code>nullifiers</code>: <code>[uint32]</code> – nullifiers filter. Corresponds to the high 16 bits of the real values.</li>
 </ul>
 <p><strong>Returns</strong></p>
@@ -1316,8 +1316,8 @@ contains excessive notes and nullifiers, client can make additional filtering of
 <p>This method doesn't return any data.</p>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="miden-node-store"><a class="header" href="#miden-node-store">Miden node store</a></h1>
-<p>The <strong>Store</strong> maintains the state of the chain. It serves as the &quot;source of truth&quot; for the chain - i.e., if it is not in 
-the store, the node does not consider it to be part of the chain. 
+<p>The <strong>Store</strong> maintains the state of the chain. It serves as the "source of truth" for the chain - i.e., if it is not in
+the store, the node does not consider it to be part of the chain.
 <strong>Store</strong> is one of components of the Miden node.</p>
 <h2 id="architecture-3"><a class="header" href="#architecture-3">Architecture</a></h2>
 <p><code>TODO</code></p>
@@ -1359,7 +1359,7 @@ the store, the node does not consider it to be part of the chain.
 <p>Returns data needed by the block producer to construct and prove the next block.</p>
 <p><strong>Parameters</strong></p>
 <ul>
-<li><code>account_ids</code>: <code>[AccountId]</code> – array of account IDs. </li>
+<li><code>account_ids</code>: <code>[AccountId]</code> – array of account IDs.</li>
 <li><code>nullifiers</code>: <code>[Digest]</code> – array of nullifier hashes (not currently in use).</li>
 </ul>
 <p><strong>Returns</strong></p>
@@ -1370,7 +1370,7 @@ the store, the node does not consider it to be part of the chain.
 <li><code>nullifiers</code>: <code>[NullifierBlockInputRecord]</code> – the requested nullifiers and their authentication paths.</li>
 </ul>
 <h3 id="gettransactioninputs"><a class="header" href="#gettransactioninputs">GetTransactionInputs</a></h3>
-<p>Returns the data needed by the block producer to check validity of an incoming transaction. </p>
+<p>Returns the data needed by the block producer to check validity of an incoming transaction.</p>
 <p><strong>Parameters</strong></p>
 <ul>
 <li><code>account_id</code>: <code>AccountId</code> – ID of the account against which a transaction is executed.</li>
@@ -1378,7 +1378,7 @@ the store, the node does not consider it to be part of the chain.
 </ul>
 <p><strong>Returns</strong></p>
 <ul>
-<li><code>account_state</code>: <code>AccountTransactionInputRecord</code> – account's descriptors. </li>
+<li><code>account_state</code>: <code>AccountTransactionInputRecord</code> – account's descriptors.</li>
 <li><code>nullifiers</code>: <code>[NullifierTransactionInputRecord]</code> – the block numbers at which corresponding nullifiers have been consumed, zero if not consumed.</li>
 </ul>
 <h3 id="syncstate-1"><a class="header" href="#syncstate-1">SyncState</a></h3>
@@ -1414,7 +1414,7 @@ contains excessive notes and nullifiers, client can make additional filtering of
 <p>This request doesn't have any parameters.</p>
 <p><strong>Returns</strong></p>
 <ul>
-<li><code>nullifiers</code>: <code>[NullifierLeaf]</code> – lists of all nullifiers of the current chain. </li>
+<li><code>nullifiers</code>: <code>[NullifierLeaf]</code> – lists of all nullifiers of the current chain.</li>
 </ul>
 <h3 id="listaccounts"><a class="header" href="#listaccounts">ListAccounts</a></h3>
 <p>Lists all accounts of the current chain.</p>
@@ -1434,12 +1434,12 @@ contains excessive notes and nullifiers, client can make additional filtering of
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="miden-block-producer"><a class="header" href="#miden-block-producer">Miden block producer</a></h1>
-<p>The <strong>Block producer</strong> receives transactions from the RPC component, processes them, creates block containing those transactions before sending created blocks to the store. </p>
-<p><strong>Block Producer</strong> is one of components of the Miden node. </p>
+<p>The <strong>Block producer</strong> receives transactions from the RPC component, processes them, creates block containing those transactions before sending created blocks to the store.</p>
+<p><strong>Block Producer</strong> is one of components of the Miden node.</p>
 <h2 id="architecture-4"><a class="header" href="#architecture-4">Architecture</a></h2>
 <p><code>TODO</code></p>
 <h2 id="api-2"><a class="header" href="#api-2">API</a></h2>
-<p>The <strong>Block Producer</strong> serves connections using the <a href="https://grpc.io">gRPC protocol</a> on a port, set in the previously mentioned configuration file. The API cannot directly be called by the Miden Client. </p>
+<p>The <strong>Block Producer</strong> serves connections using the <a href="https://grpc.io">gRPC protocol</a> on a port, set in the previously mentioned configuration file. The API cannot directly be called by the Miden Client.</p>
 <p>Here is a brief description of supported methods.</p>
 <h3 id="submitproventransaction-1"><a class="header" href="#submitproventransaction-1">SubmitProvenTransaction</a></h3>
 <p>Submits proven transaction to the Miden network.</p>

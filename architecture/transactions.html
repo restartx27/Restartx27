@@ -178,21 +178,21 @@
                     <main>
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
 <h1 id="transactions"><a class="header" href="#transactions">Transactions</a></h1>
-<p>Transactions in Miden can be understood as facilitating account state changes. Asset transfers between accounts are done by executing transactions. They take a single account and some <a href="notes.html">notes</a> as input and output the same account at a new state together with some other notes. </p>
+<p>Transactions in Miden can be understood as facilitating account state changes. Asset transfers between accounts are done by executing transactions. They take a single account and some <a href="notes.html">notes</a> as input and output the same account at a new state together with some other notes.</p>
 <p>Miden aims for parallel and private transaction execution. Because a transaction is always performed against a single account, Miden obtains asynchronicity. And, because every transaction causes a provable state-change with a STARK proof, it provides privacy when executed locally.</p>
 <h2 id="transaction-design"><a class="header" href="#transaction-design">Transaction design</a></h2>
 <p>Transactions describe the state-transition of a single account that takes chain data and <code>0 to 1023</code> notes as input and produces a <code>TransactionWitness</code> and <code>0 to 4096</code> notes as output.</p>
 <p><br />
-</p>
+\</p>
 <p align="center">
     <img src="../diagrams/architecture/transaction/Transaction_diagram.png" style="width: 75%;">
 </p>
 <p><br />
-</p>
+\</p>
 <p>At its core, a transaction is an executable program - the transaction kernel program - that processes the provided inputs and creates the requested outputs. Because the program is executed by the Miden VM, a STARK-proof is generated for every transaction.</p>
-<p>The next sections will explain the details of a Miden transaction </p>
+<p>The next sections will explain the details of a Miden transaction</p>
 <ul>
-<li>Transaction <a href="../transactions/transaction-execution.html">execution</a> </li>
+<li>Transaction <a href="../transactions/transaction-execution.html">execution</a></li>
 <li>Transaction <a href="../transactions/transaction-kernel.html">kernel</a></li>
 <li>Transaction <a href="../transactions/transaction-procedures.html">procedures</a></li>
 <li>Transaction <a href="../transactions/transaction-modes.html">modes</a></li>
@@ -202,13 +202,13 @@
 <p align="center">
     <img src="../diagrams/architecture/transaction/Transaction_Flow.png">
 </p>
-<p>The first transaction invokes a function on <code>account_a</code> (e.g., &quot;send_asset&quot; function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., &quot;receive_asset&quot; function), which also updates the internal state of <code>account_b</code>.</p>
+<p>The first transaction invokes a function on <code>account_a</code> (e.g., "send_asset" function) which creates a new note and also updates the internal state of <code>account_a</code>. The second transaction consumes the note which invokes a function on <code>account_b</code> (e.g., "receive_asset" function), which also updates the internal state of <code>account_b</code>.</p>
 <p>It is important to note that both transactions can be executed asynchronously: first <code>transaction1</code> is executed, and then, some time later, <code>transaction2</code> can be executed. This opens up a few interesting possibilities:</p>
 <ul>
 <li>Owner of <code>account_b</code> may wait until they receive many notes and process them all in a single transaction.</li>
 <li>A note script may include a clause which allows the source account to consume the note after some time. Thus, if <code>account_b</code> does not consume the note after the specified time, the funds can be returned. This mechanism could be used to make sure funds sent to non-existent accounts are not lost.</li>
 <li>Neither sender nor the recipient need to know who the other side is. From the sender's perspective they just need to create <code>note1</code> (and for this they need to know the assets to be transferred and the root of the note's script). They don't need any information on who will eventually consume the note. From the recipient's perspective, they just need to consume <code>note1</code>. They don't need to know who created it.</li>
-<li>Both transactions can be executed &quot;locally&quot;. For example, we could generate a zk-proof that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. The same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
+<li>Both transactions can be executed "locally". For example, we could generate a zk-proof that <code>transaction1</code> was executed and submit it to the network. The network can verify the proof without the need for executing the transaction itself. The same can be done for <code>transaction2</code>. Moreover, we can mix and match. For example, <code>transaction1</code> can be executed locally, but <code>transaction2</code> can be executed on the network, or vice-versa.</li>
 </ul>
 
                     </main>
