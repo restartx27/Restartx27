@@ -24,13 +24,15 @@ pub struct TransactionId(Digest);
 impl TransactionId {
     /// Returns a new [TransactionId] instantiated from the provided transaction components.
     pub fn new(
-        init_account_hash: Digest,
+        init_account_hash: Option<Digest>,
         final_account_hash: Digest,
         input_notes_hash: Digest,
         output_notes_hash: Digest,
     ) -> Self {
+        debug_assert_ne!(init_account_hash, Some(Digest::default()));
+
         let mut elements = [ZERO; 4 * WORD_SIZE];
-        elements[..4].copy_from_slice(init_account_hash.as_elements());
+        elements[..4].copy_from_slice(init_account_hash.unwrap_or_default().as_elements());
         elements[4..8].copy_from_slice(final_account_hash.as_elements());
         elements[8..12].copy_from_slice(input_notes_hash.as_elements());
         elements[12..].copy_from_slice(output_notes_hash.as_elements());
@@ -89,7 +91,7 @@ impl From<&ExecutedTransaction> for TransactionId {
         let input_notes_hash = tx.input_notes().commitment();
         let output_notes_hash = tx.output_notes().commitment();
         Self::new(
-            tx.initial_account().hash(),
+            tx.initial_account().proof_init_hash(),
             tx.final_account().hash(),
             input_notes_hash,
             output_notes_hash,
