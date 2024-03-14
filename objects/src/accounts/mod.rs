@@ -1,5 +1,3 @@
-use core::ops::Not;
-
 use crate::{
     assembly::{Assembler, AssemblyContext, ModuleAst},
     assets::AssetVault,
@@ -106,18 +104,6 @@ impl Account {
             self.storage.root(),
             self.code.root(),
         )
-    }
-
-    /// Returns hash of this account as used for the initial account state hash in transaction
-    /// proofs.
-    ///
-    /// For existing accounts, this is exactly the same as [Account::hash()], however, for new
-    /// accounts this value is set to `None`. This is because when a transaction is executed
-    /// against a new account, public input for the initial account state is set to `None` to
-    /// distinguish new accounts from existing accounts. The actual hash of the initial account
-    /// state (and the initial state itself), are provided to the VM via the advice provider.
-    pub fn proof_init_hash(&self) -> Option<Digest> {
-        self.is_new().not().then(|| self.hash())
     }
 
     /// Returns unique identifier of this account.

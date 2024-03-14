@@ -1,4 +1,7 @@
-use core::fmt::{Debug, Display};
+use core::{
+    fmt::{Debug, Display},
+    ops::Not,
+};
 
 use super::{Digest, ExecutedTransaction, Felt, Hasher, ProvenTransaction, Word, WORD_SIZE, ZERO};
 use crate::utils::{
@@ -90,8 +93,10 @@ impl From<&ExecutedTransaction> for TransactionId {
     fn from(tx: &ExecutedTransaction) -> Self {
         let input_notes_hash = tx.input_notes().commitment();
         let output_notes_hash = tx.output_notes().commitment();
+        let initial_account_hash =
+            tx.initial_account().is_new().not().then(|| tx.initial_account().hash());
         Self::new(
-            tx.initial_account().proof_init_hash(),
+            initial_account_hash,
             tx.final_account().hash(),
             input_notes_hash,
             output_notes_hash,
