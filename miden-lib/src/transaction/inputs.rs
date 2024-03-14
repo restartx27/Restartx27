@@ -27,7 +27,7 @@ impl ToTransactionKernelInputs for PreparedTransaction {
         let account = self.account();
         let stack_inputs = TransactionKernel::build_input_stack(
             account.id(),
-            proof_init_hash(account),
+            get_init_account_hash(account),
             self.input_notes().commitment(),
             self.block_header().hash(),
         );
@@ -44,7 +44,7 @@ impl ToTransactionKernelInputs for ExecutedTransaction {
         let account = self.initial_account();
         let stack_inputs = TransactionKernel::build_input_stack(
             account.id(),
-            proof_init_hash(account),
+            get_init_account_hash(account),
             self.input_notes().commitment(),
             self.block_header().hash(),
         );
@@ -61,7 +61,7 @@ impl ToTransactionKernelInputs for TransactionWitness {
         let account = self.account();
         let stack_inputs = TransactionKernel::build_input_stack(
             account.id(),
-            proof_init_hash(account),
+            get_init_account_hash(account),
             self.input_notes().commitment(),
             self.block_header().hash(),
         );
@@ -357,6 +357,6 @@ fn add_tx_script_inputs_to_advice_map(
 /// distinguish new accounts from existing accounts, and `None` returned from this method.
 /// indicates that `[ZERO; 4]` should be used as a public input. The actual hash of the initial
 /// account state (and the initial state itself), are provided to the VM via the advice provider.
-fn proof_init_hash(account: &Account) -> Option<Digest> {
+fn get_init_account_hash(account: &Account) -> Option<Digest> {
     account.is_new().not().then(|| account.hash())
 }
