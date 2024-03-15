@@ -1,3 +1,5 @@
+use core::ops::Not;
+
 use miden_lib::transaction::{ToTransactionKernelInputs, TransactionKernel};
 use miden_objects::{
     notes::{NoteEnvelope, Nullifier},
@@ -7,7 +9,7 @@ use miden_objects::{
 };
 use miden_prover::prove;
 pub use miden_prover::ProvingOptions;
-use vm_processor::{Digest, MemAdviceProvider};
+use vm_processor::MemAdviceProvider;
 
 use super::{TransactionHost, TransactionProverError};
 
@@ -48,7 +50,7 @@ impl TransactionProver {
         let input_notes: InputNotes<Nullifier> = (tx_witness.tx_inputs().input_notes()).into();
 
         let account_id = tx_witness.account().id();
-        let initial_account_hash = tx_witness.account().hash();
+        let initial_hash = tx_witness.account().is_new().not().then(|| tx_witness.account().hash());
         let block_hash = tx_witness.block_header().hash();
         let tx_script_root = tx_witness.tx_args().tx_script().map(|script| *script.hash());
 
@@ -63,12 +65,6 @@ impl TransactionProver {
         let (_, map, _) = advice_provider.into_parts();
         let tx_outputs = TransactionKernel::parse_transaction_outputs(&stack_outputs, &map.into())
             .map_err(TransactionProverError::InvalidTransactionOutput)?;
-
-        let initial_hash = if tx_witness.account().is_new() {
-            Digest::default()
-        } else {
-            initial_account_hash
-        };
 
         let builder = ProvenTransactionBuilder::new(
             account_id,

@@ -36,8 +36,8 @@ pub struct ProvenTransaction {
 
     /// The hash of the account before the transaction was executed.
     ///
-    /// Set to `Digest::default()` for new accounts.
-    initial_account_hash: Digest,
+    /// Set to `None` for new accounts.
+    initial_account_hash: Option<Digest>,
 
     /// The hash of the account after the transaction was executed.
     final_account_hash: Digest,
@@ -79,8 +79,8 @@ impl ProvenTransaction {
         self.account_id
     }
 
-    /// Returns the initial account state hash.
-    pub fn initial_account_hash(&self) -> Digest {
+    /// Returns the initial account state hash. `None` for new accounts.
+    pub fn initial_account_hash(&self) -> Option<Digest> {
         self.initial_account_hash
     }
 
@@ -135,7 +135,9 @@ pub struct ProvenTransactionBuilder {
     account_id: AccountId,
 
     /// The hash of the account before the transaction was executed.
-    initial_account_hash: Digest,
+    ///
+    /// Set to `None` for new accounts.
+    initial_account_hash: Option<Digest>,
 
     /// The hash of the account after the transaction was executed.
     final_account_hash: Digest,
@@ -169,11 +171,13 @@ impl ProvenTransactionBuilder {
     /// Returns a [ProvenTransactionBuilder] used to build a [ProvenTransaction].
     pub fn new(
         account_id: AccountId,
-        initial_account_hash: Digest,
+        initial_account_hash: Option<Digest>,
         final_account_hash: Digest,
         block_ref: Digest,
         proof: ExecutionProof,
     ) -> Self {
+        debug_assert_ne!(initial_account_hash, Some(Digest::default()));
+
         Self {
             account_id,
             initial_account_hash,
@@ -267,7 +271,7 @@ impl ProvenTransactionBuilder {
                     ))
                 },
                 Some(ref details) => {
-                    let is_new_account = self.initial_account_hash == Digest::default();
+                    let is_new_account = self.initial_account_hash.is_none();
 
                     match (is_new_account, details) {
                         (true, AccountDetails::Delta(_)) => {
@@ -378,7 +382,7 @@ impl Serializable for ProvenTransaction {
 impl Deserializable for ProvenTransaction {
     fn read_from<R: ByteReader>(source: &mut R) -> Result<Self, DeserializationError> {
         let account_id = AccountId::read_from(source)?;
-        let initial_account_hash = Digest::read_from(source)?;
+        let initial_account_hash = <Option<Digest>>::read_from(source)?;
         let final_account_hash = Digest::read_from(source)?;
         let account_details = <Option<AccountDetails>>::read_from(source)?;
 
