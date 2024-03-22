@@ -1,12 +1,12 @@
+use alloc::string::String;
 use core::{
     fmt::{Debug, Display},
     ops::Not,
 };
 
 use super::{Digest, ExecutedTransaction, Felt, Hasher, ProvenTransaction, Word, WORD_SIZE, ZERO};
-use crate::utils::{
-    serde::{ByteReader, ByteWriter, Deserializable, DeserializationError, Serializable},
-    string::*,
+use crate::utils::serde::{
+    ByteReader, ByteWriter, Deserializable, DeserializationError, Serializable,
 };
 
 // TRANSACTION ID
