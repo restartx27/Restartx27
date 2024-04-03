@@ -83,6 +83,19 @@ impl TransactionKernel {
             .expect("kernel must be well formed")
     }
 
+    /// Returns a new Miden assembler instantiated with the transaction kernel and loaded with the
+    /// Miden stdlib, the midenlib and in debug mode.
+    pub fn assembler_with_debug() -> Assembler {
+        Assembler::default()
+            .with_library(&MidenLib::default())
+            .expect("failed to load miden-lib")
+            .with_library(&StdLibrary::default())
+            .expect("failed to load std-lib")
+            .with_kernel(Self::kernel())
+            .expect("kernel must be well formed")
+            .with_debug_mode(true)
+    }
+
     // STACK INPUTS / OUTPUTS
     // --------------------------------------------------------------------------------------------
 
