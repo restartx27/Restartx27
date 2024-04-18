@@ -357,7 +357,7 @@ fn test_tx_script() {
 // ================================================================================================
 
 #[derive(Clone)]
-struct MockDataStore {
+pub struct MockDataStore {
     pub account: Account,
     pub block_header: BlockHeader,
     pub block_chain: ChainMmr,
