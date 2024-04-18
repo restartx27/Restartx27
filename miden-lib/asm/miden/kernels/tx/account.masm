@@ -1,3 +1,5 @@
+use.std::collections::smt
+
 use.miden::kernels::tx::constants
 use.miden::kernels::tx::memory
 
@@ -65,6 +67,9 @@ const.MAX_SLOT_TYPE=64
 
 # Event emitted to signal that an account storage item is being updated.
 const.ACCOUNT_STORAGE_SET_ITEM_EVENT=131074
+
+# Event emitted to signal that an account storage map item is being updated.
+const.ACCOUNT_STORAGE_SET_MAP_ITEM_EVENT=131078
 
 # Event emitted to signal that account nonce is being incremented.
 const.ACCOUNT_INCREMENT_NONCE_EVENT=131075
@@ -317,7 +322,7 @@ end
 export.get_item
     # get the storage root
     exec.memory::get_acct_storage_root
-    # => [storage_root, index]
+    # => [STORAGE_ROOT, index]
 
     # get the item from storage
     movup.4 push.STORAGE_TREE_DEPTH mtree_get
@@ -355,6 +360,31 @@ export.set_item
     # => [V]
 end
 
+#! Sets an item in the specified account storage map. Panics if no map is found for ROOT.
+#!
+#! Stack: [index, KEY, VALUE, ROOT, ...]
+#! Output: [OLD_VALUE, NEW_ROOT, ...]
+#!
+#! - ROOT is the root of the map to set the KEY NEW_VALUE pair.
+#! - NEW_VALUE is the value to set under KEY.
+#! - KEY is the key to set.
+#! - OLD_VALUE is the previous value of the item.
+#! - NEW_ROOT is the new root of the map.
+export.set_map_item
+    # TODO: we execute `push.1 drop` before `emit` as decorators are not supported without other
+    #       instructions - see: https://github.com/0xPolygonMiden/miden-vm/issues/1122
+    # emit event to signal that an account storage item is being updated
+    push.1 drop emit.ACCOUNT_STORAGE_SET_MAP_ITEM_EVENT drop
+
+    # set the NEW_VALUE under KEY in the tree
+    # note smt::set expects the stack to be [VALUE, KEY, ROOT, ...]
+    swapw exec.smt::set
+    # => [OLD_VALUE, NEW_ROOT, ...]
+    
+    # prepare stack for return
+    movupw.3 dropw
+end
+
 #! Verifies that the procedure root is part of the account code Merkle tree. Panics if the
 #! procedure root is not part of the account code Merkle tree.
 #!
@@ -366,19 +396,19 @@ export.authenticate_procedure.1
     # load the account code root onto the stack
     exec.memory::get_acct_code_root swapw
     # => [PROC_ROOT, CODE_ROOT]
-
+    
     # load the index of the procedure root onto the advice stack, and move it to the operand stack
     emit.ACCOUNT_PUSH_PROCEDURE_INDEX_EVENT adv_push.1 movdn.4
     # => [PROC_ROOT, index, CODE_ROOT]
-
+    
     # push the depth of the code Merkle tree onto the stack
     push.ACCOUNT_CODE_TREE_DEPTH movdn.4
     # => [PROC_ROOT, depth, index, CODE_ROOT]
-
+    
     # verify the procedure exists in the account code Merkle tree
     mtree_verify
     # => [PROC_ROOT, depth, index, CODE_ROOT]
-
+    
     # drop accessory variables
     movup.4 drop movup.4 drop swapw dropw
     # => [PROC_ROOT]
